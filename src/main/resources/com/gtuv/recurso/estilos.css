@@ -1,0 +1,132 @@
+/* Esto aplica Segoe UI a toda la aplicación de golpe */
+.root {
+    -fx-font-family: "Segoe UI";
+}
+/* Estilo base para el TextField */
+.campo-texto {
+    -fx-background-color: #f4f4f4; /* Un gris muy suave de fondo */
+    -fx-border-color: #d1d1d1;     /* Borde gris */
+    -fx-border-width: 0.5px;
+    -fx-border-radius: 4px;        /* Bordes redondeados */
+    -fx-background-radius: 4px;
+    -fx-padding: 8 12 8 12;        /* Espacio interno para el texto */
+    -fx-font-size: 13px;
+    -fx-text-fill: #333333;
+}
+
+/* Cuando el usuario hace clic en el campo (Focus) */
+.campo-texto:focused {
+    -fx-background-color: #ffffff; /* Se vuelve blanco puro */
+    -fx-border-color: #2196F3;     /* Borde azul (o verde si prefieres) */
+    -fx-effect: dropshadow(three-pass-box, rgba(33,150,243,0.3), 5, 0, 0, 0);
+}
+
+/* Estilo para la etiqueta de arriba (ej. Nombre*) */
+.label-titulo {
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-text-fill: #4F4F4F;
+    -fx-font-size: 13px;
+}
+
+/* Estilo para la etiqueta de abajo (ej. Estado) */
+.label-ayuda {
+    -fx-text-fill: #EB5757;
+    -fx-font-size: 12px;
+}
+
+/* --- BOTÓN VERDE (REGISTRAR) --- */
+.boton-verde {
+    -fx-background-color: #28AD56; /* Tu color base */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px; /* Un poco redondeado */
+    -fx-font-family: "Segoe UI"; /* Ya que usas esta fuente */
+    -fx-cursor: hand; /* Manita al pasar el mouse */
+}
+
+.boton-verde:hover {
+    /* Un 15% más oscuro para dar efecto de "presionar" */
+    -fx-background-color: #1f8a44; 
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1); /* Sombra sutil */
+}
+
+/* --- BOTÓN GRIS (CANCELAR) --- */
+.boton-gris {
+    -fx-background-color: #777777; /* Tu color base */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-font-family: "Segoe UI";
+    -fx-cursor: hand;
+}
+
+.boton-gris:hover {
+    /* Un 20% más claro para resaltar sin competir */
+    -fx-background-color: #999999; 
+}
+
+/* --- COMBOBOX PLANO --- */
+.campo-combo {
+    /* 1. Definimos el fondo y borde igual que el TextField */
+    -fx-background-color: #f4f4f4; 
+    -fx-border-color: #d1d1d1;     
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-font-size: 12px;
+    -fx-font-family: "Segoe UI";
+    
+    /* 2. IMPORTANTE: Padding 0 para que los elementos internos controlen el espacio */
+    -fx-padding: 0; 
+}
+
+/* Quitamos el fondo gris del botón de la flecha para que sea transparente */
+.campo-combo .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Pintamos la flechita de gris oscuro */
+.campo-combo .arrow {
+    -fx-background-color: #757575;
+    -fx-mark-color: #757575;
+    -fx-padding: 3px; /* Tamaño de la flecha */
+}
+
+/* Ajustamos la celda donde va el texto para que tenga el mismo espacio que el TextField */
+.campo-combo .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-padding: 8 12 8 12; /* ALINEACIÓN: Mismo padding que .campo-texto */
+}
+
+/* --- ESTADOS (Hover y Focus) --- */
+
+/* Cuando pasas el mouse por encima */
+.campo-combo:hover {
+    -fx-background-color: #eaeaea; /* Un gris un pelín más oscuro */
+    -fx-border-color: #b0b0b0;
+}
+
+/* Cuando haces clic (Focus) */
+.campo-combo:focused {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #2196F3;
+    /* Efecto de resplandor azul opcional */
+    -fx-effect: dropshadow(three-pass-box, rgba(33,150,243,0.3), 5, 0, 0, 0);
+}
+
+/* CORRECCIÓN: Color del Prompt Text (Texto de ayuda) */
+
+/* Cuando el ComboBox NO tiene nada seleccionado (está "vacío"),
+   usamos un gris claro para que parezca un placeholder */
+.campo-combo .list-cell:empty {
+    -fx-text-fill: #999999; /* Gris claro (Placeholder) */
+}
+
+/* Aseguramos que cuando SÍ haya algo seleccionado, se vea oscuro */
+.campo-combo .list-cell:filled:selected, 
+.campo-combo .list-cell:filled {
+    -fx-text-fill: #333333; /* Gris oscuro (Texto real) */
+}
