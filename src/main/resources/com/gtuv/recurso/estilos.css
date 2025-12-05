@@ -130,3 +130,52 @@
 .campo-combo .list-cell:filled {
     -fx-text-fill: #333333; /* Gris oscuro (Texto real) */
 }
+
+/* --- CHECKBOX CORREGIDO (Estilo Plano) --- */
+
+.check-azul {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-cursor: hand;
+    -fx-gap: 10px; /* Espacio entre la cajita y el texto */
+}
+
+/* 1. LA CAJA (BOX) */
+.check-azul .box {
+    /* FONDO: Blanco siempre */
+    -fx-background-color: white;
+    
+    /* BORDE: Gris (#757575) y de 2px de grosor para que se note bien */
+    -fx-border-color: #757575;
+    -fx-border-width: 2px;
+    
+    /* REDONDEO: Suave (3px) para que coincida con tu imagen */
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    
+    /* TAMAÑO: Padding define qué tan grande es la caja */
+    -fx-padding: 2px; 
+}
+
+/* 2. ESTADO SELECCIONADO (CHECKED) */
+.check-azul:selected .box {
+    /* El fondo y el borde se vuelven del mismo azul oscuro */
+    -fx-background-color: #092C4C;
+    -fx-border-color: #092C4C;
+}
+
+/* 3. LA PALOMITA (MARK) */
+.check-azul .mark {
+    -fx-background-color: transparent; /* Invisible si no está marcado */
+    -fx-shape: "M0,4 L3,7 L10,0 L12,2 L3,11 L-2,6 Z"; /* Forma de palomita */
+}
+
+.check-azul:selected .mark {
+    -fx-background-color: white; /* Blanca al seleccionarse */
+}
+
+/* 4. EFECTO HOVER (Al pasar el mouse) */
+.check-azul:hover .box {
+    -fx-border-color: #092C4C; /* El borde gris se pone azul para indicar "clic aquí" */
+}
