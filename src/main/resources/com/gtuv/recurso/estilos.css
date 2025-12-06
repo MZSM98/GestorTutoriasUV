@@ -214,8 +214,8 @@
     -fx-text-fill: white;          /* Texto blanco */
     -fx-font-family: "Segoe UI";
     -fx-font-weight: bold;
-    -fx-font-size: 13px;
-    -fx-alignment: CENTER_LEFT;    /* Alineado a la izquierda */
+    -fx-font-size: 15px;
+    -fx-alignment: CENTER;    /* Alineado a la izquierda */
 }
 
 /* 3. LAS FILAS (ZEBRA STRIPING) */
@@ -225,7 +225,7 @@
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
     -fx-text-fill: #333333;       /* Gris oscuro para el texto */
-    -fx-alignment: CENTER_LEFT;   /* Alinear texto a la izquierda */
+    -fx-alignment: CENTER;   /* Alinear texto a la izquierda */
     -fx-padding: 0 0 0 10;        /* Un poco de margen a la izquierda */
     -fx-border-color: transparent;
 }
