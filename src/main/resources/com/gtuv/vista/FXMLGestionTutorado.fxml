@@ -9,8 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.gtuv.controlador.GestionTutoradoController">
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1000.0" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionTutoradoController">
    <children>
       <Pane prefHeight="75.0" prefWidth="1000.0" style="-fx-background-color: #18529D;">
          <children>
@@ -21,14 +20,14 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="48.0" layoutY="109.0" text="Tutorados">
+      <Label layoutX="48.0" layoutY="109.0" text="Tutorados" textFill="#092c4c">
          <font>
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
-      <Button fx:id="btnRegresar" layoutX="48.0" layoutY="576.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" stylesheets="@../recurso/estilos.css" text="Regresar" />
-      <Button fx:id="btnRegistrar" layoutX="804.0" layoutY="576.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" stylesheets="@../recurso/estilos.css" text="Registrar" />
-      <TableView fx:id="tblTutorados" layoutX="50.0" layoutY="185.0" prefHeight="344.0" prefWidth="900.0">
+      <Button fx:id="btnRegresar" layoutX="48.0" layoutY="576.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" text="Regresar" />
+      <Button fx:id="btnRegistrar" alignment="BASELINE_RIGHT" layoutX="783.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="167.0" styleClass="boton-verde" text="Nuevo tutorado" />
+      <TableView fx:id="tblTutorados" layoutX="50.0" layoutY="207.0" prefHeight="344.0" prefWidth="900.0">
         <columns>
           <TableColumn fx:id="colMatricula" prefWidth="150.0" text="Matrícula" />
           <TableColumn fx:id="colApPaterno" prefWidth="150.0" text="Apellido paterno" />
@@ -38,5 +37,10 @@
             <TableColumn fx:id="colAcciones" prefWidth="150.0" text="Acciones" />
         </columns>
       </TableView>
+      <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="796.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recurso/ic--baseline-person-add-alt.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
