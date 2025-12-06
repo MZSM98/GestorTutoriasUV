@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="726.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.gtuv.controlador.VentanaResponsabilidadController">
+   <children>
+      <Pane prefHeight="75.0" prefWidth="733.0" style="-fx-background-color: #18529D;" />
+      <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="331.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recurso/logouvsinfondo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="48.0" layoutY="119.0" text="¿Cómo quieres iniciar sesión?">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <Button layoutX="48.0" layoutY="236.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="275.0" styleClass="boton-verde" stylesheets="@../recurso/estilos.css" />
+      <Button layoutX="408.0" layoutY="236.0" mnemonicParsing="false" prefHeight="250.0" prefWidth="275.0" styleClass="boton-verde" stylesheets="@../recurso/estilos.css" />
+      <Button fx:id="btnCerrarSesion" layoutX="537.0" layoutY="573.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" stylesheets="@../recurso/estilos.css" text="Cerrar sesión" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="86.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="446.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="lblResponsabilidad1" layoutX="156.0" layoutY="500.0" text="Label">
+         <font>
+            <Font name="Segoe UI Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblResponsabilidad2" layoutX="516.0" layoutY="500.0" text="Label">
+         <font>
+            <Font name="Segoe UI Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

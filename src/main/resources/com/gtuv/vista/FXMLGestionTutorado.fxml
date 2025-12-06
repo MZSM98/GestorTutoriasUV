@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.gtuv.controlador.GestionTutoradoController">
+   <children>
+      <Pane prefHeight="75.0" prefWidth="1000.0" style="-fx-background-color: #18529D;">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="465.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/logouvsinfondo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="48.0" layoutY="109.0" text="Tutorados">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnRegresar" layoutX="48.0" layoutY="576.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" stylesheets="@../recurso/estilos.css" text="Regresar" />
+      <Button fx:id="btnRegistrar" layoutX="804.0" layoutY="576.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" stylesheets="@../recurso/estilos.css" text="Registrar" />
+      <TableView fx:id="tblTutorados" layoutX="50.0" layoutY="185.0" prefHeight="344.0" prefWidth="900.0">
+        <columns>
+          <TableColumn fx:id="colMatricula" prefWidth="150.0" text="Matrícula" />
+          <TableColumn fx:id="colApPaterno" prefWidth="150.0" text="Apellido paterno" />
+            <TableColumn fx:id="colApMaterno" prefWidth="150.0" text="Apellido materno" />
+            <TableColumn fx:id="colNombre" prefWidth="150.0" text="Nombre(s)" />
+            <TableColumn fx:id="colProgramaEducativo" prefWidth="150.0" text="Programa educativo" />
+            <TableColumn fx:id="colAcciones" prefWidth="150.0" text="Acciones" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
