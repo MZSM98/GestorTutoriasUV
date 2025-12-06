@@ -26,14 +26,14 @@
       <Button fx:id="btnCerrarSesion" layoutX="537.0" layoutY="573.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" text="Cerrar sesión" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="86.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="446.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="lblResponsabilidad1" layoutX="156.0" layoutY="500.0" text="Label" textFill="#092c4c">
+      <Label fx:id="lblResponsabilidad1" layoutX="151.0" layoutY="500.0" text="Label" textFill="#092c4c">
          <font>
-            <Font name="Segoe UI Bold" size="24.0" />
+            <Font name="Segoe UI Bold" size="28.0" />
          </font>
       </Label>
-      <Label fx:id="lblResponsabilidad2" layoutX="516.0" layoutY="500.0" text="Label" textFill="#092c4c">
+      <Label fx:id="lblResponsabilidad2" layoutX="511.0" layoutY="500.0" text="Label" textFill="#092c4c">
          <font>
-            <Font name="Segoe UI Bold" size="24.0" />
+            <Font name="Segoe UI Bold" size="28.0" />
          </font>
       </Label>
    </children>

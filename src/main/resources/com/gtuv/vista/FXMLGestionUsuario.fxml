@@ -26,13 +26,13 @@
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
-      <TableView fx:id="tblTutorados" layoutX="60.0" layoutY="217.0" prefHeight="344.0" prefWidth="975.0" stylesheets="@../recurso/estilos.css">
+      <TableView fx:id="tblUsuarios" layoutX="50.0" layoutY="207.0" prefHeight="344.0" prefWidth="975.0" stylesheets="@../recurso/estilos.css">
          <columns>
-            <TableColumn fx:id="colMatricula" prefWidth="162.5" text="Matrícula" />
+            <TableColumn fx:id="colNoTrabajador" prefWidth="162.5" text="No. Trabajador" />
             <TableColumn fx:id="colApPaterno" prefWidth="162.5" text="Apellido paterno" />
             <TableColumn fx:id="colApMaterno" prefWidth="162.5" text="Apellido materno" />
             <TableColumn fx:id="colNombre" prefWidth="162.5" text="Nombre(s)" />
-            <TableColumn fx:id="colProgramaEducativo" prefWidth="162.5" text="Programa educativo" />
+            <TableColumn fx:id="colCorreo" prefWidth="162.5" text="Correo" />
             <TableColumn fx:id="colAcciones" prefWidth="162.5" text="Acciones" />
          </columns>
       </TableView>
