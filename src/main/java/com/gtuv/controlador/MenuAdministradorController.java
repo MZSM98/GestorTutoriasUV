@@ -7,18 +7,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class VentanaResponsabilidadController implements Initializable {
+public class MenuAdministradorController implements Initializable {
 
     @FXML
     private Button btnCerrarSesion;
     @FXML
-    private Label lblResponsabilidad1;
+    private Button btnTutorados;
     @FXML
-    private Label lblResponsabilidad2;
+    private Label lblUsuario;
     @FXML
-    private Button btnResponsabilidad1;
+    private Button btnUsuarios;
     @FXML
-    private Button btnResponsabilidad2;
+    private Label lblRol;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
