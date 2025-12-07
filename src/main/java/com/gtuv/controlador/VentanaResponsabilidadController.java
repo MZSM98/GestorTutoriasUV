@@ -19,6 +19,10 @@ public class VentanaResponsabilidadController implements Initializable {
     private Button btnResponsabilidad1;
     @FXML
     private Button btnResponsabilidad2;
+    @FXML
+    private Button btnResponsabilidad3;
+    @FXML
+    private Label lblResponsabilidad3;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -9,8 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1073.0" stylesheets="@../recurso/estilos.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.gtuv.controlador.GestionUsuarioController">
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1073.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionUsuarioController">
    <children>
       <Pane prefHeight="75.0" prefWidth="1073.0" style="-fx-background-color: #18529D;">
          <children>
@@ -36,11 +35,11 @@
             <TableColumn fx:id="colAcciones" prefWidth="162.5" text="Acciones" />
          </columns>
       </TableView>
-      <Button fx:id="btnRegistrar" alignment="CENTER" layoutX="800.0" layoutY="149.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="225.0" styleClass="boton-verde" text="Nuevo tutorado">
+      <Button fx:id="btnRegistrar" alignment="CENTER" layoutX="800.0" layoutY="149.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="225.0" styleClass="boton-verde" text="Nuevo usuario">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../recurso/material-symbols--add-reaction-outline.png" />
+                  <Image url="@../recurso/ci_user-add.png" />
                </image>
             </ImageView>
          </graphic>
