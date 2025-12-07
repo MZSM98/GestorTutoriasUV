@@ -1,4 +1,4 @@
-package com.gtuv.pojo;
+package com.gtuv.modelo.pojo;
 
 import java.sql.Timestamp;
 
@@ -71,5 +71,4 @@ public class ReporteTutoria {
         this.fechaEntrega = fechaEntrega; 
     }
     
-    private enum Estado {ABIERTA, CERRADA}
 }
