@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.FechasTutorController">
+   <children>
+      <Pane prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #18529D;">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="375.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/logouvsinfondo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+
+      <Label layoutX="40.0" layoutY="75.0" text="Gestión de Tutorías   /   Fechas de Tutoría" textFill="#757575">
+         <font>
+            <Font name="Segoe UI" size="14.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="40.0" layoutY="110.0" text="Programación de Fechas" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="36.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="40.0" layoutY="165.0" text="Programa Educativo:" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="16.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmbProgramaEducativo" layoutX="40.0" layoutY="190.0" prefHeight="40.0" prefWidth="400.0" promptText="Seleccione el Programa..." style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 5;" />
+
+      <TableView fx:id="tblSesiones" layoutX="40.0" layoutY="250.0" prefHeight="250.0" prefWidth="720.0" styleClass="tabla-azul">
+        <columns>
+          <TableColumn fx:id="colNumeroSesion" prefWidth="100.0" text="No. Sesión" />
+          <TableColumn fx:id="colFechaSesion" prefWidth="250.0" text="Fecha de Sesión (Coord.)" />
+            <TableColumn fx:id="colHoraInicio" prefWidth="200.0" text="Horario" />
+            <TableColumn fx:id="colEstado" prefWidth="150.0" text="Estado" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+
+      <Pane layoutX="40.0" layoutY="520.0" prefHeight="130.0" prefWidth="720.0" style="-fx-background-color: #F9F9F9; -fx-border-color: #E0E0E0; -fx-border-radius: 5; -fx-background-radius: 5;">
+         <children>
+            <Label layoutX="20.0" layoutY="15.0" text="Definir Horario" textFill="#092c4c">
+               <font>
+                  <Font name="Segoe UI Bold" size="18.0" />
+               </font>
+            </Label>
+            
+            <Label layoutX="20.0" layoutY="55.0" text="Sesión:" textFill="#757575" />
+            <Label fx:id="lblSesionSeleccionada" layoutX="80.0" layoutY="55.0" text="--" textFill="#104b87">
+               <font>
+                  <Font name="Segoe UI Bold" size="14.0" />
+               </font>
+            </Label>
+
+            <Label layoutX="20.0" layoutY="85.0" text="Hora:" textFill="#757575" />
+            <ComboBox fx:id="cmbHora" layoutX="80.0" layoutY="80.0" prefHeight="35.0" prefWidth="80.0" promptText="HH" style="-fx-background-color: white; -fx-border-color: #cccccc;" />
+            <Label layoutX="170.0" layoutY="85.0" text=":" />
+            <ComboBox fx:id="cmbMinuto" layoutX="185.0" layoutY="80.0" prefHeight="35.0" prefWidth="80.0" promptText="MM" style="-fx-background-color: white; -fx-border-color: #cccccc;" />
+
+            <Button fx:id="btnGuardar" layoutX="550.0" layoutY="78.0" mnemonicParsing="false" onAction="#clicGuardar" prefHeight="35.0" prefWidth="150.0" styleClass="boton-verde" text="Confirmar">
+               <font>
+                  <Font name="Segoe UI Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+
+      <Button fx:id="btnRegresar" layoutX="40.0" layoutY="670.0" mnemonicParsing="false" onAction="#clicRegresar" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: #757575; -fx-text-fill: white;" text="Regresar" />
+   </children>
+</AnchorPane>

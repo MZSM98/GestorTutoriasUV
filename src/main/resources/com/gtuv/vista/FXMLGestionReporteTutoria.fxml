@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionReporteController">
+   <children>
+      <Pane prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #18529D;">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="375.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/logouvsinfondo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+
+      <Label layoutX="40.0" layoutY="80.0" text="Generar reporte" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="36.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="40.0" layoutY="140.0" text="No. Sesión:" textFill="#4f4f4f">
+         <font><Font name="Segoe UI Bold" size="14.0" /></font>
+      </Label>
+      <TextField fx:id="txtNoSesion" disable="true" layoutX="40.0" layoutY="165.0" prefHeight="40.0" prefWidth="220.0" styleClass="text-field-readonly" />
+
+      <Label layoutX="280.0" layoutY="140.0" text="Programa educativo:" textFill="#4f4f4f">
+         <font><Font name="Segoe UI Bold" size="14.0" /></font>
+      </Label>
+      <TextField fx:id="txtProgramaEducativo" disable="true" layoutX="280.0" layoutY="165.0" prefHeight="40.0" prefWidth="240.0" styleClass="text-field-readonly" />
+
+      <Label layoutX="540.0" layoutY="140.0" text="Fecha de tutoría:" textFill="#4f4f4f">
+         <font><Font name="Segoe UI Bold" size="14.0" /></font>
+      </Label>
+      <TextField fx:id="txtFechaTutoria" disable="true" layoutX="540.0" layoutY="165.0" prefHeight="40.0" prefWidth="220.0" styleClass="text-field-readonly" />
+
+      <TabPane layoutX="40.0" layoutY="230.0" prefHeight="420.0" prefWidth="720.0" tabClosingPolicy="UNAVAILABLE" styleClass="tab-pane-azul">
+        <tabs>
+          
+          <Tab text="Lista de Asistencia">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label layoutX="10.0" layoutY="15.0" text="Lista de asistencia tutorados" textFill="#092c4c">
+                           <font><Font name="Segoe UI Bold" size="20.0" /></font>
+                        </Label>
+                        <TableView fx:id="tblAsistencia" layoutX="10.0" layoutY="50.0" prefHeight="320.0" prefWidth="700.0" styleClass="tabla-azul">
+                          <columns>
+                            <TableColumn fx:id="colNoLista" prefWidth="80.0" text="No. Lista" />
+                            <TableColumn fx:id="colNombre" prefWidth="180.0" text="Nombre" />
+                            <TableColumn fx:id="colPaterno" prefWidth="180.0" text="Apellido paterno" />
+                            <TableColumn fx:id="colMaterno" prefWidth="180.0" text="Apellido materno" />
+                            <TableColumn fx:id="colAsistencia" prefWidth="100.0" text="Asistencia" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          
+          <Tab text="Problemáticas">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label layoutX="10.0" layoutY="15.0" text="Problemáticas Académicas Reportadas" textFill="#092c4c">
+                           <font><Font name="Segoe UI Bold" size="20.0" /></font>
+                        </Label>
+                        
+                        <TableView fx:id="tblProblematicas" layoutX="10.0" layoutY="50.0" prefHeight="270.0" prefWidth="700.0" styleClass="tabla-azul">
+                           <columns>
+                              <TableColumn fx:id="colAlumnoProb" prefWidth="200.0" text="Alumno" />
+                              <TableColumn fx:id="colTituloProb" prefWidth="250.0" text="Problemática" />
+                              <TableColumn fx:id="colEnRiesgo" prefWidth="100.0" text="En Riesgo" />
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+
+                        <Button fx:id="btnNuevaProblematica" layoutX="10.0" layoutY="335.0" mnemonicParsing="false" onAction="#clicNuevaProblematica" styleClass="boton-verde" text="+ Nueva Problemática" />
+                        <Button fx:id="btnEditarProblematica" layoutX="180.0" layoutY="335.0" mnemonicParsing="false" onAction="#clicEditarProblematica" styleClass="boton-azul" text="Editar" />
+                        <Button fx:id="btnEliminarProblematica" layoutX="250.0" layoutY="335.0" mnemonicParsing="false" onAction="#clicEliminarProblematica" styleClass="boton-rojo" text="Eliminar" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+
+          <Tab text="Observaciones">
+             <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label layoutX="10.0" layoutY="15.0" text="Comentarios Generales" textFill="#092c4c">
+                           <font><Font name="Segoe UI Bold" size="20.0" /></font>
+                        </Label>
+                        <TextArea fx:id="txaComentarios" layoutX="10.0" layoutY="50.0" prefHeight="150.0" prefWidth="700.0" promptText="Escriba aquí observaciones generales del grupo..." wrapText="true" style="-fx-border-color: #cccccc;" />
+                        
+                        <Separator layoutX="10.0" layoutY="220.0" prefWidth="700.0" />
+                        
+                        <Label layoutX="10.0" layoutY="240.0" text="Evidencia de la Sesión" textFill="#092c4c">
+                           <font><Font name="Segoe UI Bold" size="20.0" /></font>
+                        </Label>
+                        <Label fx:id="lblNombreArchivo" layoutX="180.0" layoutY="285.0" text="Ningún archivo seleccionado" textFill="#757575">
+                           <font><Font name="Segoe UI Italic" size="14.0" /></font>
+                        </Label>
+                        <Button fx:id="btnSubirEvidencia" layoutX="10.0" layoutY="280.0" mnemonicParsing="false" onAction="#clicSubirEvidencia" styleClass="boton-azul" text="Adjuntar Archivo..." />
+                     </children>
+                  </AnchorPane>
+             </content>
+          </Tab>
+
+        </tabs>
+      </TabPane>
+
+      <Button fx:id="btnRegresar" layoutX="40.0" layoutY="670.0" mnemonicParsing="false" onAction="#clicRegresar" prefHeight="40.0" prefWidth="140.0" styleClass="boton-gris" text="Regresar">
+          <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image><Image url="@../recurso/flecha_atras.png"/></image>
+            </ImageView>
+         </graphic>
+      </Button>
+      
+      <Button fx:id="btnGuardar" layoutX="620.0" layoutY="670.0" mnemonicParsing="false" onAction="#clicGuardar" prefHeight="40.0" prefWidth="140.0" styleClass="boton-verde" text="Guardar" />
+
+   </children>
+</AnchorPane>

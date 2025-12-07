@@ -8,7 +8,6 @@ public class Usuario {
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String correo;
-    private String telefono;
     private String contrasenia;
     private boolean esAdministrador;
     private boolean esTutor;
@@ -17,14 +16,13 @@ public class Usuario {
     public Usuario() { 
     }
 
-    public Usuario(int idUsuario, String noTrabajador, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefono, String contrasenia, boolean esAdministrador, boolean esTutor, boolean activo) {
+    public Usuario(int idUsuario, String noTrabajador, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, boolean esAdministrador, boolean esTutor, boolean activo) {
         this.idUsuario = idUsuario;
         this.noTrabajador = noTrabajador;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.correo = correo;
-        this.telefono = telefono;
         this.contrasenia = contrasenia;
         this.esAdministrador = esAdministrador;
         this.esTutor = esTutor;
@@ -77,14 +75,6 @@ public class Usuario {
 
     public void setCorreo(String correo) {
         this.correo = correo;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
     }
 
     public String getContrasenia() {
