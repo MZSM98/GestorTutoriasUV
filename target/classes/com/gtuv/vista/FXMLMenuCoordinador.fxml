@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.MenuCoordinadorController">
+   <children>
+      <Pane prefHeight="75.0" prefWidth="800.0" style="-fx-background-color: #18529D;">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="365.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/logouvsinfondo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button fx:id="btnCerrarSesion" layoutX="48.0" layoutY="677.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" text="Cerrar sesión" />
+      <Label layoutX="48.0" layoutY="109.0" text="Bienvenido(a)," textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblUsuario" layoutX="277.0" layoutY="109.0" text="Label" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblRol" layoutX="104.0" layoutY="168.0" text="Label" textFill="#4f4f4f">
+         <font>
+            <Font name="Segoe UI Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="48.0" layoutY="168.0" text="Rol:" textFill="#4f4f4f">
+         <font>
+            <Font name="Segoe UI Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnTutorados" layoutX="47.0" layoutY="227.0" mnemonicParsing="false" prefHeight="175.0" prefWidth="175.0" styleClass="boton-verde">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/ph_student.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnTutores" layoutX="438.0" layoutY="227.0" mnemonicParsing="false" prefHeight="175.0" prefWidth="175.0" styleClass="boton-verde">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/hugeicons_teacher.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnTutorias" layoutX="47.0" layoutY="456.0" mnemonicParsing="false" prefHeight="175.0" prefWidth="175.0" styleClass="boton-verde">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/streamline-ultimate_meeting-remote.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnReportes" layoutX="438.0" layoutY="456.0" mnemonicParsing="false" prefHeight="175.0" prefWidth="175.0" styleClass="boton-verde">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/carbon_report.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="250.0" layoutY="298.0" text="Tutorados" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="250.0" layoutY="527.0" text="Tutorías" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="635.0" layoutY="298.0" text="Tutorados" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="635.0" layoutY="527.0" text="Reportes" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="28.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
