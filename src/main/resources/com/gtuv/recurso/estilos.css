@@ -231,3 +231,75 @@
 .radio-azul:hover .radio {
     -fx-border-color: #092C4C;
 }
+
+/* --- ESTILO DE LA TABLA (TableView) --- */
+
+/* 1. Contenedor general */
+.tabla-azul {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-base: #f4f4f4; 
+}
+
+/* Ocultamos columna extra */
+.tabla-azul .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+/* 2. EL ENCABEZADO AZUL */
+.tabla-azul .column-header-background {
+    -fx-background-color: #104B87; /* Azul Figma */
+    -fx-background-radius: 4px 4px 0 0; 
+}
+
+.tabla-azul .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-size: 45px; 
+}
+
+.tabla-azul .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT; 
+}
+
+/* 3. LAS FILAS (ZEBRA STRIPING) */
+.tabla-azul .table-cell {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #333333;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 10;
+    -fx-border-color: transparent;
+}
+
+/* Fila impar (blanca) */
+.tabla-azul .table-row-cell:odd {
+    -fx-background-color: #ffffff;
+    -fx-background-insets: 0;
+}
+
+/* Fila par (gris muy suave) */
+.tabla-azul .table-row-cell:even {
+    -fx-background-color: #f4f4f4; 
+    -fx-background-insets: 0;
+}
+
+/* 4. ESTADOS INTERACTIVOS */
+.tabla-azul .table-row-cell:hover {
+    -fx-background-color: #e0e0e0; 
+}
+
+.tabla-azul .table-row-cell:filled:selected, 
+.tabla-azul .table-row-cell:filled:selected:hover {
+    -fx-background-color: #D6EAF8; /* Azul pálido selección */
+    -fx-table-cell-border-color: transparent;
+}
+
+/* Corrección para el texto al seleccionar (para que no se ponga blanco por defecto) */
+.tabla-azul .table-row-cell:filled:selected .table-cell {
+    -fx-text-fill: #104B87; /* Texto azul oscuro al seleccionar */
+}
