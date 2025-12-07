@@ -24,9 +24,7 @@ public class ConexionBD {
     public static Connection abrirConexion(){
 
         try{
-            
             conexion = DriverManager.getConnection(URL, USER, PASSWORD); //
-            
         }catch (SQLException sqle){ 
             sqle.printStackTrace();
         }
