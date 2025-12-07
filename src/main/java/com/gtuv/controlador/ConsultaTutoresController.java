@@ -7,9 +7,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
-public class GestionUsuarioController implements Initializable {
+public class ConsultaTutoresController implements Initializable {
 
+    @FXML
+    private Button btnRegresar;
+    @FXML
+    private TableColumn<?, ?> colNoTrabajador;
     @FXML
     private TableColumn<?, ?> colApPaterno;
     @FXML
@@ -17,17 +22,15 @@ public class GestionUsuarioController implements Initializable {
     @FXML
     private TableColumn<?, ?> colNombre;
     @FXML
-    private TableColumn<?, ?> colAcciones;
-    @FXML
-    private Button btnRegistrar;
-    @FXML
-    private Button btnRegresar;
-    @FXML
-    private TableView<?> tblUsuarios;
-    @FXML
-    private TableColumn<?, ?> colNoTrabajador;
-    @FXML
     private TableColumn<?, ?> colCorreo;
+    @FXML
+    private Button btnAsignar;
+    @FXML
+    private TextField txtBuscarTutor;
+    @FXML
+    private TableView<?> tblTutores;
+    @FXML
+    private TableColumn<?, ?> colNoTutorados;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
