@@ -5,7 +5,9 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="704.0" prefWidth="700.0" style="-fx-background-color: WHITE;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.FormularioUsuarioController">
+<AnchorPane id="AnchorPane" prefHeight="703.0" prefWidth="733.0" style="-fx-background-color: WHITE;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.FormularioUsuarioController">
    <children>
       <Pane prefHeight="75.0" prefWidth="733.0" style="-fx-background-color: #18529D;">
          <children>
@@ -26,7 +28,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="48.0" layoutY="109.0" text="Información del Usuario">
+      <Label layoutX="48.0" layoutY="109.0" text="Información del Usuario" textFill="#092c4c">
          <font>
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
@@ -54,7 +56,7 @@
                   <Font name="Segoe UI Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="lblErrorNoTrabajador" styleClass="label-ayuda" text="Label" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <Label fx:id="lblErrorNumTrabajador" styleClass="label-ayuda" text="Label" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin>
@@ -102,27 +104,27 @@
             <TextField maxWidth="200.0" prefHeight="35.0" prefWidth="271.0" promptText="Ej. Romero" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" stylesheets="@../recurso/estilos.css" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <TextField maxWidth="200.0" prefHeight="35.0" prefWidth="271.0" promptText="Ej. 2282929871" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" stylesheets="@../recurso/estilos.css" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField maxWidth="200.0" prefHeight="35.0" prefWidth="271.0" promptText="Ej. correo@uv.mx" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" stylesheets="@../recurso/estilos.css" GridPane.rowIndex="7" />
-            <Label fx:id="lblErrorNoTrabajador1" styleClass="label-ayuda" text="Label" GridPane.rowIndex="5" GridPane.valignment="TOP">
+            <Label fx:id="lblErrorNombre" styleClass="label-ayuda" text="Label" GridPane.rowIndex="5" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblErrorNoTrabajador11" styleClass="label-ayuda" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP">
+            <Label fx:id="lblErrorApPaterno" styleClass="label-ayuda" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblErrorNoTrabajador12" styleClass="label-ayuda" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="TOP">
+            <Label fx:id="lblErrorApMaterno" styleClass="label-ayuda" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblErrorNoTrabajador13" styleClass="label-ayuda" text="Label" GridPane.rowIndex="8" GridPane.valignment="TOP">
+            <Label fx:id="lblErrorCorreo" styleClass="label-ayuda" text="Label" GridPane.rowIndex="8" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin>
             </Label>
-            <Label fx:id="lblErrorNoTrabajador14" styleClass="label-ayuda" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.valignment="TOP">
+            <Label fx:id="lblErrorTelefono" styleClass="label-ayuda" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="5.0" />
                </GridPane.margin>
@@ -160,22 +162,26 @@
             <Font name="Segoe UI Bold" size="13.0" />
          </font>
       </Label>
-      <CheckBox fx:id="chkCoordinador" layoutX="47.0" layoutY="565.0" mnemonicParsing="false" styleClass="check-azul" text="Coordinador de Tutorías" />
       <ComboBox layoutX="277.0" layoutY="536.0" prefHeight="35.0" prefWidth="413.0" promptText="Programa Educativo" styleClass="campo-combo">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </ComboBox>
-      <Label fx:id="lblErrorNoTrabajador111" layoutX="277.0" layoutY="576.0" styleClass="label-ayuda" text="Label">
+      <Label fx:id="lblErrorProgramaEducativo" layoutX="277.0" layoutY="576.0" styleClass="label-ayuda" text="Label">
          <padding>
             <Insets top="5.0" />
          </padding>
       </Label>
-      <CheckBox fx:id="chkJefeCarrera1" layoutX="47.0" layoutY="533.0" mnemonicParsing="false" styleClass="check-azul" text="Jefe de Carrera" />
       <Label layoutX="277.0" layoutY="505.0" styleClass="label-titulo" text="Programa educativo:">
          <font>
             <Font name="Segoe UI Bold" size="13.0" />
          </font>
       </Label>
+      <RadioButton layoutX="47.0" layoutY="536.0" mnemonicParsing="false" styleClass="radio-azul" text="Jefe de Carrera">
+         <toggleGroup>
+            <ToggleGroup fx:id="puestoAutoridad" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="47.0" layoutY="567.0" mnemonicParsing="false" styleClass="radio-azul" text="Coordinador de Tutorias" toggleGroup="$puestoAutoridad" />
    </children>
 </AnchorPane>

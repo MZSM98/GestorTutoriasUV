@@ -179,3 +179,55 @@
 .check-azul:hover .box {
     -fx-border-color: #092C4C; /* El borde gris se pone azul para indicar "clic aquí" */
 }
+
+/* --- RADIO BUTTON CUADRADO (Estilo idéntico al Checkbox) --- */
+
+.radio-azul {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-cursor: hand;
+    -fx-gap: 10px;
+}
+
+/* 1. LA CAJA (RADIO) - Convertimos el círculo en cuadrado */
+.radio-azul .radio {
+    -fx-background-color: white;
+    -fx-border-color: #757575;
+    -fx-border-width: 2px;
+    
+    /* AQUÍ ESTÁ EL TRUCO: Forzamos el radio pequeño para que sea cuadrado */
+    -fx-border-radius: 3px;    
+    -fx-background-radius: 3px; 
+    
+    -fx-padding: 2px; /* Mismo tamaño interno que el checkbox */
+}
+
+/* 2. ESTADO SELECCIONADO */
+.radio-azul:selected .radio {
+    -fx-background-color: #092C4C;
+    -fx-border-color: #092C4C;
+}
+
+/* 3. LA MARCA (DOT) - Cambiamos el punto por una palomita */
+.radio-azul .dot {
+    -fx-background-color: transparent; /* Invisible si no está seleccionado */
+    
+    /* Copiamos la forma (SVG path) de la palomita del checkbox */
+    -fx-shape: "M0,4 L3,7 L10,0 L12,2 L3,11 L-2,6 Z"; 
+    
+    /* IMPORTANTE: Ajuste de tamaño para que la palomita quepa bien */
+    -fx-padding: 1px; 
+    -fx-min-width: 10px;
+    -fx-min-height: 10px;
+}
+
+/* Cuando se selecciona, pintamos la palomita de blanco */
+.radio-azul:selected .dot {
+    -fx-background-color: white;
+}
+
+/* 4. HOVER (Al pasar el mouse) */
+.radio-azul:hover .radio {
+    -fx-border-color: #092C4C;
+}

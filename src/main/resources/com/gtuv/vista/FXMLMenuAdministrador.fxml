@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="726.0" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.MenuAdministradorController">
+   <children>
+      <Pane prefHeight="75.0" prefWidth="733.0" style="-fx-background-color: #18529D;">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="331.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/logouvsinfondo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="48.0" layoutY="129.0" text="Bienvenido(a)," textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnCerrarSesion" layoutX="537.0" layoutY="573.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" text="Cerrar sesión" />
+      <Button fx:id="btnTutorados" layoutX="59.0" layoutY="261.0" mnemonicParsing="false" prefHeight="225.0" prefWidth="225.0" styleClass="boton-verde">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/ph_student.png" />
+               </image></ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="lblUsuario" layoutX="278.0" layoutY="129.0" text="Label" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnUsuarios" layoutX="435.0" layoutY="261.0" mnemonicParsing="false" prefHeight="225.0" prefWidth="225.0" styleClass="boton-verde">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/ph_user.png" />
+               </image></ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="104.0" layoutY="506.0" text="Tutorados" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="491.0" layoutY="506.0" text="Usuarios" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="48.0" layoutY="196.0" text="Rol:" textFill="#4f4f4f">
+         <font>
+            <Font name="Segoe UI Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblRol" layoutX="104.0" layoutY="196.0" text="Label" textFill="#4f4f4f">
+         <font>
+            <Font name="Segoe UI Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
