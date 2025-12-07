@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1073.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionTutoradoController">
+   <children>
+      <Pane prefHeight="75.0" prefWidth="1073.0" style="-fx-background-color: #18529D;">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="501.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/logouvsinfondo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="48.0" layoutY="109.0" text="Tutorados" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnRegresar" alignment="CENTER" layoutX="48.0" layoutY="576.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/material-symbols--arrow-back-rounded.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="btnRegistrar" alignment="CENTER" layoutX="800.0" layoutY="149.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="225.0" styleClass="boton-verde" text="Nuevo usuario">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/material-symbols--add-reaction-outline.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <TableView fx:id="tblTutorados" layoutX="50.0" layoutY="207.0" prefHeight="344.0" prefWidth="975.0">
+        <columns>
+          <TableColumn fx:id="colMatricula" prefWidth="162.5" text="Matrícula" />
+          <TableColumn fx:id="colApPaterno" prefWidth="162.5" text="Apellido paterno" />
+            <TableColumn fx:id="colApMaterno" prefWidth="162.5" text="Apellido materno" />
+            <TableColumn fx:id="colNombre" prefWidth="162.5" text="Nombre(s)" />
+            <TableColumn fx:id="colProgramaEducativo" prefWidth="162.5" text="Programa educativo" />
+            <TableColumn fx:id="colAcciones" prefWidth="162.5" text="Acciones" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
