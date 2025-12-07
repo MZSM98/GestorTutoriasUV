@@ -253,6 +253,16 @@
 
 /* Ocultamos el encabezado de la columna extra que JavaFX pone a veces a la derecha */
 .table-view .column-header-background .filler {
+
+/* 1. Contenedor general */
+.tabla-azul {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-base: #f4f4f4; 
+}
+
+/* Ocultamos columna extra */
+.tabla-azul .column-header-background .filler {
     -fx-background-color: transparent;
 }
 
@@ -314,6 +324,34 @@
     -fx-text-fill: #333333;       /* Gris oscuro para el texto */
     -fx-alignment: CENTER_LEFT;   /* Alinear texto a la izquierda */
     -fx-padding: 0 0 0 10;        /* Un poco de margen a la izquierda */
+}
+
+.tabla-azul .column-header-background {
+    -fx-background-color: #104B87; /* Azul Figma */
+    -fx-background-radius: 4px 4px 0 0; 
+}
+
+.tabla-azul .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-size: 45px; 
+}
+
+.tabla-azul .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-alignment: CENTER_LEFT; 
+}
+
+/* 3. LAS FILAS (ZEBRA STRIPING) */
+.tabla-azul .table-cell {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #333333;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 10;
     -fx-border-color: transparent;
 }
 
@@ -323,6 +361,9 @@
     -fx-background-insets: 0;
 }
 
+/* Fila par (gris muy suave, igual que tus inputs) */
+.table-row-cell:even {
+
 /* Fila par (gris muy suave) */
 .tabla-azul .table-row-cell:even {
     -fx-background-color: #f4f4f4; 
@@ -330,6 +371,16 @@
 }
 
 /* 4. ESTADOS INTERACTIVOS */
+/* Cuando pasas el mouse por encima de una fila (Hover) */
+.table-row-cell:hover {
+    -fx-background-color: #e0e0e0; /* Un gris un poco más oscuro para indicar posición */
+}
+
+/* Cuando seleccionas una fila (Selected) */
+.table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected, 
+.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected {
+    -fx-background-color: #D6EAF8; /* Un azul muy pálido para no perder legibilidad */
+    -fx-table-cell-border-color: transparent;
 .tabla-azul .table-row-cell:hover {
     -fx-background-color: #e0e0e0; 
 }
