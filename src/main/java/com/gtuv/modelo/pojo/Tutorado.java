@@ -15,7 +15,6 @@ public class Tutorado {
     private boolean activo;
     
     public Tutorado() {
-        
     }
 
     public Tutorado(int idTutorado, String matricula, String nombre, String apellidoPaterno, String apellidoMaterno, String Correo, int idProgramaEducativo, int nombreProgramaEducativo, int idSemestre, String nombreSemestre, boolean activo) {

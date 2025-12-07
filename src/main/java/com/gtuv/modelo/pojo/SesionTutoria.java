@@ -12,7 +12,6 @@ public class SesionTutoria {
     private String estado;
 
     public SesionTutoria() {
-    
     }
 
     public SesionTutoria(int idSesion, int idPeriodo, int idProgramaEducativo, int numeroSesion, Date fechaSesion, String estado) {
@@ -71,4 +70,6 @@ public class SesionTutoria {
     public void setEstado(String estado) { 
         this.estado = estado; 
     }
+    
+    private enum Estado {ACTIVO, INACTIVO}
 }

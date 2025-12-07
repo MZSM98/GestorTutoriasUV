@@ -13,9 +13,8 @@ public class Usuario {
     private boolean esAdministrador;
     private boolean esTutor;
     private boolean activo;
-
-    public Usuario() {
-        
+    
+    public Usuario() { 
     }
 
     public Usuario(int idUsuario, String noTrabajador, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String telefono, String contrasenia, boolean esAdministrador, boolean esTutor, boolean activo) {
@@ -119,6 +118,4 @@ public class Usuario {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    
 }
