@@ -1,4 +1,4 @@
-package com.gtuv.pojo;
+package com.gtuv.modelo.pojo;
 
 public class Usuario {
     
