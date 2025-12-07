@@ -1,7 +1,9 @@
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\controlador\AsignacionTutoradoController.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\controlador\ConsultaTutoresController.java
+C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\controlador\FormularioReporteGeneralController.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\controlador\FormularioTutoradoController.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\controlador\FormularioUsuarioController.java
+C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\controlador\GestionReporteGeneralController.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\controlador\GestionTutoradoController.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\controlador\GestionUsuarioController.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\controlador\InicioSesionController.java
@@ -13,8 +15,11 @@ C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\jav
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\GestorTutoriasUV.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\modelo\ConexionBD.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\modelo\dao\UsuarioDAO.java
+C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\modelo\pojo\Asistencia.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\modelo\pojo\PeriodoEscolar.java
+C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\modelo\pojo\ProblematicaAcademica.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\modelo\pojo\ReporteTutoria.java
+C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\modelo\pojo\Semestre.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\modelo\pojo\SesionTutoria.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\modelo\pojo\Tutorado.java
 C:\Users\User\Documents\NetBeansProjects\Proyectos\GestorTutoriasUV\src\main\java\com\gtuv\modelo\pojo\Usuario.java

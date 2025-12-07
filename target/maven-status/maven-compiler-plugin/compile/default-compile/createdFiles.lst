@@ -1,8 +1,11 @@
 com\gtuv\dominio\AutenticacionImpl.class
 com\gtuv\controlador\FormularioTutoradoController.class
+com\gtuv\controlador\FormularioReporteGeneralController.class
 com\gtuv\utlidad\Encriptacion.class
 com\gtuv\modelo\pojo\Usuario.class
 com\gtuv\controlador\VentanaResponsabilidadController.class
+com\gtuv\modelo\pojo\Semestre.class
+com\gtuv\modelo\pojo\Asistencia.class
 com\gtuv\modelo\pojo\SesionTutoria.class
 com\gtuv\controlador\MenuCoordinadorController.class
 com\gtuv\dominio\UsuarioImpl.class
@@ -11,6 +14,7 @@ com\gtuv\modelo\pojo\ReporteTutoria.class
 com\gtuv\utlidad\Utilidades.class
 com\gtuv\controlador\InicioSesionController.class
 com\gtuv\controlador\AsignacionTutoradoController.class
+com\gtuv\modelo\pojo\ProblematicaAcademica.class
 com\gtuv\GestorTutoriasUV.class
 com\gtuv\utlidad\Sesion.class
 com\gtuv\controlador\GestionUsuarioController.class
@@ -21,4 +25,5 @@ com\gtuv\controlador\FormularioUsuarioController.class
 com\gtuv\modelo\pojo\Tutorado.class
 com\gtuv\controlador\MenuAdministradorController.class
 com\gtuv\modelo\pojo\SesionTutoria$Estado.class
+com\gtuv\controlador\GestionReporteGeneralController.class
 com\gtuv\modelo\pojo\PeriodoEscolar.class

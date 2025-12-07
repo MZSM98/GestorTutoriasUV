@@ -9,7 +9,7 @@ public class Tutorado {
     private String apellidoMaterno;
     private String Correo;
     private int idProgramaEducativo;
-    private int nombreProgramaEducativo;
+    private String nombreProgramaEducativo;
     private int idSemestre;
     private String nombreSemestre;
     private boolean activo;
@@ -17,7 +17,7 @@ public class Tutorado {
     public Tutorado() {
     }
 
-    public Tutorado(int idTutorado, String matricula, String nombre, String apellidoPaterno, String apellidoMaterno, String Correo, int idProgramaEducativo, int nombreProgramaEducativo, int idSemestre, String nombreSemestre, boolean activo) {
+    public Tutorado(int idTutorado, String matricula, String nombre, String apellidoPaterno, String apellidoMaterno, String Correo, int idProgramaEducativo, String nombreProgramaEducativo, int idSemestre, String nombreSemestre, boolean activo) {
         this.idTutorado = idTutorado;
         this.matricula = matricula;
         this.nombre = nombre;
@@ -87,11 +87,11 @@ public class Tutorado {
         this.idProgramaEducativo = idProgramaEducativo;
     }
 
-    public int getNombreProgramaEducativo() {
+    public String getNombreProgramaEducativo() {
         return nombreProgramaEducativo;
     }
 
-    public void setNombreProgramaEducativo(int nombreProgramaEducativo) {
+    public void setNombreProgramaEducativo(String nombreProgramaEducativo) {
         this.nombreProgramaEducativo = nombreProgramaEducativo;
     }
 

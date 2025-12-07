@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1073.0" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionReporteGeneralController">
+   <children>
+      <Pane prefHeight="75.0" prefWidth="1073.0" style="-fx-background-color: #18529D;">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="501.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/logouvsinfondo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Label layoutX="48.0" layoutY="109.0" text="Reportes generales" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblReportesGenerales" layoutX="48.0" layoutY="207.0" prefHeight="344.0" prefWidth="975.0" stylesheets="@../recurso/estilos.css">
+         <columns>
+            <TableColumn fx:id="colNoSesion" prefWidth="243.0" text="No. Sesión" />
+            <TableColumn fx:id="colFechaElaboracion" prefWidth="243.0" text="Fecha de elaboración" />
+            <TableColumn fx:id="colNoProblematica" prefWidth="243.0" text="No. Problemática" />
+            <TableColumn fx:id="colNoTutoradosRiesgo" prefWidth="243.0" text="No. Tutorados en Riesgo" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnRegresar" alignment="CENTER" layoutX="48.0" layoutY="576.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/material-symbols--arrow-back-rounded.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button fx:id="btnGenerar" alignment="CENTER" layoutX="798.0" layoutY="576.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="225.0" styleClass="boton-verde" text="Generar reporte">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/mdi--file-outline.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnExportar" layoutX="877.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Exportar" />
+      <Button fx:id="btnEditar" layoutX="682.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Editar" />
+      <Button fx:id="btnConsultar" layoutX="484.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Consultar" />
+   </children>
+</AnchorPane>

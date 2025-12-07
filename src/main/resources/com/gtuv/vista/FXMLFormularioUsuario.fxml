@@ -144,7 +144,14 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="btnRegistrar" layoutX="539.0" layoutY="643.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Registrar" />
+      <Button fx:id="btnRegistrar" contentDisplay="RIGHT" layoutX="539.0" layoutY="643.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Registrar">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/material-symbols--arrow-back-rounded.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <Label layoutX="48.0" layoutY="171.0" text="(*) Campos obligatorios" textFill="#777777">
          <font>
             <Font name="Segoe UI Bold" size="13.0" />
