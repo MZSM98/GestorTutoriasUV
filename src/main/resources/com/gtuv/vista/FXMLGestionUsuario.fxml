@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1073.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionUsuarioController">
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1073.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionUsuarioController">
    <children>
       <Pane prefHeight="75.0" prefWidth="1073.0" style="-fx-background-color: #18529D;">
          <children>
@@ -25,9 +27,9 @@
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
-      <TableView fx:id="tblUsuarios" layoutX="50.0" layoutY="207.0" prefHeight="344.0" prefWidth="975.0" stylesheets="@../recurso/estilos.css">
+      <TableView fx:id="tblUsuarios" layoutX="50.0" layoutY="207.0" prefHeight="344.0" prefWidth="975.0" styleClass="tabla-azul" stylesheets="@../recurso/estilos.css">
          <columns>
-            <TableColumn fx:id="colNoTrabajador" prefWidth="162.5" text="No. Trabajador" />
+            <TableColumn fx:id="colNoTrabajador" prefWidth="162.5" text=" No. Trabajador" />
             <TableColumn fx:id="colApPaterno" prefWidth="162.5" text="Apellido paterno" />
             <TableColumn fx:id="colApMaterno" prefWidth="162.5" text="Apellido materno" />
             <TableColumn fx:id="colNombre" prefWidth="162.5" text="Nombre(s)" />
