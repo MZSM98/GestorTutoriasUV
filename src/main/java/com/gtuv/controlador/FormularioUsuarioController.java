@@ -5,6 +5,7 @@ import com.gtuv.dominio.UsuarioImpl;
 import com.gtuv.interfaces.IObservador;
 import com.gtuv.modelo.pojo.ProgramaEducativo;
 import com.gtuv.modelo.pojo.Usuario;
+import com.gtuv.utlidad.Encriptacion;
 import com.gtuv.utlidad.RestriccionCampos;
 import com.gtuv.utlidad.Utilidades;
 import java.net.URL;
@@ -168,7 +169,8 @@ public class FormularioUsuarioController implements Initializable {
         
         Usuario usuarioEditado = obtenerUsuario();
         usuarioEditado.setIdUsuario(usuarioEdicion.getIdUsuario());
-
+        if (!validarResponsabilidad())
+            return;
         if (chkJefeCarrera.isSelected() && !esPosibleSustituirJefe(cmbProgramaEducativo.getValue())) {
             return;
         }
@@ -204,7 +206,14 @@ public class FormularioUsuarioController implements Initializable {
         usuario.setApellidoPaterno(txtApPaterno.getText());
         usuario.setApellidoMaterno(txtApMaterno.getText());
         usuario.setCorreo(txtCorreo.getText());
-        usuario.setContrasenia(txtContrasenia.getText()); 
+        
+        if (usuarioEdicion != null && txtContrasenia.getText().isEmpty()) {
+            usuario.setContrasenia(usuarioEdicion.getContrasenia());
+        } else {
+            String passEncriptada = Encriptacion.hashPassword(txtContrasenia.getText());
+            usuario.setContrasenia(passEncriptada);
+        }
+        
         usuario.setEsAdministrador(chkAdmnistrador.isSelected());
         usuario.setEsTutor(chkTutor.isSelected());
         return usuario;
@@ -232,11 +241,11 @@ public class FormularioUsuarioController implements Initializable {
             lblErrorCorreo.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if(txtContrasenia.getText().isEmpty() && usuarioEdicion == null){
+        if (usuarioEdicion == null && txtContrasenia.getText().isEmpty()) {
             lblErrorContrasena.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if(txtConfirmaContrasenia.getText().isEmpty() && usuarioEdicion == null){
+        if (!txtContrasenia.getText().isEmpty() && txtConfirmaContrasenia.getText().isEmpty()) {
             lblErrorConfirmarContrasena.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
@@ -356,11 +365,11 @@ public class FormularioUsuarioController implements Initializable {
             valido=false;
             lblErrorCorreo.setText("Formato de correo no valido");
         }
-        if(contrasenia.length() < LIMITE_MIN_CONTRASENIA && !contrasenia.isEmpty()){
+        if (!contrasenia.isEmpty() && contrasenia.length() < LIMITE_MIN_CONTRASENIA) {
             lblErrorContrasena.setText("Debe tener al menos 6 caracteres");
-            valido=false;
-        } 
-        if (!contrasenia.matches(contrasenaconfirmacion) && !contrasenia.isEmpty()){
+            valido = false;
+        }
+        if (!contrasenia.isEmpty() && !contrasenia.equals(contrasenaconfirmacion)) {
             valido = false;
             lblErrorContrasena.setText("Las contraseñas no coinciden");
         }
@@ -398,10 +407,10 @@ public class FormularioUsuarioController implements Initializable {
             return true; 
         }
         if (actual != null) {
-            String msg = "El programa ya cuenta con el Jefe de Carrera:\n" + actual.getNombre() + " " + actual.getApellidoPaterno() +
+            String mensaje = "El programa ya cuenta con el Jefe de Carrera:\n" + actual.getNombre() + " " + actual.getApellidoPaterno() +
                          "\n Número de trabajador: "+ actual.getNoTrabajador()+
                          "\n¿Desea sustituirlo?";
-            return Utilidades.mostrarAlertaConfirmacion("Conflicto de Asignación", "Jefe existente", msg);
+            return Utilidades.mostrarAlertaConfirmacion("Conflicto de Asignación", "Jefe existente", mensaje);
         }
         return true;
     }

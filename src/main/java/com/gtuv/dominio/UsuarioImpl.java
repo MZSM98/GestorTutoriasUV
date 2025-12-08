@@ -2,9 +2,7 @@
 package com.gtuv.dominio;
 
 import com.gtuv.modelo.ConexionBD;
-import com.gtuv.modelo.dao.ProgramaEducativoDAO;
 import com.gtuv.modelo.dao.UsuarioDAO;
-import com.gtuv.modelo.pojo.ProgramaEducativo;
 import com.gtuv.modelo.pojo.Usuario;
 import com.gtuv.utlidad.Utilidades;
 import java.sql.ResultSet;

@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="726.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.InicioSesionController">
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="726.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.InicioSesionController">
    <children>
       <Pane prefHeight="642.0" prefWidth="363.0">
          <children>
@@ -63,7 +68,7 @@
             <Label fx:id="lblErrorContrasenia" styleClass="label-ayuda" text="Label" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <Button fx:id="btnIniciarSesion" layoutX="442.0" layoutY="534.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Ingresar" />
+      <Button layoutX="442.0" layoutY="534.0" mnemonicParsing="false" onAction="#clicIniciarSesion" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Ingresar" />
       <Separator layoutX="360.0" layoutY="112.0" orientation="VERTICAL" prefHeight="400.0" />
       <Label layoutX="414.0" layoutY="192.0" text="número de personal y contraseña" textFill="#777777">
          <font>

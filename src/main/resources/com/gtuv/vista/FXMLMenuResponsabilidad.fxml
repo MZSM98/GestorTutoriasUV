@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="800.0" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.VentanaResponsabilidadController">
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="800.0" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.MenuResponsabilidadController">
    <children>
       <Pane prefHeight="75.0" prefWidth="800.0" style="-fx-background-color: #18529D;">
          <children>
@@ -64,12 +64,12 @@
                   <Font name="Segoe UI Bold" size="28.0" />
                </font>
             </Label>
-            <Label fx:id="lblResponsabilidadDos" text="Label" textFill="#092c4c" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Label fx:id="lblResponsabilidad2" text="Label" textFill="#092c4c" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <font>
                   <Font name="Segoe UI Bold" size="28.0" />
                </font>
             </Label>
-            <Label fx:id="lblResponsabilidadTres" text="Label" textFill="#092c4c" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+            <Label fx:id="lblResponsabilidad3" text="Label" textFill="#092c4c" GridPane.columnIndex="2" GridPane.halignment="CENTER">
                <font>
                   <Font name="Segoe UI Bold" size="28.0" />
                </font>

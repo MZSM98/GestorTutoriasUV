@@ -12,11 +12,13 @@ public class Usuario {
     private boolean esAdministrador;
     private boolean esTutor;
     private boolean activo;
+    private boolean esJefeCarrera;
+    private boolean esCoordinador;
     
     public Usuario() { 
     }
 
-    public Usuario(int idUsuario, String noTrabajador, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, boolean esAdministrador, boolean esTutor, boolean activo) {
+    public Usuario(int idUsuario, String noTrabajador, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String contrasenia, boolean esAdministrador, boolean esTutor, boolean activo, boolean esJefeCarrera, boolean esCoordinador) {
         this.idUsuario = idUsuario;
         this.noTrabajador = noTrabajador;
         this.nombre = nombre;
@@ -27,7 +29,11 @@ public class Usuario {
         this.esAdministrador = esAdministrador;
         this.esTutor = esTutor;
         this.activo = activo;
+        this.esJefeCarrera = esJefeCarrera;
+        this.esCoordinador = esCoordinador;
     }
+
+    
     
     public int getIdUsuario() {
         return idUsuario;
@@ -107,5 +113,21 @@ public class Usuario {
 
     public void setActivo(boolean activo) {
         this.activo = activo;
+    }
+    
+    public boolean isEsJefeCarrera() {
+        return esJefeCarrera;
+    }
+
+    public void setEsJefeCarrera(boolean esJefeCarrera) {
+        this.esJefeCarrera = esJefeCarrera;
+    }
+
+    public boolean isEsCoordinador() {
+        return esCoordinador;
+    }
+
+    public void setEsCoordinador(boolean esCoordinador) {
+        this.esCoordinador = esCoordinador;
     }
 }

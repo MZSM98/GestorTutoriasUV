@@ -105,4 +105,28 @@ public class UsuarioDAO {
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }
+    
+    public static Usuario obtenerUsuarioLogin(Connection conexionBD, String noTrabajador) throws SQLException {
+        Usuario usuario = null;
+        if(conexionBD != null){
+            String consulta = "SELECT * FROM usuario WHERE noTrabajador = ? AND activo = 1";
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setString(1, noTrabajador);
+            ResultSet resultado = sentencia.executeQuery();
+            
+            if(resultado.next()){
+                usuario = new Usuario();
+                usuario.setIdUsuario(resultado.getInt("idUsuario"));
+                usuario.setNoTrabajador(resultado.getString("noTrabajador"));
+                usuario.setNombre(resultado.getString("nombre"));
+                usuario.setApellidoPaterno(resultado.getString("apellidoPaterno"));
+                usuario.setApellidoMaterno(resultado.getString("apellidoMaterno"));
+                usuario.setCorreo(resultado.getString("correo"));
+                usuario.setContrasenia(resultado.getString("contrasenia"));
+                usuario.setEsAdministrador(resultado.getBoolean("esAdministrador"));
+                usuario.setEsTutor(resultado.getBoolean("esTutor"));
+            }
+        }
+        return usuario;
+    }
 }
