@@ -9,8 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="765.0" prefWidth="1234.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.gtuv.controlador.AsignacionTutoradoController">
+<AnchorPane id="AnchorPane" prefHeight="765.0" prefWidth="1234.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.AsignacionTutoradoController">
    <children>
       <Pane prefHeight="75.0" prefWidth="1234.0" style="-fx-background-color: #18529D;">
          <children>
@@ -31,14 +30,13 @@
             <Font name="Segoe UI Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtBuscarTutorado" layoutX="48.0" layoutY="214.0" prefHeight="35.0" prefWidth="359.0" promptText="Ej. Juan Alberto" />
-      <TableView fx:id="tblTutoradosDisponibles" layoutX="48.0" layoutY="289.0" prefHeight="344.0" prefWidth="530.0" stylesheets="@../recurso/estilos.css">
+      <TextField fx:id="txtBuscarTutorado" layoutX="48.0" layoutY="214.0" prefHeight="35.0" prefWidth="359.0" promptText="Ej. Juan Alberto" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" />
+      <TableView fx:id="tblTutoradosDisponibles" layoutX="48.0" layoutY="289.0" prefHeight="344.0" prefWidth="425.0" stylesheets="@../recurso/estilos.css">
          <columns>
             <TableColumn fx:id="colNombre" prefWidth="300.0" text="Nombre(s)" />
-            <TableColumn fx:id="colAsignar" prefWidth="230.0" text="Asignar" />
          </columns>
       </TableView>
-      <Button fx:id="btnRegresar" alignment="CENTER" layoutX="48.0" layoutY="678.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
+      <Button alignment="CENTER" layoutX="48.0" layoutY="678.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -50,11 +48,34 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <TableView fx:id="tblTutoradosAsignados" layoutX="657.0" layoutY="289.0" prefHeight="344.0" prefWidth="530.0" stylesheets="@../recurso/estilos.css">
+      <TableView fx:id="tblTutoradosAsignados" layoutX="764.0" layoutY="289.0" prefHeight="344.0" prefWidth="425.0" stylesheets="@../recurso/estilos.css">
          <columns>
             <TableColumn fx:id="colNombre" prefWidth="300.0" text="Nombre(s)" />
-            <TableColumn fx:id="colDesasignar" prefWidth="230.0" text="Desasignar" />
          </columns>
       </TableView>
+      <Button alignment="CENTER" layoutX="527.0" layoutY="352.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Asignar">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/ep--right.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button alignment="CENTER" layoutX="527.0" layoutY="461.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-azul" text="Desasignar">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/material-symbols--arrow-back-rounded.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
    </children>
 </AnchorPane>

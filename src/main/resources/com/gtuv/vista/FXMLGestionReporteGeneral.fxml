@@ -25,7 +25,7 @@
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
-      <TableView fx:id="tblReportesGenerales" layoutX="48.0" layoutY="207.0" prefHeight="344.0" prefWidth="975.0" stylesheets="@../recurso/estilos.css">
+      <TableView fx:id="tblReportesGenerales" layoutX="48.0" layoutY="207.0" prefHeight="344.0" prefWidth="975.0">
          <columns>
             <TableColumn fx:id="colNoSesion" prefWidth="243.0" text="No. Sesión" />
             <TableColumn fx:id="colFechaElaboracion" prefWidth="243.0" text="Fecha de elaboración" />
@@ -45,7 +45,7 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button fx:id="btnGenerar" alignment="CENTER" layoutX="798.0" layoutY="576.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="225.0" styleClass="boton-verde" text="Generar reporte">
+      <Button fx:id="btnGenerar" alignment="CENTER" layoutX="843.0" layoutY="576.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Generar">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -54,8 +54,8 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnExportar" layoutX="877.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Exportar" />
-      <Button fx:id="btnEditar" layoutX="682.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Editar" />
-      <Button fx:id="btnConsultar" layoutX="484.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Consultar" />
+      <Button fx:id="btnExportar" layoutX="877.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Exportar" />
+      <Button fx:id="btnEditar" layoutX="682.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Editar" />
+      <Button fx:id="btnConsultar" layoutX="484.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Enviar" />
    </children>
 </AnchorPane>
