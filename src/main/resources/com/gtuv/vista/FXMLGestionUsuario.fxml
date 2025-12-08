@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1073.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionUsuarioController">
+<AnchorPane id="AnchorPane" prefHeight="664.0" prefWidth="908.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionUsuarioController">
    <children>
-      <Pane prefHeight="75.0" prefWidth="1073.0" style="-fx-background-color: #18529D;">
+      <Pane prefHeight="75.0" prefWidth="908.0" style="-fx-background-color: #18529D;">
          <children>
-            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="501.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="419.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recurso/logouvsinfondo.png" />
                </image>
@@ -25,26 +31,16 @@
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
-      <TableView fx:id="tblUsuarios" layoutX="50.0" layoutY="207.0" prefHeight="344.0" prefWidth="975.0" stylesheets="@../recurso/estilos.css">
+      <TableView fx:id="tblUsuarios" layoutX="50.0" layoutY="228.0" prefHeight="344.0" prefWidth="818.0" styleClass="tabla-azul">
          <columns>
-            <TableColumn fx:id="colNoTrabajador" prefWidth="162.5" text="No. Trabajador" />
+            <TableColumn fx:id="colNoTrabajador" prefWidth="162.5" text=" No. Trabajador" />
             <TableColumn fx:id="colApPaterno" prefWidth="162.5" text="Apellido paterno" />
             <TableColumn fx:id="colApMaterno" prefWidth="162.5" text="Apellido materno" />
             <TableColumn fx:id="colNombre" prefWidth="162.5" text="Nombre(s)" />
             <TableColumn fx:id="colCorreo" prefWidth="162.5" text="Correo" />
-            <TableColumn fx:id="colAcciones" prefWidth="162.5" text="Acciones" />
          </columns>
       </TableView>
-      <Button fx:id="btnRegistrar" alignment="CENTER" layoutX="800.0" layoutY="149.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="225.0" styleClass="boton-verde" text="Nuevo usuario">
-         <graphic>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../recurso/ci_user-add.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="btnRegresar" alignment="CENTER" layoutX="48.0" layoutY="576.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
+      <Button alignment="CENTER" layoutX="48.0" layoutY="597.0" mnemonicParsing="false" onAction="#clicRegresar" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -56,5 +52,50 @@
             <Insets />
          </opaqueInsets>
       </Button>
+      <TextField fx:id="textBuscar" layoutX="50.0" layoutY="174.0" prefHeight="35.0" prefWidth="359.0" style="-fx-padding: 8 40 8 12;" styleClass="campo-texto" />
+      <GridPane layoutX="415.0" layoutY="164.0" prefHeight="56.0" prefWidth="462.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" onAction="#clicDarDeBaja" prefHeight="38.0" prefWidth="145.0" styleClass="boton-azul" text="Dar Baja" GridPane.columnIndex="2">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../recurso/ci_user-add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#clicEditar" prefHeight="38.0" prefWidth="146.0" styleClass="boton-azul" text="Editar" GridPane.columnIndex="1">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../recurso/ci_user-add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#clicRegistrar" prefHeight="38.0" prefWidth="145.0" styleClass="boton-verde" text="Nuevo usuario">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../recurso/ci_user-add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </GridPane>
+      <ImageView fitHeight="21.0" fitWidth="18.0" layoutX="378.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recurso/Vector.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

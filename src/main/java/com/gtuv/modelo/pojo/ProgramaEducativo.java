@@ -16,7 +16,7 @@ public class ProgramaEducativo {
         this.idJefeCarrera = idJefeCarrera;
         this.idCoordinador = idCoordinador;
     }
-
+    
     public int getIdProgramaEducativo() {
         return idProgramaEducativo;
     }
@@ -47,5 +47,10 @@ public class ProgramaEducativo {
 
     public void setIdCoordinador(int idCoordinador) {
         this.idCoordinador = idCoordinador;
+    }
+    
+    @Override
+    public String toString(){
+        return nombre;
     }
 }
