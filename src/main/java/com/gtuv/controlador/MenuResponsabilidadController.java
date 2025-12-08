@@ -20,14 +20,23 @@ import javafx.stage.Stage;
 
 public class MenuResponsabilidadController implements Initializable {
 
-    @FXML private Button btnResponsabilidad1;
-    @FXML private Button btnResponsabilidad2;
-    @FXML private Button btnResponsabilidad3;
-    @FXML private Label lblResponsabilidad1;
-    @FXML private Label lblResponsabilidad2; 
-    @FXML private Label lblResponsabilidad3;
-    @FXML private Button btnCerrarSesion;
-
+    @FXML
+    private Button btnResponsabilidad1;
+    @FXML
+    private Button btnResponsabilidad2;
+    @FXML
+    private Button btnResponsabilidad3;
+    @FXML
+    private Label lblResponsabilidad1;
+    @FXML
+    private Label lblResponsabilidad2; 
+    @FXML
+    private Label lblResponsabilidad3;
+    @FXML
+    private Label lblNombre;
+    
+    Usuario usuario = Sesion.getUsuario();
+    
     private class OpcionRol {
         String nombreRol;
         String rutaFXML;
@@ -41,10 +50,11 @@ public class MenuResponsabilidadController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarBotones();
+        lblNombre.setText(usuario.getNombreCompleto());
     }    
 
     private void configurarBotones() {
-        Usuario usuario = Sesion.getUsuario();
+        
         ArrayList<OpcionRol> roles = new ArrayList<>();
 
         if (usuario.isEsAdministrador()) {
@@ -86,7 +96,7 @@ public class MenuResponsabilidadController implements Initializable {
 
     private void irMenu(String rutaFXML) {
         try {
-            Stage stage = (Stage) btnCerrarSesion.getScene().getWindow();
+            Stage stage = (Stage) lblNombre.getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource(rutaFXML));
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -98,6 +108,7 @@ public class MenuResponsabilidadController implements Initializable {
         }
     }
     
+    @FXML
     private void clicCerrarSesion(ActionEvent event) {
         Sesion.cerrarSesion();
         irMenu("/com/gtuv/vista/FXMLInicioSesion.fxml");

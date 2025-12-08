@@ -68,10 +68,18 @@ public class InicioSesionController implements Initializable {
             int cantidadRoles = 0;
             String rolUnico = "";
             
-            if(usuario.isEsAdministrador()) { cantidadRoles++; rolUnico = "ADMIN"; }
-            if(usuario.isEsTutor()) { cantidadRoles++; rolUnico = "TUTOR"; }
-            if(usuario.isEsCoordinador()) { cantidadRoles++; rolUnico = "COORDINADOR"; }
-            if(usuario.isEsJefeCarrera()) { cantidadRoles++; rolUnico = "JEFE"; }
+            if(usuario.isEsAdministrador()) {
+                cantidadRoles++; rolUnico = "ADMIN";
+            }
+            if(usuario.isEsTutor()) {
+                cantidadRoles++; rolUnico = "TUTOR";
+            }
+            if(usuario.isEsCoordinador()) {
+                cantidadRoles++; rolUnico = "COORDINADOR";
+            }
+            if(usuario.isEsJefeCarrera()) {
+                cantidadRoles++; rolUnico = "JEFE";
+            }
             
             if (cantidadRoles == 0) {
                 Sesion.cerrarSesion();

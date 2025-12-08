@@ -58,7 +58,7 @@ public class UsuarioDAO {
             sentencia.setBoolean(8, usuario.isEsTutor());
             sentencia.setInt(9, usuario.getIdUsuario());
             
-            sentencia.executeUpdate();
+            return sentencia.executeUpdate();
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }

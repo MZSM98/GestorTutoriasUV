@@ -46,13 +46,15 @@ public class ProgramaEducativoImpl {
     
     public static HashMap<String, Object> asignarJefeCarrera(int idProgramaEducativo, int idUsuario){
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
-        
+        Connection conexionBD = ConexionBD.abrirConexion();
         try{
-            if(ProgramaEducativoDAO.hayJefeCarreraAsignado(ConexionBD.abrirConexion(), idProgramaEducativo)){
+            if(ProgramaEducativoDAO.hayJefeCarreraAsignado(conexionBD, idProgramaEducativo)){
                 respuesta.put("error", true);
                 respuesta.put("mensaje", "El programa educativo seleccionado ya cuenta con un Jefe de Carrera asignado.");
             }else{
-                int filasAfectadas = ProgramaEducativoDAO.asignarJefeCarrera(ConexionBD.abrirConexion(), idProgramaEducativo, idUsuario);
+                ProgramaEducativoDAO.quitarCoordinadorDelUsuario(conexionBD, idUsuario);
+                ProgramaEducativoDAO.quitarJefeCarreraDelUsuario(conexionBD, idUsuario);
+                int filasAfectadas = ProgramaEducativoDAO.asignarJefeCarrera(conexionBD, idProgramaEducativo, idUsuario);
                 if (filasAfectadas > 0){
                     respuesta.put("error", false);
                     respuesta.put("mensaje", "Jefe de Carrera asignado correctamente.");
@@ -75,10 +77,13 @@ public class ProgramaEducativoImpl {
         Connection conexionBD = ConexionBD.abrirConexion();
         
         try{
+                
             if(ProgramaEducativoDAO.hayCoordinadorAsignado(conexionBD, idProgramaEducativo)){
                 respuesta.put("error", true);
                 respuesta.put("mensaje", "El programa educativo seleccionado ya cuenta con un Coordinador asignado.");
             }else{
+                ProgramaEducativoDAO.quitarJefeCarreraDelUsuario(conexionBD, idUsuario);
+                ProgramaEducativoDAO.quitarCoordinadorDelUsuario(conexionBD, idUsuario);
                 int filasAfectadas = ProgramaEducativoDAO.asignarCoordinador(conexionBD, idProgramaEducativo, idUsuario);
                 if (filasAfectadas > 0){
                     respuesta.put("error", false);
@@ -114,8 +119,11 @@ public class ProgramaEducativoImpl {
 
     public static HashMap<String, Object> sustituirJefeCarrera(int idProgramaEducativo, int idUsuario) {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        Connection conexionBD = ConexionBD.abrirConexion();
         try {
-            int filasAfectadas = ProgramaEducativoDAO.asignarJefeCarrera(ConexionBD.abrirConexion(), idProgramaEducativo, idUsuario);
+            ProgramaEducativoDAO.quitarCoordinadorDelUsuario(conexionBD, idUsuario);
+            ProgramaEducativoDAO.quitarJefeCarreraDelUsuario(conexionBD, idUsuario);
+            int filasAfectadas = ProgramaEducativoDAO.asignarJefeCarrera(conexionBD, idProgramaEducativo, idUsuario);
             if (filasAfectadas > 0) {
                 respuesta.put("error", false);
                 respuesta.put("mensaje", "Jefe de Carrera asignado correctamente.");
@@ -149,8 +157,11 @@ public class ProgramaEducativoImpl {
 
     public static HashMap<String, Object> sustituirCoordinador(int idProgramaEducativo, int idUsuario) {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        Connection conexionBD = ConexionBD.abrirConexion();
         try {
-            int filasAfectadas = ProgramaEducativoDAO.asignarCoordinador(ConexionBD.abrirConexion(), idProgramaEducativo, idUsuario);
+            ProgramaEducativoDAO.quitarJefeCarreraDelUsuario(conexionBD, idUsuario);
+            ProgramaEducativoDAO.quitarCoordinadorDelUsuario(conexionBD, idUsuario);
+            int filasAfectadas = ProgramaEducativoDAO.asignarCoordinador(conexionBD, idProgramaEducativo, idUsuario);
             if (filasAfectadas > 0) {
                 respuesta.put("error", false);
                 respuesta.put("mensaje", "Coordinador asignado correctamente.");

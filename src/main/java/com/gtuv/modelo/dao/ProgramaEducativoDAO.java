@@ -134,4 +134,22 @@ public class ProgramaEducativoDAO {
         }
         return programa;
     }
+    
+    public static void quitarJefeCarreraDelUsuario(Connection conexionBD, int idUsuario) throws SQLException {
+        if (conexionBD != null) {
+            String query = "UPDATE programa_educativo SET idJefeCarrera = NULL WHERE idJefeCarrera = ?";
+            PreparedStatement sentencia = conexionBD.prepareStatement(query);
+            sentencia.setInt(1, idUsuario);
+            sentencia.executeUpdate();
+        }
+    }
+
+    public static void quitarCoordinadorDelUsuario(Connection conexionBD, int idUsuario) throws SQLException {
+        if (conexionBD != null) {
+            String query = "UPDATE programa_educativo SET idCoordinador = NULL WHERE idCoordinador = ?";
+            PreparedStatement sentencia = conexionBD.prepareStatement(query);
+            sentencia.setInt(1, idUsuario);
+            sentencia.executeUpdate();
+        }
+    }
 }

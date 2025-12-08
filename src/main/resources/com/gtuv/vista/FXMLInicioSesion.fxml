@@ -64,7 +64,7 @@
                   <Font name="Segoe UI" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="txtContrasenia" maxWidth="268.0" prefHeight="37.0" prefWidth="268.0" promptText="************" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" stylesheets="@../recurso/estilos.css" GridPane.rowIndex="4" />
+            <TextField fx:id="txtContrasenia" maxWidth="268.0" onAction="#clicIniciarSesion" prefHeight="37.0" prefWidth="268.0" promptText="************" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" stylesheets="@../recurso/estilos.css" GridPane.rowIndex="4" />
             <Label fx:id="lblErrorContrasenia" styleClass="label-ayuda" text="Label" GridPane.rowIndex="5" />
          </children>
       </GridPane>

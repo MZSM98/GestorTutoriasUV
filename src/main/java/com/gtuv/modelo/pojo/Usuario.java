@@ -130,4 +130,12 @@ public class Usuario {
     public void setEsCoordinador(boolean esCoordinador) {
         this.esCoordinador = esCoordinador;
     }
+    
+    public String getNombreCompleto() {
+        if (apellidoMaterno != null && !apellidoMaterno.isEmpty()) {
+            return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+        } else {
+            return nombre + " " + apellidoPaterno;
+        }
+    }
 }
