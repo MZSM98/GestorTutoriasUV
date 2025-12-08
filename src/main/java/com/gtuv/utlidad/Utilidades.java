@@ -6,6 +6,7 @@ import java.util.Optional;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableColumn;
 
 
 public class Utilidades {
@@ -44,4 +45,28 @@ public class Utilidades {
         
         return new FXMLLoader(GestorTutoriasUV.class.getResource(url));
     }
+    
+
+    @SafeVarargs
+    public static void alinearCentro(TableColumn<?, ?>... columnas) {
+        for (TableColumn<?, ?> col : columnas) {
+            col.getStyleClass().remove("columna-izquierda");
+            if (!col.getStyleClass().contains("columna-centro")) {
+                col.getStyleClass().add("columna-centro");
+            }
+        }
+    }
+
+    @SafeVarargs
+    public static void alinearIzquierda(TableColumn<?, ?>... columnas) {
+        for (TableColumn<?, ?> col : columnas) {
+            col.getStyleClass().remove("columna-centro");
+            
+            if (!col.getStyleClass().contains("columna-izquierda")) {
+                col.getStyleClass().add("columna-izquierda");
+            }
+        }
+    }
+    
 }
+
