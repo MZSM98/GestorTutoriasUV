@@ -10,36 +10,29 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 
 /**
  * FXML Controller class
  *
  * @author gurov
  */
-public class TutoradosController implements Initializable {
+public class RegistrarProblematicaController implements Initializable {
 
     @FXML
-    private TextField txtBusqueda;
+    private ComboBox<?> cmbAlumno;
     @FXML
-    private ComboBox<?> cmbProgramaEducativo;
+    private ComboBox<?> cmbTipoProblematica;
     @FXML
-    private TableView<?> tblTutorados;
+    private CheckBox chkEnRiesgo;
     @FXML
-    private TableColumn<?, ?> colMatricula;
-    @FXML
-    private TableColumn<?, ?> colApellidoPaterno;
-    @FXML
-    private TableColumn<?, ?> colApellidoMaterno;
-    @FXML
-    private TableColumn<?, ?> colNombre;
-    @FXML
-    private TableColumn<?, ?> colSemestre;
+    private TextArea txaDescripcion;
     @FXML
     private Button btnRegresar;
+    @FXML
+    private Button btnGuardar;
 
     /**
      * Initializes the controller class.
@@ -51,6 +44,10 @@ public class TutoradosController implements Initializable {
 
     @FXML
     private void clicRegresar(ActionEvent event) {
+    }
+
+    @FXML
+    private void clicGuardar(ActionEvent event) {
     }
     
 }

@@ -50,4 +50,6 @@ public class Asistencia {
     public void setEnRiesgo(boolean enRiesgo) {
         this.enRiesgo = enRiesgo;
     }
+    
+    
 }

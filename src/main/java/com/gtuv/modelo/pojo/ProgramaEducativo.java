@@ -1,39 +1,25 @@
-<<<<<<< HEAD
-
-package com.gtuv.modelo.pojo;
-
-
-public class ProgramaEducativo {
-    
-    private int idProgramaEducativo;
-    String nombre;
-    int idJefeCarrera;
-    int idCoordinador;
-
-    public ProgramaEducativo(int idProgramaEducativo, String nombre, int idJefeCarrera, int idCoordinador) {
-        this.idProgramaEducativo = idProgramaEducativo;
-        this.nombre = nombre;
-        this.idJefeCarrera = idJefeCarrera;
-        this.idCoordinador = idCoordinador;
-    }
-    
-    public ProgramaEducativo(){
-        
-=======
 package com.gtuv.modelo.pojo;
 
 public class ProgramaEducativo {
     
     private int idProgramaEducativo;
     private String nombre;
-    private int idJefeCarrera;
+    private Integer idJefeCarrera; 
     private String nombreJefeDeCarrera;
-    private int idCoordinador;
+    private Integer idCoordinador;
     private String nombreCoordinador;
 
+   
     public ProgramaEducativo() {
->>>>>>> 248e58466f5a7242e18143ce944d796b8c6174a4
     }
+
+    
+    public ProgramaEducativo(int idProgramaEducativo, String nombre) {
+        this.idProgramaEducativo = idProgramaEducativo;
+        this.nombre = nombre;
+    }
+
+    
 
     public int getIdProgramaEducativo() {
         return idProgramaEducativo;
@@ -51,16 +37,14 @@ public class ProgramaEducativo {
         this.nombre = nombre;
     }
 
-    public int getIdJefeCarrera() {
+    public Integer getIdJefeCarrera() {
         return idJefeCarrera;
     }
 
-    public void setIdJefeCarrera(int idJefeCarrera) {
+    public void setIdJefeCarrera(Integer idJefeCarrera) {
         this.idJefeCarrera = idJefeCarrera;
     }
 
-<<<<<<< HEAD
-=======
     public String getNombreJefeDeCarrera() {
         return nombreJefeDeCarrera;
     }
@@ -69,16 +53,13 @@ public class ProgramaEducativo {
         this.nombreJefeDeCarrera = nombreJefeDeCarrera;
     }
 
->>>>>>> 248e58466f5a7242e18143ce944d796b8c6174a4
-    public int getIdCoordinador() {
+    public Integer getIdCoordinador() {
         return idCoordinador;
     }
 
-    public void setIdCoordinador(int idCoordinador) {
+    public void setIdCoordinador(Integer idCoordinador) {
         this.idCoordinador = idCoordinador;
     }
-<<<<<<< HEAD
-=======
 
     public String getNombreCoordinador() {
         return nombreCoordinador;
@@ -87,5 +68,9 @@ public class ProgramaEducativo {
     public void setNombreCoordinador(String nombreCoordinador) {
         this.nombreCoordinador = nombreCoordinador;
     }
->>>>>>> 248e58466f5a7242e18143ce944d796b8c6174a4
+
+    
+    @Override
+    public String toString() {
+        return nombre;     }
 }
