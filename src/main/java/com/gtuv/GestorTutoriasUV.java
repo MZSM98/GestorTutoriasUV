@@ -13,7 +13,7 @@ public class GestorTutoriasUV extends Application {
     public void start(Stage primaryStage) {
         
         try {
-            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLGestionUsuario.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLConsultaTutores.fxml"));
             Scene scene = new Scene (parent);
             primaryStage.setScene(scene);
             primaryStage.show();

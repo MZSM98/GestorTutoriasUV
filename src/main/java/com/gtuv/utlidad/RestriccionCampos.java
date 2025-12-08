@@ -43,4 +43,8 @@ public class RestriccionCampos {
             return null;
         }));
     }
+    
+    public static void soloCaracteresValidosCorreo(TextInputControl input) {
+    aplicarPatron(input, "[a-zA-Z0-9@._-]*");
+    }
 }

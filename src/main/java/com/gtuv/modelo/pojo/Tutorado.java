@@ -119,5 +119,11 @@ public class Tutorado {
         this.activo = activo;
     }
     
-    
+    public String getNombreCompleto() {
+        if (apellidoMaterno != null && !apellidoMaterno.isEmpty()) {
+            return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+        } else {
+            return nombre + " " + apellidoPaterno;
+        }
+    }
 }

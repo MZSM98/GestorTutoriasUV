@@ -233,10 +233,6 @@ public class FormularioUsuarioController implements Initializable {
             lblErrorApPaterno.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if(txtApMaterno.getText().isEmpty()){
-            lblErrorApMaterno.setText(CAMPO_OBLIGATORIO);
-            valido = false;
-        }
         if(txtCorreo.getText().isEmpty()){
             lblErrorCorreo.setText(CAMPO_OBLIGATORIO);
             valido = false;
@@ -386,17 +382,6 @@ public class FormularioUsuarioController implements Initializable {
         return valido;
     }
     
-    private void aplicarRestricciones(){
-        RestriccionCampos.limitarCantidadNumeros(txtNoTrabajador, LIMITE_CAMPO_NO_TRABAJADOR);
-        RestriccionCampos.limitarLongitud(txtNombre, LIMITE_CAMPO_NOMBRE);
-        RestriccionCampos.limitarLongitud(txtCorreo, LIMITE_CAMPO_CORREO);
-        RestriccionCampos.limitarLongitud(txtApPaterno, LIMITE_CAMPO_AP_PATERNO);
-        RestriccionCampos.limitarLongitud(txtApMaterno, LIMITE_CAMPO_AP_MATERNO);
-        RestriccionCampos.soloLetras(txtNombre);
-        RestriccionCampos.soloLetras(txtApMaterno);
-        RestriccionCampos.soloLetras(txtApPaterno);
-    }
-    
     private boolean esPosibleSustituirJefe(ProgramaEducativo programa) {
         HashMap<String, Object> resp = ProgramaEducativoImpl.obtenerJefeCarrera(programa.getIdProgramaEducativo());
         if ((boolean) resp.get("error")) return false;
@@ -456,4 +441,17 @@ public class FormularioUsuarioController implements Initializable {
             }
         }
     }
+    
+    private void aplicarRestricciones(){
+        RestriccionCampos.limitarCantidadNumeros(txtNoTrabajador, LIMITE_CAMPO_NO_TRABAJADOR);
+        RestriccionCampos.limitarLongitud(txtNombre, LIMITE_CAMPO_NOMBRE);
+        RestriccionCampos.limitarLongitud(txtCorreo, LIMITE_CAMPO_CORREO);
+        RestriccionCampos.limitarLongitud(txtApPaterno, LIMITE_CAMPO_AP_PATERNO);
+        RestriccionCampos.limitarLongitud(txtApMaterno, LIMITE_CAMPO_AP_MATERNO);
+        RestriccionCampos.soloLetras(txtNombre);
+        RestriccionCampos.soloLetras(txtApMaterno);
+        RestriccionCampos.soloLetras(txtApPaterno);
+        RestriccionCampos.soloCaracteresValidosCorreo(txtCorreo);
+    }
+    
 }
