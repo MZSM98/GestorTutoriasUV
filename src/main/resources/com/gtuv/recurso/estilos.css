@@ -36,6 +36,23 @@
 }
 
 /* --- BOTÓN VERDE (REGISTRAR) --- */
+.boton-azul {
+    -fx-background-color: #18529D; /* Tu color base */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px; /* Un poco redondeado */
+    -fx-font-family: "Segoe UI"; /* Ya que usas esta fuente */
+    -fx-cursor: hand; /* Manita al pasar el mouse */
+}
+
+.boton-azul:hover {
+    /* Un 15% más oscuro para dar efecto de "presionar" */
+    -fx-background-color: #1C63C0; 
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1); /* Sombra sutil */
+}
+
+
+/* --- BOTÓN VERDE (REGISTRAR) --- */
 .boton-verde {
     -fx-background-color: #28AD56; /* Tu color base */
     -fx-text-fill: white;
@@ -230,178 +247,4 @@
 /* 4. HOVER (Al pasar el mouse) */
 .radio-azul:hover .radio {
     -fx-border-color: #092C4C;
-}
-
-/* --- ESTILO DE LA TABLA (TableView) --- */
-
-/* 1. Contenedor general */
-.tabla-azul {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-base: #f4f4f4; 
-}
-
-/* Ocultamos columna extra */
-.tabla-azul .column-header-background .filler {
-/* 1. Contenedor general: Quitamos bordes y fondo predeterminado */
-.table-view {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    /* Ajusta este color al fondo de tu ventana para que las esquinas se vean bien */
-    -fx-base: #f4f4f4; 
-}
-
-/* Ocultamos el encabezado de la columna extra que JavaFX pone a veces a la derecha */
-.table-view .column-header-background .filler {
-
-/* 1. Contenedor general */
-.tabla-azul {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-base: #f4f4f4; 
-}
-
-/* Ocultamos columna extra */
-.tabla-azul .column-header-background .filler {
-    -fx-background-color: transparent;
-}
-
-/* 2. EL ENCABEZADO AZUL */
-.tabla-azul .column-header-background {
-    -fx-background-color: #104B87; /* Azul Figma */
-    -fx-background-radius: 4px 4px 0 0; 
-}
-
-.tabla-azul .column-header {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-size: 45px; 
-}
-
-.tabla-azul .column-header .label {
-    -fx-text-fill: white;
-    -fx-font-family: "Segoe UI";
-    -fx-font-weight: bold;
-    -fx-font-size: 13px;
-    -fx-alignment: CENTER_LEFT; 
-}
-
-/* 3. LAS FILAS (ZEBRA STRIPING) */
-.tabla-azul .table-cell {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #333333;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 0 0 0 10;
-/* Fondo de toda la barra de títulos */
-.table-view .column-header-background {
-    -fx-background-color: #104B87; /* <--- IMPORTANTE: Pon aquí el HEX exacto de tu azul de Figma */
-    -fx-background-radius: 4px 4px 0 0; /* Redondeamos solo arriba para que se vea moderno */
-}
-
-/* Cada columna individual del encabezado */
-.table-view .column-header {
-    -fx-background-color: transparent; /* Para que se vea el azul de fondo */
-    -fx-border-color: transparent;
-    -fx-size: 45px; /* Altura del encabezado, ajústalo según tu diseño */
-}
-
-/* El texto dentro del encabezado (Matrícula, Apellido, etc.) */
-.table-view .column-header .label {
-    -fx-text-fill: white;          /* Texto blanco */
-    -fx-font-family: "Segoe UI";
-    -fx-font-weight: bold;
-    -fx-font-size: 15px;
-    -fx-alignment: CENTER;    /* Alineado a la izquierda */
-}
-
-/* 3. LAS FILAS (ZEBRA STRIPING) */
-
-/* Estilo base de la celda */
-.table-cell {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #333333;       /* Gris oscuro para el texto */
-    -fx-alignment: CENTER_LEFT;   /* Alinear texto a la izquierda */
-    -fx-padding: 0 0 0 10;        /* Un poco de margen a la izquierda */
-}
-
-.tabla-azul .column-header-background {
-    -fx-background-color: #104B87; /* Azul Figma */
-    -fx-background-radius: 4px 4px 0 0; 
-}
-
-.tabla-azul .column-header {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-size: 45px; 
-}
-
-.tabla-azul .column-header .label {
-    -fx-text-fill: white;
-    -fx-font-family: "Segoe UI";
-    -fx-font-weight: bold;
-    -fx-font-size: 13px;
-    -fx-alignment: CENTER_LEFT; 
-}
-
-/* 3. LAS FILAS (ZEBRA STRIPING) */
-.tabla-azul .table-cell {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
-    -fx-text-fill: #333333;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 0 0 0 10;
-    -fx-border-color: transparent;
-}
-
-/* Fila impar (blanca) */
-.tabla-azul .table-row-cell:odd {
-    -fx-background-color: #ffffff;
-    -fx-background-insets: 0;
-}
-
-/* Fila par (gris muy suave, igual que tus inputs) */
-.table-row-cell:even {
-
-/* Fila par (gris muy suave) */
-.tabla-azul .table-row-cell:even {
-    -fx-background-color: #f4f4f4; 
-    -fx-background-insets: 0;
-}
-
-/* 4. ESTADOS INTERACTIVOS */
-/* Cuando pasas el mouse por encima de una fila (Hover) */
-.table-row-cell:hover {
-    -fx-background-color: #e0e0e0; /* Un gris un poco más oscuro para indicar posición */
-}
-
-/* Cuando seleccionas una fila (Selected) */
-.table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected, 
-.table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected {
-    -fx-background-color: #D6EAF8; /* Un azul muy pálido para no perder legibilidad */
-    -fx-table-cell-border-color: transparent;
-.tabla-azul .table-row-cell:hover {
-    -fx-background-color: #e0e0e0; 
-}
-
-.tabla-azul .table-row-cell:filled:selected, 
-.tabla-azul .table-row-cell:filled:selected:hover {
-    -fx-background-color: #D6EAF8; /* Azul pálido selección */
-    -fx-table-cell-border-color: transparent;
-}
-
-/* Corrección para el texto al seleccionar (para que no se ponga blanco por defecto) */
-.tabla-azul .table-row-cell:filled:selected .table-cell {
-    -fx-text-fill: #104B87; /* Texto azul oscuro al seleccionar */
-
-/* Cuando pasas el mouse por encima de una fila (Hover) */
-.table-row-cell:hover {
-    -fx-background-color: #e0e0e0; /* Un gris un poco más oscuro para indicar posición */
-}
-
-/* Cuando seleccionas una fila (Selected) */
-.table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected {
-    -fx-background-color: #D6EAF8; /* Un azul muy pálido para no perder legibilidad */
-    -fx-table-cell-border-color: transparent;
 }

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 package com.gtuv.modelo.pojo;
 
@@ -18,21 +17,7 @@ public class ProgramaEducativo {
     }
     
     public ProgramaEducativo(){
-        
-=======
-package com.gtuv.modelo.pojo;
-
-public class ProgramaEducativo {
-    
-    private int idProgramaEducativo;
-    private String nombre;
-    private int idJefeCarrera;
-    private String nombreJefeDeCarrera;
-    private int idCoordinador;
-    private String nombreCoordinador;
-
-    public ProgramaEducativo() {
->>>>>>> 248e58466f5a7242e18143ce944d796b8c6174a4
+       
     }
 
     public int getIdProgramaEducativo() {
@@ -59,17 +44,6 @@ public class ProgramaEducativo {
         this.idJefeCarrera = idJefeCarrera;
     }
 
-<<<<<<< HEAD
-=======
-    public String getNombreJefeDeCarrera() {
-        return nombreJefeDeCarrera;
-    }
-
-    public void setNombreJefeDeCarrera(String nombreJefeDeCarrera) {
-        this.nombreJefeDeCarrera = nombreJefeDeCarrera;
-    }
-
->>>>>>> 248e58466f5a7242e18143ce944d796b8c6174a4
     public int getIdCoordinador() {
         return idCoordinador;
     }
@@ -77,15 +51,9 @@ public class ProgramaEducativo {
     public void setIdCoordinador(int idCoordinador) {
         this.idCoordinador = idCoordinador;
     }
-<<<<<<< HEAD
-=======
-
-    public String getNombreCoordinador() {
-        return nombreCoordinador;
+    
+    @Override
+    public String toString(){
+        return nombre;
     }
-
-    public void setNombreCoordinador(String nombreCoordinador) {
-        this.nombreCoordinador = nombreCoordinador;
-    }
->>>>>>> 248e58466f5a7242e18143ce944d796b8c6174a4
 }
