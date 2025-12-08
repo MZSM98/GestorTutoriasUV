@@ -14,11 +14,10 @@ public class Utilidades {
         throw new UnsupportedOperationException(ERROR_CLASE_UTILERIA);
     }
     
-    public static final String ERROR_BD = "Error de conexion con la base de datos...";
-    public static final String ERROR_CLASE_UTILERIA = "Esta clase no debe ser instanciada...";
-    public static final String ERROR_MENSAJE_VISTA = "¡Oh, no! Algo salió mal… :( No pudimos procesar tu operación,"
+    public static final String ERROR_BD = "¡Oh, no! Algo salió mal… :( No pudimos procesar tu operación,"
                                + " por favor intenta más tarde";
-    
+    public static final String ERROR_CLASE_UTILERIA = "Esta clase no debe ser instanciada...";
+
     public static void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo){
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);

@@ -22,7 +22,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class FormularioUsuarioController implements Initializable {
@@ -107,15 +106,22 @@ public class FormularioUsuarioController implements Initializable {
         this.usuarioEdicion = usuario;
         chkCoordinador.setDisable(true);
         cmbProgramaEducativo.setDisable(true);
+
         if(usuario != null){
             txtNoTrabajador.setText(usuario.getNoTrabajador());
-            txtNoTrabajador.setEditable(false);
+            txtNoTrabajador.setEditable(false); 
             txtNombre.setText(usuario.getNombre());
             txtApPaterno.setText(usuario.getApellidoPaterno());
             txtApMaterno.setText(usuario.getApellidoMaterno());
             txtCorreo.setText(usuario.getCorreo());
             chkAdmnistrador.setSelected(usuario.isEsAdministrador());
             chkTutor.setSelected(usuario.isEsTutor());
+
+            if(usuario.isEsTutor()){
+                chkCoordinador.setDisable(false);
+            }
+
+            cargarRolProgramaEducativo(usuario.getIdUsuario());
         }
     }
     
@@ -131,34 +137,44 @@ public class FormularioUsuarioController implements Initializable {
         }
     }
     
-    private void registrarUsuario(){
+    private void registrarUsuario() {
         limpiarMensajesError();
         Usuario usuarioNuevo = obtenerUsuario();
-        
-        if(!validarResponsabilidad()){
+
+        if (!validarResponsabilidad())
             return;
-        }
-        if(!validarCorreo(usuarioNuevo.getCorreo())){
-             return;
-        }
-        if (!validarNumeroTrabajador(usuarioNuevo.getNoTrabajador())){
+        if (!validarCorreo(usuarioNuevo.getCorreo()))
             return;
-        }
+        if (!validarNumeroTrabajador(usuarioNuevo.getNoTrabajador()))
+            return;
+        if (chkJefeCarrera.isSelected() && !esPosibleSustituirJefe(cmbProgramaEducativo.getValue())) 
+            return;
+        if (chkCoordinador.isSelected() && !esPosibleSustituirCoordinador(cmbProgramaEducativo.getValue())) 
+            return;
+
         HashMap<String, Object> respuesta = UsuarioImpl.registrarUsuario(usuarioNuevo);
-        if(!(boolean)respuesta.get("error")){
-            procesarAutoridad((int)respuesta.get("idUsuario"));
-            Utilidades.mostrarAlerta("Registro exitoso", (String)respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
+        if (!(boolean) respuesta.get("error")) {
+            procesarAutoridad((int) respuesta.get("idUsuario"));
+            Utilidades.mostrarAlerta("Registro exitoso", (String) respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
             observador.notificarOperacionExitosa("Registro", usuarioNuevo.getNombre());
             cerrarVentana();
-        }else{
-            Utilidades.mostrarAlerta("Error", (String)respuesta.get("mensaje"), Alert.AlertType.ERROR);
+        } else {
+            Utilidades.mostrarAlerta("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
     }
     
     private void editarUsuario(){
+        limpiarMensajesError();
+        
         Usuario usuarioEditado = obtenerUsuario();
         usuarioEditado.setIdUsuario(usuarioEdicion.getIdUsuario());
-        
+
+        if (chkJefeCarrera.isSelected() && !esPosibleSustituirJefe(cmbProgramaEducativo.getValue())) {
+            return;
+        }
+        if (chkCoordinador.isSelected() && !esPosibleSustituirCoordinador(cmbProgramaEducativo.getValue())) {
+            return;
+        }
         HashMap<String, Object> respuesta = UsuarioImpl.editarUsuario(usuarioEditado);
         if(!(boolean)respuesta.get("error")){
             procesarAutoridad(usuarioEdicion.getIdUsuario());
@@ -170,12 +186,12 @@ public class FormularioUsuarioController implements Initializable {
         }
     }
     
-    private void procesarAutoridad(int idUsuario){
-        if(cmbProgramaEducativo.getSelectionModel().getSelectedItem() != null){
+    private void procesarAutoridad(int idUsuario) {
+        if (cmbProgramaEducativo.getSelectionModel().getSelectedItem() != null) {
             ProgramaEducativo programa = cmbProgramaEducativo.getSelectionModel().getSelectedItem();
-            if(chkJefeCarrera.isSelected()){
-                ProgramaEducativoImpl.asignarJefeCarrera(programa.getIdProgramaEducativo(), idUsuario);
-            }else if(chkCoordinador.isSelected()){
+            if (chkJefeCarrera.isSelected()) {
+                ProgramaEducativoImpl.sustituirJefeCarrera(programa.getIdProgramaEducativo(), idUsuario);
+            } else if (chkCoordinador.isSelected()) {
                 ProgramaEducativoImpl.asignarCoordinador(programa.getIdProgramaEducativo(), idUsuario);
             }
         }
@@ -216,11 +232,11 @@ public class FormularioUsuarioController implements Initializable {
             lblErrorCorreo.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if(txtContrasenia.getText().isEmpty()){
+        if(txtContrasenia.getText().isEmpty() && usuarioEdicion == null){
             lblErrorContrasena.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if(txtConfirmaContrasenia.getText().isEmpty()){
+        if(txtConfirmaContrasenia.getText().isEmpty() && usuarioEdicion == null){
             lblErrorConfirmarContrasena.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
@@ -331,6 +347,7 @@ public class FormularioUsuarioController implements Initializable {
         String correo = txtCorreo.getText();
         String contrasenia = txtContrasenia.getText();
         String contrasenaconfirmacion = txtConfirmaContrasenia.getText();
+        
         if(noTrabajador.length() <= LIMITE_MIN_NO_TRABAJADOR && !noTrabajador.isEmpty()){
             valido = false;
             lblErrorNumTrabajador.setText("Formato de No. de trabajador no valido");
@@ -371,4 +388,63 @@ public class FormularioUsuarioController implements Initializable {
         RestriccionCampos.soloLetras(txtApPaterno);
     }
     
+    private boolean esPosibleSustituirJefe(ProgramaEducativo programa) {
+        HashMap<String, Object> resp = ProgramaEducativoImpl.obtenerJefeCarrera(programa.getIdProgramaEducativo());
+        if ((boolean) resp.get("error")) return false;
+
+        Usuario actual = (Usuario) resp.get("jefeCarrera");
+
+        if (actual != null && usuarioEdicion != null && actual.getNoTrabajador().equals(usuarioEdicion.getNoTrabajador())) {
+            return true; 
+        }
+        if (actual != null) {
+            String msg = "El programa ya cuenta con el Jefe de Carrera:\n" + actual.getNombre() + " " + actual.getApellidoPaterno() +
+                         "\n Número de trabajador: "+ actual.getNoTrabajador()+
+                         "\n¿Desea sustituirlo?";
+            return Utilidades.mostrarAlertaConfirmacion("Conflicto de Asignación", "Jefe existente", msg);
+        }
+        return true;
+    }
+    
+    private boolean esPosibleSustituirCoordinador(ProgramaEducativo programa) {
+        HashMap<String, Object> resp = ProgramaEducativoImpl.obtenerCoordinador(programa.getIdProgramaEducativo());
+        if ((boolean) resp.get("error")) return false;
+
+        Usuario actual = (Usuario) resp.get("coordinador");
+
+        if (actual != null && usuarioEdicion != null && actual.getNoTrabajador().equals(usuarioEdicion.getNoTrabajador())) {
+            return true;
+        }
+
+        if (actual != null) {
+            String mensaje = "El programa ya cuenta con el Coordinador:\n" + actual.getNombre() + " " + actual.getApellidoPaterno() +
+                    "\n Número de trabajador: " + actual.getNoTrabajador()+
+                         "\n¿Desea sustituirlo?";
+            return Utilidades.mostrarAlertaConfirmacion("Conflicto de Asignación", "Coordinador existente", mensaje);
+        }
+        return true;
+    }
+    
+    private void cargarRolProgramaEducativo(int idUsuario) {
+        HashMap<String, Object> respuesta = ProgramaEducativoImpl.obtenerProgramaPorUsuario(idUsuario);
+        if (!(boolean) respuesta.get("error")) {
+            ProgramaEducativo programa = (ProgramaEducativo) respuesta.get("programa");
+            if (programa != null) {
+                for(ProgramaEducativo pe : cmbProgramaEducativo.getItems()){
+                    if(pe.getIdProgramaEducativo() == programa.getIdProgramaEducativo()){
+                        cmbProgramaEducativo.setValue(pe);
+                        break;
+                    }
+                }
+                cmbProgramaEducativo.setDisable(false);
+
+                if (programa.getIdJefeCarrera() == idUsuario) {
+                    chkJefeCarrera.setSelected(true);
+                }
+                if (programa.getIdCoordinador() == idUsuario) {
+                    chkCoordinador.setSelected(true);
+                }
+            }
+        }
+    }
 }

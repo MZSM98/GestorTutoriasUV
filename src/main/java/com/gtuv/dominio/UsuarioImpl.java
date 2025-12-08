@@ -2,7 +2,9 @@
 package com.gtuv.dominio;
 
 import com.gtuv.modelo.ConexionBD;
+import com.gtuv.modelo.dao.ProgramaEducativoDAO;
 import com.gtuv.modelo.dao.UsuarioDAO;
+import com.gtuv.modelo.pojo.ProgramaEducativo;
 import com.gtuv.modelo.pojo.Usuario;
 import com.gtuv.utlidad.Utilidades;
 import java.sql.ResultSet;
@@ -19,15 +21,16 @@ public class UsuarioImpl {
     }
     
     public static HashMap<String, Object> registrarUsuario(Usuario usuario){
-        HashMap<String, Object> respuesta = new LinkedHashMap<>();
-        
+    HashMap<String, Object> respuesta = new LinkedHashMap<>();
+    
         try{
-            int filasAfectadas = UsuarioDAO.registrar(ConexionBD.abrirConexion(), usuario);
-            
-            if (filasAfectadas > 0){
+            int idRegistrado = UsuarioDAO.registrar(ConexionBD.abrirConexion(), usuario);
+
+            if (idRegistrado > 0){
                 respuesta.put("error", false);
-                respuesta.put("mensaje", "El registro del Usuario" + usuario.getNombre() +
+                respuesta.put("mensaje", "El registro del Usuario " + usuario.getNombre() +
                               " fue guardado de manera exitosa");
+                respuesta.put("idUsuario", idRegistrado); 
             }else{
                 respuesta.put("error", true);
                 respuesta.put("mensaje", "No se pudo guardar la información, inténtelo más tarde");
@@ -164,4 +167,6 @@ public class UsuarioImpl {
         }
         return respuesta;  
     }
+    
+    
 }
