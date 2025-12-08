@@ -45,14 +45,13 @@ public class ProgramaEducativoImpl {
     
     public static HashMap<String, Object> asignarJefeCarrera(int idProgramaEducativo, int idUsuario){
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
-        Connection conexionBD = ConexionBD.abrirConexion();
         
         try{
-            if(ProgramaEducativoDAO.hayJefeCarreraAsignado(conexionBD, idProgramaEducativo)){
+            if(ProgramaEducativoDAO.hayJefeCarreraAsignado(ConexionBD.abrirConexion(), idProgramaEducativo)){
                 respuesta.put("error", true);
                 respuesta.put("mensaje", "El programa educativo seleccionado ya cuenta con un Jefe de Carrera asignado.");
             }else{
-                int filasAfectadas = ProgramaEducativoDAO.asignarJefeCarrera(conexionBD, idProgramaEducativo, idUsuario);
+                int filasAfectadas = ProgramaEducativoDAO.asignarJefeCarrera(ConexionBD.abrirConexion(), idProgramaEducativo, idUsuario);
                 if (filasAfectadas > 0){
                     respuesta.put("error", false);
                     respuesta.put("mensaje", "Jefe de Carrera asignado correctamente.");
