@@ -9,17 +9,15 @@ public class ProgramaEducativo {
     private Integer idCoordinador;
     private String nombreCoordinador;
 
-   
+  
     public ProgramaEducativo() {
     }
 
-    
+   
     public ProgramaEducativo(int idProgramaEducativo, String nombre) {
         this.idProgramaEducativo = idProgramaEducativo;
         this.nombre = nombre;
     }
-
-    
 
     public int getIdProgramaEducativo() {
         return idProgramaEducativo;
@@ -69,8 +67,9 @@ public class ProgramaEducativo {
         this.nombreCoordinador = nombreCoordinador;
     }
 
-    
+ 
     @Override
     public String toString() {
-        return nombre;     }
+        return nombre; 
+    }
 }

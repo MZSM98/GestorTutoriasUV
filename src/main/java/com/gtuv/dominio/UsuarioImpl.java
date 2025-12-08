@@ -122,13 +122,16 @@ public class UsuarioImpl {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         
         try{
-            boolean confirmacion = UsuarioDAO.verificarNumeroTrabajador(ConexionBD.abrirConexion(), noTrabajador);
+            boolean existe = UsuarioDAO.verificarNumeroTrabajador(ConexionBD.abrirConexion(), noTrabajador);
             
-            if (confirmacion){
+            if (!existe){
+                respuesta.put("existe", false);
                 respuesta.put("error", false);
-                respuesta.put("mensaje", "Número de trabajador ya en uso");
+                respuesta.put("etiqueta", "");
             }else{
-                respuesta.put("error", true);
+                respuesta.put("error", false);
+                respuesta.put("existe", true);
+                respuesta.put("etiqueta", "Número de trabajador ya en uso");
             }
         }catch(SQLException sqle){
             respuesta.put("error", true);
@@ -143,13 +146,15 @@ public class UsuarioImpl {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         
         try{
-            boolean confirmacion = UsuarioDAO.verificarCorreo(ConexionBD.abrirConexion(), correo);
+            boolean existe = UsuarioDAO.verificarCorreo(ConexionBD.abrirConexion(), correo);
             
-            if (confirmacion){
+            if (!existe){
                 respuesta.put("error", false);
-                respuesta.put("mensaje", "Correo ya en uso");
+                respuesta.put("existe", false);
             }else{
-                respuesta.put("error", true);
+                respuesta.put("error", false);
+                respuesta.put("existe", true);
+                respuesta.put("etiqueta", "El Correo ya está en uso");
             }
         }catch(SQLException sqle){
             respuesta.put("error", true);
