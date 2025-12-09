@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="681.0" prefWidth="1073.0" stylesheets="@../recurso/estilos.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.gtuv.controlador.ResponderReporteTutoriaController">
+   <children>
+      <Label layoutX="48.0" layoutY="109.0" text="Responder de reporte de tutoría" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font>
+      </Label>
+      <Pane prefHeight="75.0" prefWidth="1073.0" style="-fx-background-color: #18529D;">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="501.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/logouvsinfondo.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button alignment="CENTER" layoutX="45.0" layoutY="596.0" mnemonicParsing="false" onAction="#clicRegresar" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Cancelar">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/material-symbols--arrow-back-rounded.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button alignment="CENTER" layoutX="844.0" layoutY="596.0" mnemonicParsing="false" onAction="#clicResponder" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Responder">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/mdi--file-outline.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="lblCaracteresMaximos" layoutX="192.0" layoutY="261.0" text="0/300" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="17.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="txaObservaciones" layoutX="48.0" layoutY="292.0" prefHeight="272.0" prefWidth="976.0" promptText="Escribe aquí la retroalimentación para el reporte...." style="-fx-border-color: #cccccc;" wrapText="true" />
+      <Label layoutX="48.0" layoutY="259.0" text="Observaciones" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="20.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="45.0" layoutY="159.0" prefHeight="75.0" prefWidth="371.0">
+         <children>
+            <Label styleClass="label-titulo" text="Tutor:">
+               <font>
+                  <Font name="Segoe UI Bold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="textTutor" editable="false" maxWidth="270.0" prefHeight="35.0" prefWidth="270.0" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" stylesheets="@../recurso/estilos.css" GridPane.rowIndex="1" />
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="386.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>
