@@ -28,48 +28,7 @@ import java.sql.Connection;
 
 public class TutoradoDAO {
 
-    public static List<Tutorado> obtenerTutoradosPorPrograma(int idProgramaEducativo) throws SQLException {
-        List<Tutorado> tutorados = new ArrayList<>();
-        Connection conexion = ConexionBD.abrirConexion();
-
-        if (conexion != null) {
-            try {
-                
-                String consulta = "SELECT t.*, s.nombre AS nombreSemestre " +
-                                  "FROM tutorado t " +
-                                  "INNER JOIN semestre s ON t.idSemestre = s.idSemestre " +
-                                  "WHERE t.idProgramaEducativo = ? AND t.activo = 1 " +
-                                  "ORDER BY t.apellidoPaterno ASC";
-
-                PreparedStatement ps = conexion.prepareStatement(consulta);
-                ps.setInt(1, idProgramaEducativo);
-                ResultSet rs = ps.executeQuery();
-
-                while (rs.next()) {
-                    Tutorado tutorado = new Tutorado();
-                    tutorado.setIdTutorado(rs.getInt("idTutorado"));
-                    tutorado.setMatricula(rs.getString("matricula"));
-                    tutorado.setNombre(rs.getString("nombre"));
-                    tutorado.setApellidoPaterno(rs.getString("apellidoPaterno"));
-                    tutorado.setApellidoMaterno(rs.getString("apellidoMaterno"));
-                    tutorado.setCorreo(rs.getString("correo"));
-                    
-                    tutorado.setNombreSemestre(rs.getString("nombreSemestre")); 
-                    
-                    tutorados.add(tutorado);
-                }
-            } catch (SQLException e) {
-                System.err.println("Error al consultar tutorados: " + e.getMessage());
-                throw e;
-            } finally {
-                ConexionBD.cerrarConexionBD(); 
-            }
-        }
-        return tutorados;
-
-
-    }
-    
+ 
     public static int registrar(Connection conexionBD, Tutorado tutorado) throws SQLException {
         if (conexionBD != null) {
             String insercion = "INSERT INTO tutorado (matricula, nombre, apellidoPaterno, apellidoMaterno, correo, idSemestre, idProgramaEducativo) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -158,4 +117,6 @@ public class TutoradoDAO {
         throw new SQLException(Utilidades.ERROR_BD);
 
     }
+    
+ 
 }

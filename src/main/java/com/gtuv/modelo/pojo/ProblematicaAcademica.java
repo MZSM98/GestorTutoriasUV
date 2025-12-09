@@ -8,7 +8,9 @@ public class ProblematicaAcademica {
     private String tipo;
     private String descripcion;
     private String experienciaEducativa;
-    private String nombreProfesor;
+    private String NombreProfesor;
+    
+    private String nombreAlumno; 
 
     public ProblematicaAcademica() {
     }
@@ -62,10 +64,17 @@ public class ProblematicaAcademica {
     }
 
     public String getNombreProfesor() {
-        return nombreProfesor;
+        return NombreProfesor;
     }
 
     public void setNombreProfesor(String nombreProfesor) {
-        this.nombreProfesor = nombreProfesor;
+        this.NombreProfesor = nombreProfesor;
     }
+    
+    
+    @Override
+    public String toString() {
+        return descripcion; // Para debugging o logs
+    }
+    
 }

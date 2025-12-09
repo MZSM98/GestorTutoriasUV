@@ -1,5 +1,7 @@
 package com.gtuv.modelo.pojo;
 
+import javafx.scene.control.CheckBox; 
+
 public class Asistencia {
     
     private int idAsistencia;
@@ -7,8 +9,12 @@ public class Asistencia {
     private int idTutorado;
     private boolean asistio;
     private boolean enRiesgo;
-
-    public Asistencia() {
+    private String matricula; 
+    private String nombre;
+    private String apellidoPaterno; 
+    private String apellidoMaterno; 
+    
+      public Asistencia() {
     }
 
     public int getIdAsistencia() {
@@ -50,6 +56,47 @@ public class Asistencia {
     public void setEnRiesgo(boolean enRiesgo) {
         this.enRiesgo = enRiesgo;
     }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidoPaterno() {
+        return apellidoPaterno;
+    }
+
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
+    public String getApellidoMaterno() {
+        return apellidoMaterno;
+    }
+
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
+    }
     
+   
+
+  @Override
+    public String toString() {
+        return nombre + " " + apellidoPaterno + " " + (apellidoMaterno != null ? apellidoMaterno : "");
+    }
+
+
     
+
 }

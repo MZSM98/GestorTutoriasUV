@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -20,49 +21,79 @@ public class ReporteTutoriaDAO {
     private ReporteTutoriaDAO() {
     }
 
+    public static ResultSet obtenerPorSesion(Connection conexionBD, int idTutor, int idSesion) throws SQLException {
+        if (conexionBD != null) {
+            String consulta = "SELECT * FROM reporte_tutoria " +
+                              "WHERE idTutor = ? AND idSesion = ?";
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idTutor);
+            sentencia.setInt(2, idSesion);
+            return sentencia.executeQuery();
+        }
+        throw new SQLException(Utilidades.ERROR_BD);
+    }
+
+   
     public static int registrar(Connection conexionBD, ReporteTutoria reporte) throws SQLException {
         if (conexionBD != null) {
-            String insercion = "INSERT INTO reporte_tutoria (idTutor, idSesion, idProgramaEducativo, descripcionGeneral, estado) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement sentencia = conexionBD.prepareStatement(insercion);
+            String insercion = "INSERT INTO reporte_tutoria " +
+                               "(idTutor, idSesion, idProgramaEducativo, descripcionGeneral, estado, fechaEntrega) " +
+                               "VALUES (?, ?, ?, ?, ?, ?)";
+                               
+            PreparedStatement sentencia = conexionBD.prepareStatement(insercion, Statement.RETURN_GENERATED_KEYS);
+            
             sentencia.setInt(1, reporte.getIdTutor());
             sentencia.setInt(2, reporte.getIdSesion());
             sentencia.setInt(3, reporte.getIdProgramaEducativo());
             sentencia.setString(4, reporte.getDescripcionGeneral());
             sentencia.setString(5, reporte.getEstado());
-            return sentencia.executeUpdate();
+            sentencia.setTimestamp(6, reporte.getFechaEntrega());
+
+            int filasAfectadas = sentencia.executeUpdate();
+            
+            if (filasAfectadas > 0) {
+                try (ResultSet ids = sentencia.getGeneratedKeys()) {
+                    if (ids.next()) {
+                        return ids.getInt(1); 
+                    }
+                }
+            }
+            return 0;
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }
 
-    public static int editar(Connection conexionBD, ReporteTutoria reporte) throws SQLException {
+    
+    public static int actualizar(Connection conexionBD, ReporteTutoria reporte) throws SQLException {
         if (conexionBD != null) {
-            String actualizacion = "UPDATE reporte_tutoria SET descripcionGeneral = ?, estado = ? WHERE idReporteTutoria = ?";
+            String actualizacion = "UPDATE reporte_tutoria SET " +
+                                   "descripcionGeneral = ?, estado = ?, fechaEntrega = ? " +
+                                   "WHERE idReporteTutoria = ?";
+                                   
             PreparedStatement sentencia = conexionBD.prepareStatement(actualizacion);
             sentencia.setString(1, reporte.getDescripcionGeneral());
             sentencia.setString(2, reporte.getEstado());
-            sentencia.setInt(3, reporte.getIdReporteTutoria());
-            return sentencia.executeUpdate();
-        }
-        throw new SQLException(Utilidades.ERROR_BD);
-    }
+            sentencia.setTimestamp(3, reporte.getFechaEntrega());
+            sentencia.setInt(4, reporte.getIdReporteTutoria());
 
-    public static ResultSet obtenerReportesPorTutor(Connection conexionBD, int idTutor) throws SQLException {
-        if (conexionBD != null) {
-            String consulta = "SELECT * FROM reporte_tutoria WHERE idTutor = ?";
-            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
-            sentencia.setInt(1, idTutor);
-            return sentencia.executeQuery();
+            return sentencia.executeUpdate();
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }
     
-    public static boolean verificarReporteExistente(Connection conexionBD, int idTutor, int idSesion) throws SQLException{
-        if(conexionBD != null){
-             String consulta = "SELECT idReporteTutoria FROM reporte_tutoria WHERE idTutor = ? AND idSesion = ?";
-             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
-             sentencia.setInt(1, idTutor);
-             sentencia.setInt(2, idSesion);
-             return sentencia.executeQuery().next();
+       public static ResultSet obtenerTutoradosPorTutor(Connection conexionBD, int idTutor) throws SQLException {
+        if (conexionBD != null) {
+         
+            String consulta = "SELECT t.idTutorado, t.matricula, t.nombre, " + 
+                              "t.apellidoPaterno, t.apellidoMaterno, t.correo " +
+                              "FROM tutorado t " +
+                              "INNER JOIN asignacion_tutor at ON t.idTutorado = at.idTutorado " +
+                              "WHERE at.idTutor = ? AND t.activo = 1 " +
+                              "ORDER BY t.apellidoPaterno ASC";
+                              
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idTutor);
+            return sentencia.executeQuery();
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }

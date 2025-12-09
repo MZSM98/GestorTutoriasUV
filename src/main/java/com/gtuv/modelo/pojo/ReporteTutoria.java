@@ -1,6 +1,7 @@
 package com.gtuv.modelo.pojo;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class ReporteTutoria {
     
@@ -70,5 +71,18 @@ public class ReporteTutoria {
     public void setFechaEntrega(Timestamp fechaEntrega) { 
         this.fechaEntrega = fechaEntrega; 
     }
-    
+
+   
+    public String getFechaFormateada() {
+        if (this.fechaEntrega != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            return sdf.format(this.fechaEntrega);
+        }
+        return "Sin fecha";
+    }
+
+    @Override
+    public String toString() {
+        return "ReporteTutoria{" + "idReporteTutoria=" + idReporteTutoria + ", estado=" + estado + '}';
+    }
 }

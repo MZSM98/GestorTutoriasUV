@@ -14,9 +14,9 @@ import java.sql.SQLException;
  *
  * @author gurov
  */
-public class ProblematicaDAO {
+public class ProblematicaAcademicaDAO {
     
-    private ProblematicaDAO() {
+    private ProblematicaAcademicaDAO() {
     }
 
     public static int registrar(Connection conexionBD, ProblematicaAcademica problematica) throws SQLException {
@@ -63,7 +63,7 @@ public class ProblematicaDAO {
 
     public static ResultSet obtenerProblematicasPorReporte(Connection conexionBD, int idReporteTutoria) throws SQLException {
         if (conexionBD != null) {
-            // Se actualizó la columna a nombreProfesor en el SELECT también
+           
             String consulta = "SELECT pa.idProblematica, pa.idReporteTutoria, pa.idTutorado, pa.tipo, " +
                               "pa.descripcion, pa.experienciaEducativa, pa.nombreProfesor, " +
                               "t.nombre AS nombreTutorado, t.apellidoPaterno, t.apellidoMaterno " +
@@ -76,6 +76,25 @@ public class ProblematicaDAO {
             return sentencia.executeQuery();
         }
         throw new SQLException(Utilidades.ERROR_BD);
+       
+    }
+    
+    public static int actualizar(Connection conexionBD, ProblematicaAcademica problematica) throws SQLException {
+        if (conexionBD != null) {
+            String actualizacion = "UPDATE problematica_academica SET " +
+                                   "tipo = ?, descripcion = ?, experienciaEducativa = ?, profesor = ? " +
+                                   "WHERE idProblematica = ?";
+            PreparedStatement sentencia = conexionBD.prepareStatement(actualizacion);
+            sentencia.setString(1, problematica.getTipo());
+            sentencia.setString(2, problematica.getDescripcion());
+            sentencia.setString(3, problematica.getExperienciaEducativa());
+            sentencia.setString(4, problematica.getNombreProfesor());
+            sentencia.setInt(5, problematica.getIdProblematica());
+
+            return sentencia.executeUpdate();
+        }
+        throw new SQLException(Utilidades.ERROR_BD);
+        
     }
     
 }

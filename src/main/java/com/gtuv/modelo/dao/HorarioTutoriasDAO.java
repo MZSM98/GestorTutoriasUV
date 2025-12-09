@@ -25,7 +25,7 @@ public class HorarioTutoriasDAO {
             sentencia.setInt(2, horario.getIdSesion());
             sentencia.setTime(3, horario.getHoraInicio());
             
-           
+            
             return sentencia.executeUpdate(); 
         }
         throw new SQLException(Utilidades.ERROR_BD);
