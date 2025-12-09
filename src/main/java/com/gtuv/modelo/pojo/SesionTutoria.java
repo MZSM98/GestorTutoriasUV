@@ -1,6 +1,5 @@
 package com.gtuv.modelo.pojo;
 
-import java.sql.Date;
 
 public class SesionTutoria {
     
@@ -8,13 +7,13 @@ public class SesionTutoria {
     private int idPeriodo;
     private int idProgramaEducativo;
     private int numeroSesion;
-    private Date fechaSesion;
+    private String fechaSesion;
     private String estado;
 
     public SesionTutoria() {
     }
 
-    public SesionTutoria(int idSesion, int idPeriodo, int idProgramaEducativo, int numeroSesion, Date fechaSesion, String estado) {
+    public SesionTutoria(int idSesion, int idPeriodo, int idProgramaEducativo, int numeroSesion, String fechaSesion, String estado) {
         this.idSesion = idSesion;
         this.idPeriodo = idPeriodo;
         this.idProgramaEducativo = idProgramaEducativo;
@@ -55,11 +54,11 @@ public class SesionTutoria {
         this.numeroSesion = numeroSesion; 
     }
     
-    public Date getFechaSesion() { 
+    public String getFechaSesion() { 
         return fechaSesion; 
     }
     
-    public void setFechaSesion(Date fechaSesion) { 
+    public void setFechaSesion(String fechaSesion) { 
         this.fechaSesion = fechaSesion; 
     }
     
@@ -71,5 +70,9 @@ public class SesionTutoria {
         this.estado = estado; 
     }
     
-    private enum Estado {ACTIVO, INACTIVO}
+    @Override
+    public String toString(){
+        return "Sesion " + numeroSesion;
+    }
+    
 }

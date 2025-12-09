@@ -1,10 +1,14 @@
 package com.gtuv;
 
+import com.gtuv.modelo.pojo.Usuario;
+import com.gtuv.utlidad.Sesion;
+import com.gtuv.utlidad.Utilidades;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 public class GestorTutoriasUV extends Application {
@@ -13,13 +17,24 @@ public class GestorTutoriasUV extends Application {
     public void start(Stage primaryStage) {
         
         try {
-            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLConsultaTutores.fxml"));
-            Scene scene = new Scene (parent);
+            // --- SIMULACIÓN DE SESIÓN (SOLO PARA PRUEBAS) ---
+            Usuario usuarioSimulado = new Usuario();
+            usuarioSimulado.setIdUsuario(9); // <--- IMPORTANTE: Pon aquí un ID que sea Coordinador en tu BD
+            usuarioSimulado.setNombre("Coordinador");
+            usuarioSimulado.setApellidoPaterno("Prueba");
+            usuarioSimulado.setNoTrabajador("12345");
+            usuarioSimulado.setEsCoordinador(true);
+            
+            // Guardamos el usuario en la sesión global para que los controladores lo detecten
+            Sesion.setUsuario(usuarioSimulado);
+            // ------------------------------------------------
+
+            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLGestionFechaTutoria.fxml"));
+            Scene scene = new Scene(parent);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch(IOException e) {
-            System.out.println("No se pudo cargar la ventana de inicio sesión.");
-            return;
+            Utilidades.mostrarAlerta("Error", Utilidades.ERROR_ABRIR_VENTANA, Alert.AlertType.ERROR);
         }
     }
     

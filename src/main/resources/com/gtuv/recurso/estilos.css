@@ -361,3 +361,140 @@
     -fx-padding: 0;
 
 }
+
+/* ================================================= */
+/* === DATEPICKER ESTILO PRO (CORREGIDO) === */
+/* ================================================= */
+
+/* --- EL CAMPO DE TEXTO (INPUT) --- */
+.date-picker {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* Hacemos que la cajita se vea igual a tus otros TextFields */
+.date-picker > .text-field {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #d1d1d1;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px 0 0 4px; /* Redondeado solo a la izquierda */
+    -fx-background-radius: 4px 0 0 4px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-padding: 8 12 8 12;
+}
+
+/* El botón de la derecha (calendario) */
+.date-picker > .arrow-button {
+    -fx-background-color: #d1d1d1; /* Un fondo sutil para unirlo al borde */
+    -fx-background-insets: 1;
+    -fx-background-radius: 0 4px 4px 0; /* Redondeado a la derecha */
+    -fx-cursor: hand;
+    -fx-padding: 0 8 0 8;
+}
+
+.date-picker > .arrow-button .arrow {
+    -fx-background-color: #555555; /* Icono gris oscuro */
+    -fx-padding: 4px;
+}
+
+/* ================================================= */
+/* === EL POPUP (LA VENTANA FLOTANTE) === */
+/* ================================================= */
+
+.date-picker-popup {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 4);
+    -fx-border-color: transparent;
+    -fx-padding: 10px;
+}
+
+/* Fondo transparente para los contenedores internos */
+.date-picker-popup > .month-year-pane,
+.date-picker-popup > .calendar-grid {
+    -fx-background-color: transparent;
+}
+
+/* --- 1. ENCABEZADO (MES Y AÑO) --- */
+/* Forzamos el color AZUL en los textos del spinner */
+.date-picker-popup .spinner > .label {
+    -fx-text-fill: #092C4C; /* Tu Azul */
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+
+/* Flechas de navegación (< >) */
+.date-picker-popup .spinner .button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: #092C4C; /* Flechas azules */
+}
+
+/* --- 2. DÍAS DE LA SEMANA (Sun, Mon...) --- */
+.date-picker-popup .day-name-cell {
+    -fx-text-fill: #092C4C;
+    -fx-font-family: "Segoe UI";
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+/* ================================================= */
+/* === CORRECCIÓN FINAL: CÍRCULO AZUL SÓLIDO === */
+/* ================================================= */
+
+/* 1. REGLA GENERAL PARA CELDAS */
+.date-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Segoe UI";
+    -fx-alignment: CENTER;
+    -fx-background-radius: 50%; /* Siempre redondos */
+    -fx-border-color: transparent; /* Adiós bordes cuadrados */
+    -fx-font-size: 13px;
+}
+
+/* 2. HOVER (Al pasar el mouse) */
+/* Círculo gris claro suave */
+.date-cell:hover {
+    -fx-background-color: #f0f0f0; 
+    -fx-background-radius: 50%;
+}
+
+/* 3. DÍA SELECCIONADO (EL IMPORTANTE) */
+/* Usamos !important para que NADA lo sobrescriba */
+.date-picker-popup .date-cell:selected {
+    -fx-background-color: #092C4C !important; /* Relleno Azul Oscuro */
+    -fx-text-fill: white !important;          /* Texto Blanco */
+    -fx-background-radius: 50% !important;    /* Círculo perfecto */
+    -fx-border-color: transparent !important; /* Sin borde */
+    -fx-font-weight: bold;
+}
+
+/* 4. ARREGLAR CONFLICTO CON FOCO (Teclado) */
+/* A veces JavaFX pone un borde azul al hacer clic, esto lo corrige */
+.date-picker-popup .date-cell:focused:selected, 
+.date-picker-popup .date-cell:selected:hover {
+    -fx-background-color: #092C4C !important; /* Mantiene el azul */
+    -fx-text-fill: white !important;
+}
+
+/* 5. DÍA DE HOY (TODAY) */
+/* Solo texto azul, SIN círculo de fondo (a menos que se seleccione) */
+.date-picker-popup .date-cell:today {
+    -fx-text-fill: #092C4C;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent; /* Transparente por defecto */
+    -fx-border-color: transparent;
+}
+
+/* Si HOY es el día seleccionado, gana el círculo azul */
+.date-picker-popup .date-cell:today:selected {
+    -fx-background-color: #092C4C !important;
+    -fx-text-fill: white !important;
+}
