@@ -418,26 +418,29 @@ public class FormularioUsuarioController implements Initializable {
     
     private void cargarRolProgramaEducativo(int idUsuario) {
         HashMap<String, Object> respuesta = ProgramaEducativoImpl.obtenerProgramaPorUsuario(idUsuario);
-        if (!(boolean) respuesta.get("error")) {
-            ProgramaEducativo programa = (ProgramaEducativo) respuesta.get("programa");
-            if (programa != null) {
-                for(ProgramaEducativo pe : cmbProgramaEducativo.getItems()){
-                    if(pe.getIdProgramaEducativo() == programa.getIdProgramaEducativo()){
-                        cmbProgramaEducativo.setValue(pe);
-                        break;
-                    }
-                }
-                cmbProgramaEducativo.setDisable(false);
+        if ((boolean) respuesta.get("error")) {
+            return;
+        }
+        ProgramaEducativo programa = (ProgramaEducativo) respuesta.get("programa");
 
-                if (programa.getIdJefeCarrera() == idUsuario) {
-                    chkJefeCarrera.setSelected(true);
-                }
-                if (programa.getIdCoordinador() == idUsuario) {
-                    chkCoordinador.setSelected(true);
-                }
-            }
+        if (programa == null) {
+            return;
+        }
+        seleccionarProgramaEnCombo(programa);
+        cmbProgramaEducativo.setDisable(false);
+        chkJefeCarrera.setSelected(programa.getIdJefeCarrera() == idUsuario);
+        chkCoordinador.setSelected(programa.getIdCoordinador() == idUsuario);
+    }
+    
+    private void seleccionarProgramaEnCombo(ProgramaEducativo programaObjetivo) {
+    
+    for (ProgramaEducativo programaEducativo : cmbProgramaEducativo.getItems()) {
+        if (programaEducativo.getIdProgramaEducativo() == programaObjetivo.getIdProgramaEducativo()) {
+            cmbProgramaEducativo.setValue(programaEducativo);
+            return; 
         }
     }
+}
     
     private void aplicarRestricciones(){
         RestriccionCampos.limitarCantidadNumeros(txtNoTrabajador, LIMITE_CAMPO_NO_TRABAJADOR);

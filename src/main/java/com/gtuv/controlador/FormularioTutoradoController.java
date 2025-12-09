@@ -167,10 +167,10 @@ public class FormularioTutoradoController implements Initializable {
     
     private Tutorado obtenerTutoradoVista(){
         Tutorado tutorado = new Tutorado();
-        tutorado.setMatricula(txtMatricula.getText());
-        tutorado.setNombre(txtNombre.getText());
-        tutorado.setApellidoPaterno(txtApPaterno.getText());
-        tutorado.setApellidoMaterno(txtApMaterno.getText());
+        tutorado.setMatricula(txtMatricula.getText().toUpperCase());
+        tutorado.setNombre(txtNombre.getText().trim());
+        tutorado.setApellidoPaterno(txtApPaterno.getText().trim());
+        tutorado.setApellidoMaterno(txtApMaterno.getText().trim());
         tutorado.setCorreo(txtCorreo.getText());
         
         if(cmbProgramaEducativo.getValue() != null){

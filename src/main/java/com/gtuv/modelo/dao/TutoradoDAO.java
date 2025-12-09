@@ -14,14 +14,15 @@ public class TutoradoDAO {
 
     public static int registrar(Connection conexionBD, Tutorado tutorado) throws SQLException {
         if (conexionBD != null) {
-            String insercion = "INSERT INTO tutorado (matricula, nombre, apellidoPaterno, apellidoMaterno, correo, correoPersonal, idProgramaEducativo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String insercion = "INSERT INTO tutorado (matricula, nombre, apellidoPaterno, apellidoMaterno, correo, idSemestre, idProgramaEducativo) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement sentencia = conexionBD.prepareStatement(insercion);
             sentencia.setString(1, tutorado.getMatricula());
             sentencia.setString(2, tutorado.getNombre());
             sentencia.setString(3, tutorado.getApellidoPaterno());
             sentencia.setString(4, tutorado.getApellidoMaterno());
             sentencia.setString(5, tutorado.getCorreo());
-            sentencia.setInt(6, tutorado.getIdProgramaEducativo());
+            sentencia.setInt(6, tutorado.getIdSemestre());
+            sentencia.setInt(7, tutorado.getIdProgramaEducativo());
             
             return sentencia.executeUpdate();
         }
@@ -30,15 +31,16 @@ public class TutoradoDAO {
 
     public static int editar(Connection conexionBD, Tutorado tutorado) throws SQLException {
         if (conexionBD != null) {
-            String actualizacion = "UPDATE tutorado SET matricula = ?, nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, correo = ?, correoPersonal = ?, idProgramaEducativo = ? WHERE idTutorado = ?";
+            String actualizacion = "UPDATE tutorado SET matricula = ?, nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, correo = ?, idSemestre = ?, idProgramaEducativo = ? WHERE idTutorado = ?";
             PreparedStatement sentencia = conexionBD.prepareStatement(actualizacion);
             sentencia.setString(1, tutorado.getMatricula());
             sentencia.setString(2, tutorado.getNombre());
             sentencia.setString(3, tutorado.getApellidoPaterno());
             sentencia.setString(4, tutorado.getApellidoMaterno());
             sentencia.setString(5, tutorado.getCorreo());
-            sentencia.setInt(6, tutorado.getIdProgramaEducativo());
-            sentencia.setInt(7, tutorado.getIdTutorado());
+            sentencia.setInt(6, tutorado.getIdSemestre());
+            sentencia.setInt(7, tutorado.getIdProgramaEducativo());
+            sentencia.setInt(8, tutorado.getIdTutorado());
             
             return sentencia.executeUpdate();
         }
