@@ -56,7 +56,7 @@
          <columns>
             <TableColumn fx:id="colNoSesion" prefWidth="212.0" text="No. Sesión" />
             <TableColumn fx:id="colFechaProgramada" prefWidth="212.0" text="Fecha programada" />
-            <TableColumn fx:id="colEstado" prefWidth="212.0" text="Estado" />
+            <TableColumn fx:id="colEstado" prefWidth="188.00003051757812" text="Estado" />
          </columns>
       </TableView>
       <GridPane layoutX="48.0" layoutY="172.0" prefHeight="62.0" prefWidth="264.0">
