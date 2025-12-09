@@ -1,6 +1,7 @@
 package com.gtuv.dominio;
 
 import com.gtuv.modelo.ConexionBD;
+import com.gtuv.modelo.dao.TutorDAO;
 import com.gtuv.modelo.dao.TutoradoDAO;
 import com.gtuv.modelo.pojo.Tutorado;
 import com.gtuv.utlidad.Utilidades;
@@ -83,7 +84,7 @@ public class TutoradoImpl {
     public static HashMap<String, Object> obtenerTutorados() {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         try {
-            ResultSet rs = TutoradoDAO.obtenerTutorados(ConexionBD.abrirConexion());
+            ResultSet rs = TutoradoDAO.obtenerTodosLosTutorados(ConexionBD.abrirConexion());
             ArrayList<Tutorado> listaTutorados = new ArrayList<>();
             while (rs.next()) {
                 Tutorado tutorado = new Tutorado();
@@ -171,6 +172,46 @@ public class TutoradoImpl {
             respuesta.put("error", true);
             respuesta.put("mensaje", ex.getMessage());
         } finally {
+            ConexionBD.cerrarConexionBD();
+        }
+        return respuesta;
+    }
+    
+    public static HashMap<String, Object> obtenerTutoradosDisponibles(){
+        return obtenerListaTutorados(false, 0);
+    }
+    
+    public static HashMap<String, Object> obtenerTutoradosPorTutor(int idTutor){
+        return obtenerListaTutorados(true, idTutor);
+    }
+    
+    private static HashMap<String, Object> obtenerListaTutorados(boolean porTutor, int idTutor){
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        try{
+            ResultSet resultado;
+            if(porTutor){
+                resultado = TutorDAO.obtenerTutoradosPorTutor(ConexionBD.abrirConexion(), idTutor);
+            } else {
+                resultado = TutoradoDAO.obtenerTutoradosDisponibles(ConexionBD.abrirConexion());
+            }
+            
+            ArrayList<Tutorado> tutorados = new ArrayList<>();
+            while(resultado.next()){
+                Tutorado tutorado = new Tutorado();
+                tutorado.setIdTutorado(resultado.getInt("idTutorado"));
+                tutorado.setNombre(resultado.getString("nombre"));
+                tutorado.setApellidoPaterno(resultado.getString("apellidoPaterno"));
+                tutorado.setApellidoMaterno(resultado.getString("apellidoMaterno"));
+                tutorado.setNombreSemestre(resultado.getString("nombreSemestre"));
+                tutorado.setMatricula(resultado.getString("matricula"));
+                tutorados.add(tutorado);
+            }
+            respuesta.put("error", false);
+            respuesta.put("tutorados", tutorados);
+        }catch(SQLException sqle){
+            respuesta.put("error", true);
+            respuesta.put("mensaje", sqle.getMessage());
+        }finally{
             ConexionBD.cerrarConexionBD();
         }
         return respuesta;

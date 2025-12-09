@@ -49,7 +49,6 @@ public class TutoradoDAO {
 
     public static int darDeBaja(Connection conexionBD, int idTutorado) throws SQLException {
         if (conexionBD != null) {
-            // Asumiendo borrado lógico como en Usuario
             String eliminacionLogica = "UPDATE tutorado SET activo = 0 WHERE idTutorado = ?";
             PreparedStatement sentencia = conexionBD.prepareStatement(eliminacionLogica);
             sentencia.setInt(1, idTutorado);
@@ -58,11 +57,12 @@ public class TutoradoDAO {
         throw new SQLException(Utilidades.ERROR_BD);
     }
 
-    public static ResultSet obtenerTutorados(Connection conexionBD) throws SQLException {
+    public static ResultSet obtenerTodosLosTutorados(Connection conexionBD) throws SQLException {
         if (conexionBD != null) {
-            String consulta = "SELECT t.*, pe.nombre as nombreProgramaEducativo " +
+            String consulta = "SELECT t.*, pe.nombre AS nombreProgramaEducativo, s.nombre AS nombreSemestre " +
                               "FROM tutorado t " +
                               "INNER JOIN programa_educativo pe ON t.idProgramaEducativo = pe.idProgramaEducativo " +
+                              "INNER JOIN semestre s ON t.idSemestre = s.idSemestre " +
                               "WHERE t.activo = 1";
             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
             return sentencia.executeQuery();
@@ -96,6 +96,20 @@ public class TutoradoDAO {
             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
             sentencia.setString(1, correo);
             return sentencia.executeQuery().next();
+        }
+        throw new SQLException(Utilidades.ERROR_BD);
+    }
+    
+    public static ResultSet obtenerTutoradosDisponibles(Connection conexionBD) throws SQLException {
+        if(conexionBD != null){
+            String consulta = "SELECT t.*, s.nombre AS nombreSemestre " +
+                              "FROM tutorado t " +
+                              "INNER JOIN semestre s ON t.idSemestre = s.idSemestre " +
+                              "WHERE t.idTutorado NOT IN (SELECT idTutorado FROM asignacion_tutor) " +
+                              "AND t.activo = 1";
+
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            return sentencia.executeQuery();
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }

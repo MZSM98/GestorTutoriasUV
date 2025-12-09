@@ -95,9 +95,9 @@ public class GestionUsuarioController implements Initializable, IObservador {
         if(usuarioSeleccionado != null){
             boolean confirmacion;
             confirmacion = Utilidades.mostrarAlertaConfirmacion("Confirmar eliminación", "¿está seguro de continuar?"
-                    , "Está a punto de eliminar el registro del Académico(a) "
-                    + usuarioSeleccionado.getNombre() + usuarioSeleccionado.getApellidoPaterno()+ 
-                            "\nCon Número de trabajador: "+ usuarioSeleccionado.getNoTrabajador() +"\n esta acción no se puede revertir");
+                    , "Está a punto de eliminar el registro del Académico(a): "
+                    + usuarioSeleccionado.getNombreCompleto()+ 
+                    "\nCon Número de trabajador: "+ usuarioSeleccionado.getNoTrabajador() +"\n esta acción no se puede revertir");
                 if(confirmacion)
                     darDeBajaUsuario(usuarioSeleccionado.getIdUsuario());
         }else{

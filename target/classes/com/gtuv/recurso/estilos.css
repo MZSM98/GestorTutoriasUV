@@ -328,7 +328,7 @@
     /* Un 15% más oscuro para dar efecto de "presionar" */
     -fx-background-color: #1C63C0; 
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1); /* Sombra sutil */
-<<<<<<< HEAD
+
 }	
 
 /* ================================================= */
@@ -359,6 +359,5 @@
 .table-view .column-header.columna-centro .label {
     -fx-alignment: CENTER;
     -fx-padding: 0;
-=======
->>>>>>> cef3bd8f613fecfd49819208a4e8fc602b79fd25
+
 }

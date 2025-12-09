@@ -1,6 +1,6 @@
 package com.gtuv.controlador;
 
-import com.gtuv.dominio.TutorImpl; // Usamos la nueva implementación
+import com.gtuv.dominio.TutorImpl; 
 import com.gtuv.modelo.pojo.Tutor;
 import com.gtuv.utlidad.Utilidades;
 import java.io.IOException;
@@ -91,6 +91,7 @@ public class ConsultaTutoresController implements Initializable {
     
     
 
+    @FXML
     private void clicAsignar(ActionEvent event) {
         Tutor tutorSeleccionado = tblTutores.getSelectionModel().getSelectedItem();
         
@@ -106,8 +107,8 @@ public class ConsultaTutoresController implements Initializable {
             FXMLLoader loader = Utilidades.obtenerVistaMemoria("vista/FXMLAsignacionTutorado.fxml");
             Parent root = loader.load();
             
-            // AsignacionTutoradoController controlador = loader.getController();
-            // controlador.inicializarDatos(tutor); 
+            AsignacionTutoradoController controlador = loader.getController();
+            controlador.inicializarDatos(tutor); 
             
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -124,6 +125,7 @@ public class ConsultaTutoresController implements Initializable {
         }
     }
 
+    @FXML
     private void clicRegresar(ActionEvent event) {
         ((Stage) txtBuscarTutor.getScene().getWindow()).close();
     }

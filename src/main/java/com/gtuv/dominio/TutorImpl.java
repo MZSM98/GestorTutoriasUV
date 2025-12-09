@@ -47,4 +47,44 @@ public class TutorImpl {
         }
         return respuesta;
     }
+
+    public static HashMap<String, Object> asignarTutorado(int idTutor, int idTutorado){
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        try{
+            int resultado = TutorDAO.asignarTutorado(ConexionBD.abrirConexion(), idTutor, idTutorado);
+            if(resultado > 0){
+                respuesta.put("error", false);
+                respuesta.put("mensaje", "Tutorado asignado correctamente.");
+            }else{
+                respuesta.put("error", true);
+                respuesta.put("mensaje", "No se pudo asignar el tutorado.");
+            }
+        }catch(SQLException sqle){
+            respuesta.put("error", true);
+            respuesta.put("mensaje", sqle.getMessage());
+        }finally{
+            ConexionBD.cerrarConexionBD();
+        }
+        return respuesta;
+    }
+
+    public static HashMap<String, Object> desasignarTutorado(int idTutor, int idTutorado){
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        try{
+            int resultado = TutorDAO.desasignarTutorado(ConexionBD.abrirConexion(), idTutor, idTutorado);
+            if(resultado > 0){
+                respuesta.put("error", false);
+                respuesta.put("mensaje", "Tutorado desasignado correctamente.");
+            }else{
+                respuesta.put("error", true);
+                respuesta.put("mensaje", "No se pudo desasignar el tutorado.");
+            }
+        }catch(SQLException sqle){
+            respuesta.put("error", true);
+            respuesta.put("mensaje", sqle.getMessage());
+        }finally{
+            ConexionBD.cerrarConexionBD();
+        }
+        return respuesta;
+    }
 }
