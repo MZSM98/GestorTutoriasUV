@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -63,6 +64,8 @@ public class GestionReporteController implements Initializable {
     private Button btnSubirEvidencia;
     @FXML
     private Button btnGuardar;
+    @FXML
+    private TabPane tabPaneEdicionReporte;
 
     /**
      * Initializes the controller class.

@@ -19,6 +19,8 @@ public class ProgramaEducativo {
         this.nombre = nombre;
     }
 
+    
+
     public int getIdProgramaEducativo() {
         return idProgramaEducativo;
     }

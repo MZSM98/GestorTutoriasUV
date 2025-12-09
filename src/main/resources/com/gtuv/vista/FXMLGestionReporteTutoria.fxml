@@ -48,7 +48,7 @@
       </Label>
       <TextField fx:id="txtFechaTutoria" disable="true" layoutX="540.0" layoutY="165.0" prefHeight="40.0" prefWidth="220.0" styleClass="text-field-readonly" />
 
-      <TabPane layoutX="40.0" layoutY="230.0" prefHeight="420.0" prefWidth="720.0" styleClass="tab-pane-azul" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPaneEdicionReporte" layoutX="40.0" layoutY="230.0" prefHeight="420.0" prefWidth="720.0" styleClass="tab-pane-azul" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           
           <Tab text="Lista de Asistencia">

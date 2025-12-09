@@ -10,29 +10,40 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
  *
  * @author gurov
  */
-public class RegistrarProblematicaController implements Initializable {
+public class RegistroHorarioTutorController implements Initializable {
 
     @FXML
-    private ComboBox<?> cmbAlumno;
+    private ComboBox<?> cmbProgramaEducativo;
     @FXML
-    private ComboBox<?> cmbTipoProblematica;
+    private TableView<?> tblSesiones;
     @FXML
-    private CheckBox chkEnRiesgo;
+    private TableColumn<?, ?> colNumeroSesion;
     @FXML
-    private TextArea txaDescripcion;
+    private TableColumn<?, ?> colFechaSesion;
     @FXML
-    private Button btnRegresar;
+    private TableColumn<?, ?> colHoraInicio;
+    @FXML
+    private TableColumn<?, ?> colEstado;
+    @FXML
+    private Label lblSesionSeleccionada;
+    @FXML
+    private ComboBox<?> cmbHora;
+    @FXML
+    private ComboBox<?> cmbMinuto;
     @FXML
     private Button btnGuardar;
+    @FXML
+    private Button btnRegresar;
 
     /**
      * Initializes the controller class.
@@ -43,11 +54,11 @@ public class RegistrarProblematicaController implements Initializable {
     }    
 
     @FXML
-    private void clicRegresar(ActionEvent event) {
+    private void clicGuardar(ActionEvent event) {
     }
 
     @FXML
-    private void clicGuardar(ActionEvent event) {
+    private void clicRegresar(ActionEvent event) {
     }
     
 }
