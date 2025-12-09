@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="765.0" prefWidth="1234.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.AsignacionTutoradoController">
+<AnchorPane id="AnchorPane" prefHeight="799.0" prefWidth="1234.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.AsignacionTutoradoController">
    <children>
       <Pane prefHeight="75.0" prefWidth="1234.0" style="-fx-background-color: #18529D;">
          <children>
@@ -23,24 +23,24 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="48.0" layoutY="109.0" text="Tutor:" textFill="#092c4c">
+      <Label layoutX="48.0" layoutY="166.0" text="Tutor:" textFill="#092c4c">
          <font>
-            <Font name="Segoe UI Bold" size="32.0" />
+            <Font name="Segoe UI Bold" size="23.0" />
          </font>
       </Label>
-      <Label layoutX="48.0" layoutY="186.0" text="Buscar tutorado:" textFill="#777777">
+      <Label layoutX="49.0" layoutY="226.0" text="Buscar tutorado:" textFill="#777777">
          <font>
             <Font name="Segoe UI Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="txtBuscarTutorado" layoutX="48.0" layoutY="214.0" prefHeight="35.0" prefWidth="359.0" promptText="Ej. Juan Alberto" />
-      <TableView fx:id="tblTutoradosDisponibles" layoutX="48.0" layoutY="289.0" prefHeight="344.0" prefWidth="530.0">
+      <TextField fx:id="txtBuscarTutorado" layoutX="49.0" layoutY="254.0" prefHeight="35.0" prefWidth="359.0" promptText="Ej. Juan Alberto" />
+      <TableView fx:id="tblTutoradosDisponibles" layoutX="48.0" layoutY="330.0" prefHeight="344.0" prefWidth="438.0">
          <columns>
-            <TableColumn fx:id="colNombre" prefWidth="300.0" text="Nombre(s)" />
-            <TableColumn fx:id="colAsignar" prefWidth="230.0" text="Asignar" />
+            <TableColumn fx:id="colNombre" prefWidth="343.1999816894531" text="Nombre(s)" />
+            <TableColumn minWidth="3.20001220703125" prefWidth="88.800048828125" text="Semestre" />
          </columns>
       </TableView>
-      <Button fx:id="btnRegresar" alignment="CENTER" layoutX="48.0" layoutY="678.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
+      <Button alignment="CENTER" layoutX="46.0" layoutY="716.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -52,13 +52,55 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <TableView fx:id="tblTutoradosAsignados" layoutX="657.0" layoutY="289.0" prefHeight="344.0" prefWidth="530.0">
+      <Label fx:id="lblNombreTutor" layoutX="126.0" layoutY="166.0" prefHeight="28.0" prefWidth="459.0" text="Label" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="23.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER" layoutX="527.0" layoutY="428.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Asignar">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/ep--right.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button alignment="CENTER" layoutX="527.0" layoutY="537.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-azul" text="Desasignar">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/material-symbols--arrow-back-rounded.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <TableView fx:id="tblTutoradosDisponibles1" layoutX="753.0" layoutY="330.0" prefHeight="344.0" prefWidth="438.0">
          <columns>
-            <TableColumn fx:id="colNombre" prefWidth="300.0" text="Nombre(s)" />
-            <TableColumn fx:id="colDesasignar" prefWidth="230.0" text="Desasignar" />
+            <TableColumn fx:id="colNombre1" prefWidth="343.1999816894531" text="Nombre(s)" />
+            <TableColumn minWidth="3.20001220703125" prefWidth="91.99997558593748" text="Semestre" />
          </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
-      <Label fx:id="lblNombreTutor" layoutX="152.0" layoutY="109.0" text="Label" textFill="#092c4c">
+      <Label layoutX="48.0" layoutY="303.0" text="Tutorados sin asignación:" textFill="#777777">
+         <font>
+            <Font name="Segoe UI Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="753.0" layoutY="303.0" text="Tutorados asignados al tutor:" textFill="#777777">
+         <font>
+            <Font name="Segoe UI Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="100.0" text="Asignaciones" textFill="#092c4c">
          <font>
             <Font name="Segoe UI Bold" size="32.0" />
          </font>

@@ -9,8 +9,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.FormularioReporteGeneralController">
+    
+=======
+<AnchorPane id="AnchorPane" prefHeight="820.0" prefWidth="1073.0" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.FormularioReporteGeneralController">
+=======
 
 <AnchorPane id="AnchorPane" prefHeight="833.0" prefWidth="1073.0" stylesheets="@../recurso/estilos.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.gtuv.controlador.FormularioReporteGeneralController">
+>>>>>>> main
    <children>
       <Pane prefHeight="75.0" prefWidth="1073.0" style="-fx-background-color: #18529D;">
          <children>
@@ -26,6 +34,10 @@
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
+<<<<<<< HEAD
+      <GridPane layoutX="48.0" layoutY="171.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="981.0">
+         <children>
+=======
       <GridPane layoutX="48.0" layoutY="171.0" prefHeight="109.0" prefWidth="981.0">
          <children>
             <Label fx:id="lblErrorNoSesion" styleClass="label-ayuda" text="Label" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -33,6 +45,7 @@
                   <Insets top="5.0" />
                </GridPane.margin>
             </Label>
+>>>>>>> main
             <Label styleClass="label-titulo" text="Programa educativo:" GridPane.columnIndex="1">
                <font>
                   <Font name="Segoe UI Bold" size="13.0" />
@@ -46,6 +59,16 @@
                   <Insets />
                </GridPane.margin>
             </Label>
+<<<<<<< HEAD
+            <TextField fx:id="txtProgramaEducativo" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" stylesheets="@../recurso/estilos.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label styleClass="label-titulo" text="Número de sesión:">
+               <font>
+                  <Font name="Segoe UI Bold" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtFechaElaboracion" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="35.0" prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" stylesheets="@../recurso/estilos.css" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <TextField fx:id="txtNoSesion" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="37.0" prefWidth="205.0" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" stylesheets="@../recurso/estilos.css" GridPane.rowIndex="1" />
+=======
             <TextField fx:id="txtProgramaEducativo" maxWidth="382.0" prefHeight="35.0" prefWidth="382.0" style="-fx-background-color: white; -fx-border-color: black;" styleClass="campo-texto" stylesheets="@../recurso/estilos.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="lblErrorFechaElaboracion" styleClass="label-ayuda" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <GridPane.margin>
@@ -59,6 +82,7 @@
             </Label>
             <DatePicker fx:id="dpFechaElaboracion" prefHeight="35.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <ComboBox prefHeight="35.0" prefWidth="200.0" promptText="No. Sesión" GridPane.rowIndex="1" />
+>>>>>>> main
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="391.0" minWidth="10.0" prefWidth="311.0" />
@@ -68,6 +92,92 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+<<<<<<< HEAD
+         </rowConstraints>
+      </GridPane>
+      <TabPane layoutX="48.0" layoutY="280.0" prefHeight="421.0" prefWidth="981.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Lista de tutorados en riesgo">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="357.0" prefWidth="981.0">
+                     <children>
+                        <TableView fx:id="tblTutoradosEnRiesgo" layoutY="50.0" prefHeight="309.0" prefWidth="975.0" stylesheets="@../recurso/estilos.css">
+                           <columns>
+                              <TableColumn fx:id="colNoLista" prefWidth="100.0" text="No. Lista" />
+                              <TableColumn fx:id="colApPaterno" prefWidth="243.0" text="Apellido paterno" />
+                              <TableColumn fx:id="colApMaterno" prefWidth="243.0" text="Apellido materno" />
+                              <TableColumn fx:id="colNombre" prefWidth="243.0" text="Nombre(s)" />
+                              <TableColumn fx:id="colSemestre" prefWidth="144.0" text="Semestre" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="10.0" layoutY="15.0" text="Lista de tutorados en riesgo" textFill="#092c4c">
+                           <font>
+                              <Font name="Segoe UI Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Lista de problematicas">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="tblProblematicasReportadas" layoutY="50.0" prefHeight="309.0" prefWidth="975.0" stylesheets="@../recurso/estilos.css">
+                           <columns>
+                              <TableColumn fx:id="colNoProblematicasReporatdas" prefWidth="221.0" text="No. Problemáticas reportadas" />
+                              <TableColumn fx:id="colDocenteInvolucrado" prefWidth="752.0" text="Docente involucrado" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="10.0" layoutY="15.0" text="Lista de problemáticas" textFill="#092c4c">
+                           <font>
+                              <Font name="Segoe UI Bold" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Observaciones">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="10.0" layoutY="15.0" text="Observaciones" textFill="#092c4c">
+                           <font>
+                              <Font name="Segoe UI Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="txaObservaciones" layoutX="10.0" layoutY="48.0" prefHeight="312.0" prefWidth="971.0" promptText="Escriba aquí observaciones generales del reporte..." style="-fx-border-color: #cccccc;" wrapText="true" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <Button alignment="CENTER" layoutX="48.0" layoutY="740.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/material-symbols--arrow-back-rounded.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </Button>
+      <Button alignment="CENTER" layoutX="849.0" layoutY="740.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Guardar">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/heroicons-outline--save.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+>>>>>>> Stashed changes
+=======
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
@@ -85,4 +195,5 @@
          </columns>
       </TableView>
    </children>
+>>>>>>> main
 </AnchorPane>

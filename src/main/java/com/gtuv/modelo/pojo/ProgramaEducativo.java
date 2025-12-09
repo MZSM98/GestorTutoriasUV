@@ -1,6 +1,4 @@
-
 package com.gtuv.modelo.pojo;
-
 
 public class ProgramaEducativo {
     
@@ -9,6 +7,9 @@ public class ProgramaEducativo {
     int idJefeCarrera;
     int idCoordinador;
 
+    public ProgramaEducativo() {
+    }
+    
     public ProgramaEducativo(int idProgramaEducativo, String nombre, int idJefeCarrera, int idCoordinador) {
         this.idProgramaEducativo = idProgramaEducativo;
         this.nombre = nombre;
@@ -16,10 +17,6 @@ public class ProgramaEducativo {
         this.idCoordinador = idCoordinador;
     }
     
-    public ProgramaEducativo(){
-       
-    }
-
     public int getIdProgramaEducativo() {
         return idProgramaEducativo;
     }

@@ -16,3 +16,11 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 /target/
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+target/
+=======
+>>>>>>> ad8d01cce1cb634e13b3f703d9a85085632a1f29
+>>>>>>> main
+>>>>>>> cef3bd8f613fecfd49819208a4e8fc602b79fd25
