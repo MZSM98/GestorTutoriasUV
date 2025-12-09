@@ -204,6 +204,12 @@ public class FormularioReporteGeneralController implements Initializable {
         nuevoReporte.setTotalEnRiesgo(listaRiesgo != null ? listaRiesgo.size() : 0);
         nuevoReporte.setTotalAsistentes(0); 
         
+        int totalAsistencia = ReporteGeneralImpl.obtenerTotalAsistencias(
+                sesionActual.getIdSesion(), 
+                programaActual.getIdProgramaEducativo()
+        );
+        nuevoReporte.setTotalAsistentes(totalAsistencia);
+        
         HashMap<String, Object> respuesta = ReporteGeneralImpl.registrarReporte(nuevoReporte, listaProblematicas);
         if(!(boolean)respuesta.get("error")){
             Utilidades.mostrarAlerta("Éxito", (String)respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
@@ -217,6 +223,12 @@ public class FormularioReporteGeneralController implements Initializable {
     private void editarReporte(){
         reporteEdicion.setComentariosGenerales(txaObservaciones.getText().trim());
         reporteEdicion.setTotalEnRiesgo(listaRiesgo != null ? listaRiesgo.size() : 0);
+        
+        int totalAsistencia = ReporteGeneralImpl.obtenerTotalAsistencias(
+                sesionActual.getIdSesion(), 
+                programaActual.getIdProgramaEducativo()
+        );
+        reporteEdicion.setTotalAsistentes(totalAsistencia);
         
         HashMap<String, Object> respuesta = ReporteGeneralImpl.editarReporte(reporteEdicion, listaProblematicas);
         if(!(boolean)respuesta.get("error")){
