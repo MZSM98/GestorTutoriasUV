@@ -58,23 +58,60 @@ public class GestionReporteGeneralController implements Initializable, IObservad
     private TableColumn<ReporteGeneral, Integer> colTotalEnRiesgo;
 
     @FXML
-    private Button btnRegresar;
-    @FXML
     private Button btnGenerar;
     @FXML
     private Button btnExportar;
     @FXML
     private Button btnEditar;
     @FXML
-    private Button btnConsultar; 
+    private Button btnEnviar;
     
     private ObservableList<ReporteGeneral> listaReportes;
+    private boolean esJefeCarreraView = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarTabla();
         cargarReportes();
     }    
+    
+    public void configurarVistaJefeCarrera() {
+        this.esJefeCarreraView = true;
+        
+        btnEnviar.setVisible(false);
+        btnEditar.setVisible(false);
+        btnExportar.setVisible(false);
+        
+        btnGenerar.setText("Responder");
+        btnGenerar.setOnAction(this::clicResponderReporte);
+        
+        cargarReportes();
+    }
+    
+    private void clicResponderReporte(ActionEvent event) {
+        ReporteGeneral reporteSeleccionado = tblReportesGenerales.getSelectionModel().getSelectedItem();
+        
+        if (reporteSeleccionado != null) {
+            try {
+                FXMLLoader loader = Utilidades.obtenerVistaMemoria("/com/gtuv/vista/FXMLResponderReporteGeneral.fxml");
+                Parent root = loader.load();
+                
+                ResponderReporteGeneralController controller = loader.getController();
+                controller.inicializarDatos(reporteSeleccionado, this);
+                
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Responder Reporte General");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Utilidades.mostrarAlerta("No podemos navegar", Utilidades.ERROR_ABRIR_VENTANA, Alert.AlertType.ERROR);
+            }
+        } else {
+            Utilidades.mostrarAlerta("Selección requerida", "Debe seleccionar un reporte de la lista para responder.", Alert.AlertType.WARNING);
+        }
+    }
     
     private void configurarTabla(){
         colNoSesion.setCellValueFactory(new PropertyValueFactory<>("numeroSesion"));
@@ -87,19 +124,39 @@ public class GestionReporteGeneralController implements Initializable, IObservad
     }
     
     private void cargarReportes(){
-        Usuario coordinador = Sesion.getUsuario();
-        if(coordinador != null){
-            HashMap<String, Object> respuesta = ReporteGeneralImpl.obtenerReportesPorCoordinador(coordinador.getIdUsuario());
-            
-            if(!(boolean)respuesta.get("error")){
-                ArrayList<ReporteGeneral> reportesBD = (ArrayList<ReporteGeneral>) respuesta.get("reportes");
-                listaReportes = FXCollections.observableArrayList();
-                listaReportes.addAll(reportesBD);
-                tblReportesGenerales.setItems(listaReportes);
-            }else{
-                Utilidades.mostrarAlerta("Error de conexión", (String)respuesta.get("mensaje"), Alert.AlertType.ERROR);
+        Usuario usuario = Sesion.getUsuario();
+        if(usuario == null) return;
+
+        HashMap<String, Object> respuesta;
+
+        if (esJefeCarreraView) {
+            ProgramaEducativo programa = obtenerProgramaUsuario(usuario.getIdUsuario());
+            if (programa != null) {
+                respuesta = ReporteGeneralImpl.obtenerReportesEnviadosPorPrograma(programa.getIdProgramaEducativo());
+            } else {
+                Utilidades.mostrarAlerta("Error", "No se pudo identificar el programa educativo del Jefe de Carrera.", Alert.AlertType.ERROR);
+                return;
             }
+        } else {
+            respuesta = ReporteGeneralImpl.obtenerReportesPorCoordinador(usuario.getIdUsuario());
         }
+        
+        if(!(boolean)respuesta.get("error")){
+            ArrayList<ReporteGeneral> reportesBD = (ArrayList<ReporteGeneral>) respuesta.get("reportes");
+            listaReportes = FXCollections.observableArrayList();
+            listaReportes.addAll(reportesBD);
+            tblReportesGenerales.setItems(listaReportes);
+        }else{
+            Utilidades.mostrarAlerta("Error de conexión", (String)respuesta.get("mensaje"), Alert.AlertType.ERROR);
+        }
+    }
+    
+    private ProgramaEducativo obtenerProgramaUsuario(int idUsuario) {
+        HashMap<String, Object> respuesta = ProgramaEducativoImpl.obtenerProgramaPorUsuario(idUsuario);
+        if(!(boolean)respuesta.get("error")){
+            return (ProgramaEducativo) respuesta.get("programa");
+        }
+        return null;
     }
 
     @FXML
@@ -164,6 +221,12 @@ public class GestionReporteGeneralController implements Initializable, IObservad
             if("ENVIADO".equals(reporteSeleccionado.getEstatus())){
                 Utilidades.mostrarAlerta("Edición no permitida", 
                         "El reporte seleccionado ya ha sido ENVIADO y no puede ser modificado.", 
+                        Alert.AlertType.WARNING);
+                return;
+            }
+            if("REVISADO".equals(reporteSeleccionado.getEstatus())){
+                Utilidades.mostrarAlerta("Edición no permitida", 
+                        "El reporte seleccionado ya ha sido REVISADO y no puede ser modificado.", 
                         Alert.AlertType.WARNING);
                 return;
             }

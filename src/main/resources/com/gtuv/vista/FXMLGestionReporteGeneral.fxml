@@ -48,7 +48,7 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button alignment="CENTER" layoutX="843.0" layoutY="576.0" mnemonicParsing="false" onAction="#clicGenerar" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Generar">
+      <Button fx:id="btnGenerar" alignment="CENTER" layoutX="843.0" layoutY="576.0" mnemonicParsing="false" onAction="#clicGenerar" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Generar">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -57,15 +57,15 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="877.0" layoutY="148.0" mnemonicParsing="false" onAction="#clicExportar" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Exportar">
+      <Button fx:id="btnExportar" layoutX="877.0" layoutY="148.0" mnemonicParsing="false" onAction="#clicExportar" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Exportar">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button layoutX="707.0" layoutY="148.0" mnemonicParsing="false" onAction="#clicEditar" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Editar">
+      <Button fx:id="btnEditar" layoutX="707.0" layoutY="148.0" mnemonicParsing="false" onAction="#clicEditar" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Editar">
          <font>
             <Font size="14.0" />
          </font></Button>
-      <Button layoutX="536.0" layoutY="148.0" mnemonicParsing="false" onAction="#clicEnviar" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Enviar">
+      <Button fx:id="btnEnviar" layoutX="536.0" layoutY="148.0" mnemonicParsing="false" onAction="#clicEnviar" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Enviar">
          <font>
             <Font size="14.0" />
          </font></Button>

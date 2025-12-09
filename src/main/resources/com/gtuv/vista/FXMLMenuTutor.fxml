@@ -20,7 +20,7 @@
          </children>
       </Pane>
 
-      <Button fx:id="btnCerrarSesion" layoutX="48.0" layoutY="677.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" text="Cerrar sesión" />
+      <Button fx:id="btnCerrarSesion" layoutX="48.0" layoutY="677.0" mnemonicParsing="false" onAction="#clicCerrarSesion" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" text="Cerrar sesión" />
 
       <Label layoutX="48.0" layoutY="109.0" text="Bienvenido(a)," textFill="#092c4c">
          <font>
@@ -43,22 +43,7 @@
          </font>
       </Label>
 
-      <Button fx:id="btnTutorados" layoutX="47.0" layoutY="227.0" mnemonicParsing="false" prefHeight="175.0" prefWidth="175.0" styleClass="boton-verde">
-         <graphic>
-            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../recurso/ph_student.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Label layoutX="235.0" layoutY="298.0" text="Tutorados" textFill="#092c4c">
-         <font>
-            <Font name="Segoe UI Bold" size="28.0" />
-         </font>
-      </Label>
-
-      <Button fx:id="btnTutorias" layoutX="438.0" layoutY="227.0" mnemonicParsing="false" prefHeight="175.0" prefWidth="175.0" styleClass="boton-verde">
+      <Button fx:id="btnTutorias" layoutX="438.0" layoutY="227.0" mnemonicParsing="false" onAction="#clicSesiones" prefHeight="175.0" prefWidth="175.0" styleClass="boton-verde">
          <graphic>
             <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -73,7 +58,7 @@
          </font>
       </Label>
 
-      <Button fx:id="btnReportes" layoutX="47.0" layoutY="456.0" mnemonicParsing="false" prefHeight="175.0" prefWidth="175.0" styleClass="boton-verde">
+      <Button fx:id="btnReportes" layoutX="47.0" layoutY="456.0" mnemonicParsing="false" onAction="#clicReportes" prefHeight="175.0" prefWidth="175.0" styleClass="boton-verde">
          <graphic>
             <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
                <image>

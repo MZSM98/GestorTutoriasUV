@@ -35,7 +35,7 @@ public class MenuResponsabilidadController implements Initializable {
     @FXML
     private Label lblNombre;
     
-    Usuario usuario = Sesion.getUsuario();
+    private Usuario usuario;
     
     private class OpcionRol {
         String nombreRol;
@@ -49,12 +49,17 @@ public class MenuResponsabilidadController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        configurarBotones();
-        lblNombre.setText(usuario.getNombreCompleto());
+        usuario = Sesion.getUsuario();
+        if (usuario != null) {
+            lblNombre.setText(usuario.getNombreCompleto());
+            configurarBotones();
+        } else {
+            Utilidades.mostrarAlerta("Error de Sesión", "No hay usuario activo.", Alert.AlertType.ERROR);
+            clicCerrarSesion(null);
+        }
     }    
 
     private void configurarBotones() {
-        
         ArrayList<OpcionRol> roles = new ArrayList<>();
 
         if (usuario.isEsAdministrador()) {
@@ -67,6 +72,7 @@ public class MenuResponsabilidadController implements Initializable {
             roles.add(new OpcionRol("Coordinador", "/com/gtuv/vista/FXMLMenuCoordinador.fxml"));
         }
         if (usuario.isEsTutor()) {
+            //
             roles.add(new OpcionRol("Tutor", "/com/gtuv/vista/FXMLMenuTutor.fxml"));
         }
 
@@ -104,7 +110,7 @@ public class MenuResponsabilidadController implements Initializable {
             stage.centerOnScreen();
             stage.show();
         } catch (IOException e) {
-            Utilidades.mostrarAlerta("Error de navegación", "No se pudo cargar el menú solicitado.", Alert.AlertType.ERROR);
+            Utilidades.mostrarAlerta("Error de navegación", Utilidades.ERROR_ABRIR_VENTANA, Alert.AlertType.ERROR);
         }
     }
     

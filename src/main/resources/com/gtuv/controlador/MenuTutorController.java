@@ -13,17 +13,32 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class MenuJefeDeCarreraController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author User
+ */
+public class MenuTutorController implements Initializable {
 
+    @FXML
+    private Button btnCerrarSesion;
+    @FXML
+    private Label lblUsuario;
     @FXML
     private Label lblRol;
     @FXML
-    private Label lblUsuario;
+    private Button btnTutorias;
+    @FXML
+    private Button btnReportes;
    
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarUsuario();
@@ -33,34 +48,8 @@ public class MenuJefeDeCarreraController implements Initializable {
         Usuario usuario = Sesion.getUsuario();
         if (usuario != null) {
             lblUsuario.setText(usuario.getNombreCompleto());
-            lblRol.setText("Jefe de Carrera");
+            lblRol.setText("Tutor Académico");
         }
-    }
-
-    @FXML
-    private void clicReporteGeneral(ActionEvent event) {
-        try {
-            FXMLLoader loader = Utilidades.obtenerVistaMemoria("/com/gtuv/vista/FXMLGestionReporteGeneral.fxml");
-            Parent root = loader.load();
-            
-            // Obtenemos el controlador y configuramos el modo Jefe de Carrera
-            GestionReporteGeneralController controller = loader.getController();
-            controller.configurarVistaJefeCarrera();
-            
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Gestión de Reporte General");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Utilidades.mostrarAlerta("No podemos navegar", Utilidades.ERROR_ABRIR_VENTANA , Alert.AlertType.ERROR);
-        }
-    }
-
-    @FXML
-    private void clicTutorados(ActionEvent event) {
-        abrirVentanaModal("/com/gtuv/vista/FXMLConsultaTutorados.fxml", "Consulta de Tutorados");
     }
 
     @FXML
@@ -80,6 +69,16 @@ public class MenuJefeDeCarreraController implements Initializable {
                 irAMenu("/com/gtuv/vista/FXMLInicioSesion.fxml", "Inicio de Sesión");
             }
         }
+    }
+
+    @FXML
+    private void clicSesiones(ActionEvent event) {
+        abrirVentanaModal("/com/gtuv/vista/FXMLHorarioTutoria.fxml", "Horario de Tutoría");
+    }
+
+    @FXML
+    private void clicReportes(ActionEvent event) {
+        abrirVentanaModal("/com/gtuv/vista/FXMLGestionReporteTutoria.fxml", "Gestión de Reporte de Tutoría");
     }
     
     private int contarRoles(Usuario usuario) {

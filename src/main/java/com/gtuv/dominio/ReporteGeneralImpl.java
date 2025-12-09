@@ -239,5 +239,40 @@ public class ReporteGeneralImpl {
         }
         return total;
     }
+    
+    public static HashMap<String, Object> obtenerReportesEnviadosPorPrograma(int idProgramaEducativo) {
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        try {
+            // Buscamos solo los ENVIADO (Opcionalmente REVISADO también si se requiere historial)
+            ResultSet resultado = ReporteGeneralDAO.obtenerReportesPorProgramaYEstado(ConexionBD.abrirConexion(), idProgramaEducativo, "ENVIADO");
+            ArrayList<ReporteGeneral> reportes = new ArrayList<>();
+            
+            while (resultado.next()) {
+                ReporteGeneral reporte = new ReporteGeneral();
+                reporte.setIdReporteGeneral(resultado.getInt("idReporteGeneral"));
+                reporte.setIdCoordinador(resultado.getInt("idCoordinador"));
+                reporte.setIdSesion(resultado.getInt("idSesion"));
+                reporte.setNumeroSesion(resultado.getInt("numeroSesion"));
+                reporte.setIdProgramaEducativo(resultado.getInt("idProgramaEducativo"));
+                reporte.setNombreProgramaEducativo(resultado.getString("nombrePrograma"));
+                reporte.setFechaElaboracion(resultado.getString("fechaElaboracion"));
+                reporte.setComentariosGenerales(resultado.getString("comentariosGenerales"));
+                reporte.setTotalAsistentes(resultado.getInt("totalAsistentes"));
+                reporte.setTotalEnRiesgo(resultado.getInt("totalEnRiesgo"));
+                reporte.setEstatus(resultado.getString("estatus"));
+                reporte.setNombreCoordinador(resultado.getString("nombreCoordinador")); // Recuperamos el autor
+                
+                reportes.add(reporte);
+            }
+            respuesta.put("error", false);
+            respuesta.put("reportes", reportes);
+        } catch (SQLException sqle) {
+            respuesta.put("error", true);
+            respuesta.put("mensaje", sqle.getMessage());
+        } finally {
+            ConexionBD.cerrarConexionBD();
+        }
+        return respuesta;
+    }
 
 }

@@ -13,6 +13,7 @@ public class ReporteGeneral {
     private String estatus;
     private int numeroSesion;
     private String nombreProgramaEducativo;
+    private String nombreCoordinador;
 
     public ReporteGeneral() {
     }
@@ -104,6 +105,15 @@ public class ReporteGeneral {
     public void setNombreProgramaEducativo(String nombreProgramaEducativo) {
         this.nombreProgramaEducativo = nombreProgramaEducativo;
     }
+
+    public String getNombreCoordinador() {
+        return nombreCoordinador;
+    }
+
+    public void setNombreCoordinador(String nombreCoordinador) {
+        this.nombreCoordinador = nombreCoordinador;
+    }
+
     
     @Override
     public String toString() {

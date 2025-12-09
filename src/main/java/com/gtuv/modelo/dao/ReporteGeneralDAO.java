@@ -207,4 +207,22 @@ public class ReporteGeneralDAO {
         }
         return total;
     }
+    
+    public static ResultSet obtenerReportesPorProgramaYEstado(Connection conexionBD, int idProgramaEducativo, String estatus) throws SQLException {
+        if (conexionBD != null) {
+            String consulta = "SELECT rg.*, st.numeroSesion, pe.nombre AS nombrePrograma, " +
+                              "CONCAT(u.nombre, ' ', u.apellidoPaterno, ' ', u.apellidoMaterno) AS nombreCoordinador " +
+                              "FROM reporte_general rg " +
+                              "INNER JOIN sesion_tutoria st ON rg.idSesion = st.idSesion " +
+                              "INNER JOIN programa_educativo pe ON rg.idProgramaEducativo = pe.idProgramaEducativo " +
+                              "INNER JOIN usuario u ON rg.idCoordinador = u.idUsuario " +
+                              "WHERE rg.idProgramaEducativo = ? AND rg.estatus = ?";
+            
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idProgramaEducativo);
+            sentencia.setString(2, estatus);
+            return sentencia.executeQuery();
+        }
+        throw new SQLException(Utilidades.ERROR_BD);
+    }
 }

@@ -103,7 +103,7 @@ public class InicioSesionController implements Initializable {
             case "ADMIN": fxmlDestino = "/com/gtuv/vista/FXMLMenuAdministrador.fxml"; break;
             case "TUTOR": fxmlDestino = "/com/gtuv/vista/FXMLMenuTutor.fxml"; break;
             case "COORDINADOR": fxmlDestino = "/com/gtuv/vista/FXMLMenuCoordinador.fxml"; break;
-            case "JEFE": fxmlDestino = "/com/gtuv/vista/FXMLMenuJefeCarrera.fxml"; break;
+            case "JEFE": fxmlDestino = "/com/gtuv/vista/FXMLMenuJefeDeCarrera.fxml"; break;
         }
         abrirVentana(fxmlDestino, "Menú Principal");
     }
