@@ -7,7 +7,7 @@ public class Tutorado {
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private String Correo;
+    private String correo;
     private int idProgramaEducativo;
     private String nombreProgramaEducativo;
     private int idSemestre;
@@ -23,7 +23,7 @@ public class Tutorado {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
-        this.Correo = Correo;
+        this.correo = Correo;
         this.idProgramaEducativo = idProgramaEducativo;
         this.nombreProgramaEducativo = nombreProgramaEducativo;
         this.idSemestre = idSemestre;
@@ -72,11 +72,11 @@ public class Tutorado {
     }
 
     public String getCorreo() {
-        return Correo;
+        return correo;
     }
 
-    public void setCorreo(String Correo) {
-        this.Correo = Correo;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     public int getIdProgramaEducativo() {

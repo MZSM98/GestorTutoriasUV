@@ -389,7 +389,7 @@ public class FormularioUsuarioController implements Initializable {
             return true; 
         }
         if (actual != null) {
-            String mensaje = "El programa ya cuenta con el Jefe de Carrera:\n" + actual.getNombre() + " " + actual.getApellidoPaterno() +
+            String mensaje = "El programa ya cuenta con el Jefe de Carrera:\n" + actual.getNombreCompleto() +
                          "\n Número de trabajador: "+ actual.getNoTrabajador()+
                          "\n¿Desea sustituirlo?";
             return Utilidades.mostrarAlertaConfirmacion("Conflicto de Asignación", "Jefe existente", mensaje);
@@ -408,8 +408,8 @@ public class FormularioUsuarioController implements Initializable {
         }
 
         if (actual != null) {
-            String mensaje = "El programa ya cuenta con el Coordinador:\n" + actual.getNombre() + " " + actual.getApellidoPaterno() +
-                    "\n Número de trabajador: " + actual.getNoTrabajador()+
+            String mensaje = "El programa ya cuenta con el Coordinador:\n" + actual.getNombreCompleto() +
+                         "\n Número de trabajador: " + actual.getNoTrabajador()+
                          "\n¿Desea sustituirlo?";
             return Utilidades.mostrarAlertaConfirmacion("Conflicto de Asignación", "Coordinador existente", mensaje);
         }

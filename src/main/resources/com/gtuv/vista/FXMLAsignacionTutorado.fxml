@@ -23,7 +23,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="48.0" layoutY="109.0" text="Tutorados disponibles" textFill="#092c4c">
+      <Label layoutX="48.0" layoutY="109.0" text="Tutor:" textFill="#092c4c">
          <font>
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
@@ -58,5 +58,10 @@
             <TableColumn fx:id="colDesasignar" prefWidth="230.0" text="Desasignar" />
          </columns>
       </TableView>
+      <Label fx:id="lblNombreTutor" layoutX="152.0" layoutY="109.0" text="Label" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="32.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
