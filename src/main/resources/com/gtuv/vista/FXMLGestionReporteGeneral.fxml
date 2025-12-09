@@ -29,13 +29,14 @@
       </Label>
       <TableView fx:id="tblReportesGenerales" layoutX="48.0" layoutY="207.0" prefHeight="344.0" prefWidth="975.0">
          <columns>
-            <TableColumn fx:id="colNoSesion" prefWidth="243.0" text="No. Sesión" />
-            <TableColumn fx:id="colFechaElaboracion" prefWidth="243.0" text="Fecha de elaboración" />
-            <TableColumn fx:id="colNoProblematica" prefWidth="243.0" text="No. Problemáticas" />
-            <TableColumn fx:id="colNoTutoradosRiesgo" prefWidth="243.0" text="No. Tutorados en Riesgos" />
+            <TableColumn fx:id="colNoSesion" prefWidth="143.1999855041504" text="No. Sesión" />
+            <TableColumn fx:id="colFechaElaboracion" prefWidth="217.6000213623047" text="Fecha de elaboración" />
+            <TableColumn fx:id="colTotalAsistencia" prefWidth="244.79998779296875" text="Total asistencia" />
+            <TableColumn fx:id="colTotalEnRiesgo" prefWidth="200.0" text="Total en riesgo" />
+            <TableColumn fx:id="colEstado" prefWidth="138.4000244140625" text="Estado" />
          </columns>
       </TableView>
-      <Button fx:id="btnRegresar" alignment="CENTER" layoutX="48.0" layoutY="576.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
+      <Button alignment="CENTER" layoutX="48.0" layoutY="576.0" mnemonicParsing="false" onAction="#clicRegresar" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -47,7 +48,7 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button fx:id="btnGenerar" alignment="CENTER" layoutX="843.0" layoutY="576.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Generar">
+      <Button alignment="CENTER" layoutX="843.0" layoutY="576.0" mnemonicParsing="false" onAction="#clicGenerar" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Generar">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -56,8 +57,17 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnExportar" layoutX="877.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Exportar" />
-      <Button fx:id="btnEditar" layoutX="682.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Editar" />
-      <Button fx:id="btnConsultar" layoutX="484.0" layoutY="148.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Enviar" />
+      <Button layoutX="877.0" layoutY="148.0" mnemonicParsing="false" onAction="#clicExportar" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Exportar">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="707.0" layoutY="148.0" mnemonicParsing="false" onAction="#clicEditar" prefHeight="35.0" prefWidth="146.0" styleClass="boton-azul" text="Editar">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <Button layoutX="536.0" layoutY="148.0" mnemonicParsing="false" onAction="#clicEnviar" prefHeight="35.0" prefWidth="146.0" styleClass="boton-verde" text="Enviar">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>
