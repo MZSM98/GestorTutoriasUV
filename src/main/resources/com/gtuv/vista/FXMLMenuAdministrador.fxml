@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="726.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.MenuAdministradorController">
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="726.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.MenuAdministradorController">
    <children>
       <Pane prefHeight="75.0" prefWidth="733.0" style="-fx-background-color: #18529D;">
          <children>
@@ -24,8 +24,8 @@
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
-      <Button fx:id="btnCerrarSesion" layoutX="537.0" layoutY="573.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" text="Cerrar sesión" />
-      <Button fx:id="btnTutorados" layoutX="59.0" layoutY="261.0" mnemonicParsing="false" prefHeight="225.0" prefWidth="225.0" styleClass="boton-verde">
+      <Button layoutX="537.0" layoutY="573.0" mnemonicParsing="false" onAction="#clicCerrarSesion" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" text="Cerrar sesión" />
+      <Button fx:id="btnTutorados" layoutX="59.0" layoutY="261.0" mnemonicParsing="false" onAction="#clicTutorados" prefHeight="225.0" prefWidth="225.0" styleClass="boton-verde">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -38,7 +38,7 @@
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
-      <Button fx:id="btnUsuarios" layoutX="435.0" layoutY="261.0" mnemonicParsing="false" prefHeight="225.0" prefWidth="225.0" styleClass="boton-verde">
+      <Button fx:id="btnUsuarios" layoutX="435.0" layoutY="261.0" mnemonicParsing="false" onAction="#clicUsuarios" prefHeight="225.0" prefWidth="225.0" styleClass="boton-verde">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                <image>

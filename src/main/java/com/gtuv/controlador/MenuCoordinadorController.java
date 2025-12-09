@@ -2,6 +2,7 @@ package com.gtuv.controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,10 +17,6 @@ public class MenuCoordinadorController implements Initializable {
     @FXML
     private Label lblRol;
     @FXML
-    private Button btnTutorados;
-    @FXML
-    private Button btnTutores;
-    @FXML
     private Button btnTutorias;
     @FXML
     private Button btnReportes;
@@ -28,4 +25,24 @@ public class MenuCoordinadorController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
     }    
+
+    @FXML
+    private void clicCerrarSesion(ActionEvent event) {
+    }
+
+    @FXML
+    private void clicTutorados(ActionEvent event) {
+    }
+
+    @FXML
+    private void clicTutores(ActionEvent event) {
+    }
+
+    @FXML
+    private void clicTutorias(ActionEvent event) {
+    }
+
+    @FXML
+    private void clicReportes(ActionEvent event) {
+    }
 }

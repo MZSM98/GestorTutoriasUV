@@ -87,6 +87,7 @@ public class GestionTutoradoController implements Initializable, IObservador {
         }
     }
 
+    @FXML
     private void clicRegresar(ActionEvent event) {
         ((Stage) tblTutorados.getScene().getWindow()).close();
     }

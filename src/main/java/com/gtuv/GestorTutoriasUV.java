@@ -18,14 +18,7 @@ public class GestorTutoriasUV extends Application {
         
         try {
             
-            Usuario usuarioSimulado = new Usuario();
-            usuarioSimulado.setIdUsuario(9); 
-            usuarioSimulado.setNombre("El Pepe");
-            usuarioSimulado.setApellidoPaterno("Prueba");
-            usuarioSimulado.setNoTrabajador("12345");
-            usuarioSimulado.setEsCoordinador(true);
-            Sesion.setUsuario(usuarioSimulado);
-            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLGestionReporteGeneral.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLInicioSesion.fxml"));
             Scene scene = new Scene(parent);
             primaryStage.setScene(scene);
             primaryStage.show();
