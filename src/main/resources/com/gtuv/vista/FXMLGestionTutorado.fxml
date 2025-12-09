@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="1073.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionTutoradoController">
+<AnchorPane id="AnchorPane" prefHeight="696.0" prefWidth="919.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionTutoradoController">
    <children>
-      <Pane prefHeight="75.0" prefWidth="1073.0" style="-fx-background-color: #18529D;">
+      <Pane prefHeight="75.0" prefWidth="919.0" style="-fx-background-color: #18529D;">
          <children>
             <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="501.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -20,12 +26,12 @@
             </ImageView>
          </children>
       </Pane>
-      <Label layoutX="48.0" layoutY="109.0" text="Tutorados" textFill="#092c4c">
+      <Label layoutX="40.0" layoutY="109.0" text="Tutorados" textFill="#092c4c">
          <font>
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
-      <Button fx:id="btnRegresar" alignment="CENTER" layoutX="48.0" layoutY="576.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
+      <Button fx:id="btnRegresar" alignment="CENTER" layoutX="43.0" layoutY="622.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -36,23 +42,67 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="btnRegistrar" alignment="CENTER" layoutX="800.0" layoutY="149.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="225.0" styleClass="boton-verde" text="Nuevo usuario">
-         <graphic>
-            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../recurso/material-symbols--add-reaction-outline.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <TableView fx:id="tblTutorados" layoutX="50.0" layoutY="207.0" prefHeight="344.0" prefWidth="975.0">
+      <TableView fx:id="tblTutorados" layoutX="42.0" layoutY="252.0" prefHeight="344.0" prefWidth="847.0">
         <columns>
-          <TableColumn fx:id="colMatricula" prefWidth="162.5" text="Matrícula" />
-          <TableColumn fx:id="colApPaterno" prefWidth="162.5" text="Apellido paterno" />
-            <TableColumn fx:id="colApMaterno" prefWidth="162.5" text="Apellido materno" />
-            <TableColumn fx:id="colNombre" prefWidth="162.5" text="Nombre(s)" />
-            <TableColumn fx:id="colProgramaEducativo" prefWidth="162.5" text="Programa educativo" />
-            <TableColumn fx:id="colAcciones" prefWidth="162.5" text="Acciones" />
+          <TableColumn fx:id="colMatricula" prefWidth="140.79995727539062" text="Matrícula" />
+          <TableColumn fx:id="colApPaterno" prefWidth="185.60003662109375" text="Apellido paterno" />
+            <TableColumn fx:id="colApMaterno" prefWidth="152.00006103515625" text="Apellido materno" />
+            <TableColumn fx:id="colNombre" prefWidth="160.79998779296875" text="Nombre(s)" />
+            <TableColumn fx:id="colProgramaEducativo" prefWidth="176.79998779296875" text="Programa educativo" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
+      <GridPane layoutX="408.0" layoutY="190.0" prefHeight="56.0" prefWidth="488.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.20001220703125" minWidth="10.0" prefWidth="162.20001220703125" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.5999755859375" minWidth="10.0" prefWidth="163.79998779296875" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" onAction="#clicDarDeBaja" prefHeight="35.0" prefWidth="149.0" styleClass="boton-azul" text="Dar Baja" GridPane.columnIndex="2">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../recurso/ci_user-add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#clicEditar" prefHeight="35.0" prefWidth="154.0" styleClass="boton-azul" text="Editar" GridPane.columnIndex="1">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../recurso/ci_user-add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#clicRegistrar" prefHeight="35.0" prefWidth="153.0" styleClass="boton-verde" text="Nuevo Tutorado">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../recurso/ci_user-add.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </GridPane>
+      <TextField fx:id="txtBuscar" layoutX="43.0" layoutY="201.0" prefHeight="35.0" prefWidth="359.0" promptText="Ej. Roberto Carlos" style="-fx-padding: 8 40 8 12;" />
+      <Label layoutX="40.0" layoutY="170.0" text="Buscar tutorado:" textFill="#777777">
+         <font>
+            <Font name="Segoe UI Bold" size="16.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="21.0" fitWidth="18.0" layoutX="373.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../recurso/Vector.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

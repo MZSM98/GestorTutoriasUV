@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class UsuarioDAO {
 
@@ -13,11 +14,13 @@ public class UsuarioDAO {
         
     }
     
-    public static int registrar(Connection conexionBD, Usuario usuario) throws SQLException{
-        
-        if(conexionBD != null){
+    public static int registrar(Connection conexionBD, Usuario usuario) throws SQLException {
+        int idGenerado = 0;
+        if (conexionBD != null) {
             String insercion = "INSERT INTO usuario (noTrabajador, nombre, apellidoPaterno, apellidoMaterno, correo, contrasenia, esAdministrador, esTutor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement sentencia = conexionBD.prepareStatement(insercion);
+
+            PreparedStatement sentencia = conexionBD.prepareStatement(insercion, Statement.RETURN_GENERATED_KEYS);
+
             sentencia.setString(1, usuario.getNoTrabajador());
             sentencia.setString(2, usuario.getNombre());
             sentencia.setString(3, usuario.getApellidoPaterno());
@@ -26,10 +29,18 @@ public class UsuarioDAO {
             sentencia.setString(6, usuario.getContrasenia());
             sentencia.setBoolean(7, usuario.isEsAdministrador());
             sentencia.setBoolean(8, usuario.isEsTutor());
-            
-            sentencia.executeUpdate();
+
+            int filasAfectadas = sentencia.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                ResultSet generatedKeys = sentencia.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    idGenerado = generatedKeys.getInt(1);
+                }
+                return idGenerado; 
+            }
         }
-        throw new SQLException(Utilidades.ERROR_BD);
+        throw new SQLException("No se pudo registrar el usuario en la base de datos.");
     }
     
     public static int editar(Connection conexionBD, Usuario usuario) throws SQLException{
@@ -47,7 +58,7 @@ public class UsuarioDAO {
             sentencia.setBoolean(8, usuario.isEsTutor());
             sentencia.setInt(9, usuario.getIdUsuario());
             
-            sentencia.executeUpdate();
+            return sentencia.executeUpdate();
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }
@@ -91,6 +102,42 @@ public class UsuarioDAO {
             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
             sentencia.setString(1, numeroTrabajador);
             return sentencia.executeQuery().next();
+        }
+        throw new SQLException(Utilidades.ERROR_BD);
+    }
+    
+    public static Usuario obtenerUsuarioLogin(Connection conexionBD, String noTrabajador) throws SQLException {
+        Usuario usuario = null;
+        if(conexionBD != null){
+            String consulta = "SELECT * FROM usuario WHERE noTrabajador = ? AND activo = 1";
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setString(1, noTrabajador);
+            ResultSet resultado = sentencia.executeQuery();
+            
+            if(resultado.next()){
+                usuario = new Usuario();
+                usuario.setIdUsuario(resultado.getInt("idUsuario"));
+                usuario.setNoTrabajador(resultado.getString("noTrabajador"));
+                usuario.setNombre(resultado.getString("nombre"));
+                usuario.setApellidoPaterno(resultado.getString("apellidoPaterno"));
+                usuario.setApellidoMaterno(resultado.getString("apellidoMaterno"));
+                usuario.setCorreo(resultado.getString("correo"));
+                usuario.setContrasenia(resultado.getString("contrasenia"));
+                usuario.setEsAdministrador(resultado.getBoolean("esAdministrador"));
+                usuario.setEsTutor(resultado.getBoolean("esTutor"));
+            }
+        }
+        return usuario;
+    }
+    
+    public static ResultSet obtenerTutores(Connection conexionBD) throws SQLException {
+        if (conexionBD != null) {
+            String consulta = "SELECT u.*, " +
+                              "(SELECT COUNT(*) FROM asignacion_tutor a WHERE a.idTutor = u.idUsuario) AS totalTutorados " +
+                              "FROM usuario u " +
+                              "WHERE u.activo = 1 AND u.esTutor = 1";
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            return sentencia.executeQuery();
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }

@@ -10,6 +10,8 @@ public class SesionTutoria {
     private int numeroSesion;
     private Date fechaSesion;
     private String estado;
+    
+    private HorarioTutor horario; 
 
     public SesionTutoria() {
     }
@@ -21,7 +23,10 @@ public class SesionTutoria {
         this.numeroSesion = numeroSesion;
         this.fechaSesion = fechaSesion;
         this.estado = estado;
+        this.horario = null; 
     }
+    
+    
 
     public int getIdSesion() { 
         return idSesion; 
@@ -70,6 +75,31 @@ public class SesionTutoria {
     public void setEstado(String estado) { 
         this.estado = estado; 
     }
+
+    public HorarioTutor getHorario() {
+        
+        return horario; 
+    }
     
     private enum Estado {ACTIVO, INACTIVO}
+    
+    
+    public void setHorario(HorarioTutor horario){
+        this.horario = horario; 
+    }
+    
+    public String getHoraInicioTexto() {
+        if (this.horario != null && this.horario.getHoraInicio() != null) {
+      
+            return this.horario.getHoraInicio().toString().substring(0, 5);
+        }
+        return "Sin asignar";
+    }
+    
+    @Override
+    public String toString() {
+        return "Sesión " + numeroSesion;
+    }
+    
+    
 }

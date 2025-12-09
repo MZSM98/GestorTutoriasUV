@@ -274,7 +274,7 @@
 /* Estilo base de la celda */
 .table-cell, .tabla-azul .table-cell {
     -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
+    -fx-font-size: 15px;
     -fx-text-fill: #333333;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 8 12 8 12; /* Ajuste de padding para que coincida con los inputs */
@@ -328,4 +328,36 @@
     /* Un 15% más oscuro para dar efecto de "presionar" */
     -fx-background-color: #1C63C0; 
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 1); /* Sombra sutil */
+
+}	
+
+/* ================================================= */
+/* === ALINEACIÓN DE COLUMNAS (Header y Celda) === */
+/* ================================================= */
+
+/* 1. ALINEACIÓN IZQUIERDA (Para texto: Nombres, Correos) */
+/* Forzamos que tanto la celda como la etiqueta del título se vayan a la izquierda */
+
+.columna-izquierda.table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 15px; /* Un poco de margen izquierdo */
+}
+
+.table-view .column-header.columna-izquierda .label {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 0 0 15px; /* El MISMO margen para que queden alineados como regla */
+}
+
+/* 2. ALINEACIÓN CENTRO (Para números: ID, Tutorados) */
+/* Forzamos que celda y título estén en el puro centro */
+
+.columna-centro.table-cell {
+    -fx-alignment: CENTER;
+    -fx-padding: 0;
+}
+
+.table-view .column-header.columna-centro .label {
+    -fx-alignment: CENTER;
+    -fx-padding: 0;
+
 }

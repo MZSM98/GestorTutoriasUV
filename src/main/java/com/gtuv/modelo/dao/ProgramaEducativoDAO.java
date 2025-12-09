@@ -1,5 +1,7 @@
 package com.gtuv.modelo.dao;
 
+import com.gtuv.modelo.pojo.ProgramaEducativo;
+import com.gtuv.modelo.pojo.Usuario;
 import com.gtuv.utlidad.Utilidades;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -68,5 +70,86 @@ public class ProgramaEducativoDAO {
             return resultado.next();
         }
         throw new SQLException(Utilidades.ERROR_BD);
+    }
+    
+
+    public static Usuario obtenerJefeCarrera(Connection conexionBD, int idProgramaEducativo) throws SQLException {
+        Usuario jefe = null;
+        if (conexionBD != null) {
+            String consulta = "SELECT u.nombre, u.apellidoPaterno, u.apellidoMaterno, u.noTrabajador " +
+                              "FROM programa_educativo pe " +
+                              "JOIN usuario u ON pe.idJefeCarrera = u.idUsuario " +
+                              "WHERE pe.idProgramaEducativo = ?";
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idProgramaEducativo);
+            ResultSet resultado = sentencia.executeQuery();
+            if (resultado.next()) {
+                jefe = new Usuario();
+                jefe.setNombre(resultado.getString("nombre"));
+                jefe.setApellidoPaterno(resultado.getString("apellidoPaterno"));
+                jefe.setApellidoMaterno(resultado.getString("apellidoMaterno"));
+                jefe.setNoTrabajador(resultado.getString("noTrabajador"));
+            }
+        }
+        return jefe;
+    }
+    
+    public static Usuario obtenerCoordinador(Connection conexionBD, int idProgramaEducativo) throws SQLException {
+        Usuario coordinador = null;
+        if (conexionBD != null) {
+            String consulta = "SELECT u.idUsuario, u.nombre, u.apellidoPaterno, u.apellidoMaterno, u.noTrabajador " +
+                              "FROM programa_educativo pe " +
+                              "JOIN usuario u ON pe.idCoordinador = u.idUsuario " +
+                              "WHERE pe.idProgramaEducativo = ?";
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idProgramaEducativo);
+            ResultSet resultado = sentencia.executeQuery();
+            if (resultado.next()) {
+                coordinador = new Usuario();
+                coordinador.setIdUsuario(resultado.getInt("idUsuario")); // Importante para validar si es el mismo
+                coordinador.setNombre(resultado.getString("nombre"));
+                coordinador.setApellidoPaterno(resultado.getString("apellidoPaterno"));
+                coordinador.setApellidoMaterno(resultado.getString("apellidoMaterno"));
+                coordinador.setNoTrabajador(resultado.getString("noTrabajador"));
+            }
+        }
+        return coordinador;
+    }
+
+    public static ProgramaEducativo obtenerProgramaPorUsuario(Connection conexionBD, int idUsuario) throws SQLException {
+        ProgramaEducativo programa = null;
+        if (conexionBD != null) {
+            String consulta = "SELECT * FROM programa_educativo WHERE idJefeCarrera = ? OR idCoordinador = ?";
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idUsuario);
+            sentencia.setInt(2, idUsuario);
+            ResultSet resultado = sentencia.executeQuery();
+            if (resultado.next()) {
+                programa = new ProgramaEducativo();
+                programa.setIdProgramaEducativo(resultado.getInt("idProgramaEducativo"));
+                programa.setNombre(resultado.getString("nombre"));
+                programa.setIdJefeCarrera(resultado.getInt("idJefeCarrera"));
+                programa.setIdCoordinador(resultado.getInt("idCoordinador"));
+            }
+        }
+        return programa;
+    }
+    
+    public static void quitarJefeCarreraDelUsuario(Connection conexionBD, int idUsuario) throws SQLException {
+        if (conexionBD != null) {
+            String query = "UPDATE programa_educativo SET idJefeCarrera = NULL WHERE idJefeCarrera = ?";
+            PreparedStatement sentencia = conexionBD.prepareStatement(query);
+            sentencia.setInt(1, idUsuario);
+            sentencia.executeUpdate();
+        }
+    }
+
+    public static void quitarCoordinadorDelUsuario(Connection conexionBD, int idUsuario) throws SQLException {
+        if (conexionBD != null) {
+            String query = "UPDATE programa_educativo SET idCoordinador = NULL WHERE idCoordinador = ?";
+            PreparedStatement sentencia = conexionBD.prepareStatement(query);
+            sentencia.setInt(1, idUsuario);
+            sentencia.executeUpdate();
+        }
     }
 }

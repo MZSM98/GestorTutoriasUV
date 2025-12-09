@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="642.0" prefWidth="800.0" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.MenuResponsabilidadController">
+   <children>
+      <Pane prefHeight="75.0" prefWidth="800.0" style="-fx-background-color: #18529D;">
+         <children>
+            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="365.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/logouvsinfondo.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+      <Label layoutX="48.0" layoutY="201.0" text="¿Cómo quieres iniciar sesión?" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnResponsabilidad1" layoutX="48.0" layoutY="266.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" styleClass="boton-verde">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/ph--chalkboard-teacher.png" />
+               </image></ImageView>
+         </graphic></Button>
+      <Button fx:id="btnResponsabilidad2" layoutX="300.0" layoutY="266.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" styleClass="boton-verde">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/fluent-mdl2--party-leader.png" />
+               </image></ImageView>
+         </graphic></Button>
+      <Button layoutX="606.0" layoutY="576.0" mnemonicParsing="false" onAction="#clicCerrarSesion" prefHeight="35.0" prefWidth="146.0" styleClass="boton-gris" text="Cerrar sesión" />
+      <Button fx:id="btnResponsabilidad3" layoutX="552.0" layoutY="266.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" styleClass="boton-verde">
+         <graphic>
+            <ImageView fitHeight="125.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../recurso/la--user-tie.png" />
+               </image></ImageView>
+         </graphic>
+      </Button>
+      <GridPane layoutX="14.0" layoutY="466.0" prefHeight="51.0" prefWidth="766.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="lblResponsabilidad1" text="Label" textFill="#092c4c" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="Segoe UI Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblResponsabilidad2" text="Label" textFill="#092c4c" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="Segoe UI Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblResponsabilidad3" text="Label" textFill="#092c4c" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="Segoe UI Bold" size="28.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+      <Label layoutX="48.0" layoutY="123.0" text="Bienvenido(a):" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="23.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblNombre" layoutX="223.0" layoutY="118.0" prefHeight="38.0" prefWidth="494.0" textFill="#092c4c">
+         <font>
+            <Font name="Segoe UI Bold" size="23.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

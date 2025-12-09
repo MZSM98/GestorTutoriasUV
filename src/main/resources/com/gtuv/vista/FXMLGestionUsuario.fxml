@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="664.0" prefWidth="908.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionUsuarioController">
+<AnchorPane id="AnchorPane" prefHeight="696.0" prefWidth="938.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.GestionUsuarioController">
    <children>
-      <Pane prefHeight="75.0" prefWidth="908.0" style="-fx-background-color: #18529D;">
+      <Pane prefHeight="75.0" prefWidth="937.0" style="-fx-background-color: #18529D;">
          <children>
-            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="419.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="70.0" fitWidth="74.0" layoutX="433.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../recurso/logouvsinfondo.png" />
                </image>
@@ -31,7 +31,7 @@
             <Font name="Segoe UI Bold" size="32.0" />
          </font>
       </Label>
-      <TableView fx:id="tblUsuarios" layoutX="50.0" layoutY="228.0" prefHeight="344.0" prefWidth="818.0" styleClass="tabla-azul">
+      <TableView fx:id="tblUsuarios" layoutX="46.0" layoutY="250.0" prefHeight="344.0" prefWidth="847.0" styleClass="tabla-azul">
          <columns>
             <TableColumn fx:id="colNoTrabajador" prefWidth="162.5" text=" No. Trabajador" />
             <TableColumn fx:id="colApPaterno" prefWidth="162.5" text="Apellido paterno" />
@@ -40,7 +40,7 @@
             <TableColumn fx:id="colCorreo" prefWidth="162.5" text="Correo" />
          </columns>
       </TableView>
-      <Button alignment="CENTER" layoutX="48.0" layoutY="597.0" mnemonicParsing="false" onAction="#clicRegresar" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
+      <Button alignment="CENTER" layoutX="44.0" layoutY="619.0" mnemonicParsing="false" onAction="#clicRegresar" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -52,8 +52,8 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <TextField fx:id="textBuscar" layoutX="50.0" layoutY="174.0" prefHeight="35.0" prefWidth="359.0" style="-fx-padding: 8 40 8 12;" styleClass="campo-texto" />
-      <GridPane layoutX="415.0" layoutY="164.0" prefHeight="56.0" prefWidth="462.0">
+      <TextField fx:id="textBuscar" layoutX="48.0" layoutY="202.0" prefHeight="35.0" prefWidth="359.0" promptText="Ej. Roberto Carlos" style="-fx-padding: 8 40 8 12;" />
+      <GridPane layoutX="414.0" layoutY="191.0" prefHeight="56.0" prefWidth="488.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -63,7 +63,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#clicDarDeBaja" prefHeight="38.0" prefWidth="145.0" styleClass="boton-azul" text="Dar Baja" GridPane.columnIndex="2">
+            <Button mnemonicParsing="false" onAction="#clicDarDeBaja" prefHeight="35.0" prefWidth="149.0" styleClass="boton-azul" text="Dar Baja" GridPane.columnIndex="2">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -72,7 +72,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button mnemonicParsing="false" onAction="#clicEditar" prefHeight="38.0" prefWidth="146.0" styleClass="boton-azul" text="Editar" GridPane.columnIndex="1">
+            <Button mnemonicParsing="false" onAction="#clicEditar" prefHeight="35.0" prefWidth="154.0" styleClass="boton-azul" text="Editar" GridPane.columnIndex="1">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -81,7 +81,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#clicRegistrar" prefHeight="38.0" prefWidth="145.0" styleClass="boton-verde" text="Nuevo usuario">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#clicRegistrar" prefHeight="35.0" prefWidth="153.0" styleClass="boton-verde" text="Nuevo usuario">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -92,10 +92,15 @@
             </Button>
          </children>
       </GridPane>
-      <ImageView fitHeight="21.0" fitWidth="18.0" layoutX="378.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="21.0" fitWidth="18.0" layoutX="379.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../recurso/Vector.png" />
          </image>
       </ImageView>
+      <Label layoutX="48.0" layoutY="171.0" text="Buscar usuario(a):" textFill="#777777">
+         <font>
+            <Font name="Segoe UI Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

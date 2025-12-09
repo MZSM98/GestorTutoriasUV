@@ -5,6 +5,7 @@ import com.gtuv.dominio.UsuarioImpl;
 import com.gtuv.interfaces.IObservador;
 import com.gtuv.modelo.pojo.ProgramaEducativo;
 import com.gtuv.modelo.pojo.Usuario;
+import com.gtuv.utlidad.Encriptacion;
 import com.gtuv.utlidad.RestriccionCampos;
 import com.gtuv.utlidad.Utilidades;
 import java.net.URL;
@@ -22,7 +23,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class FormularioUsuarioController implements Initializable {
@@ -31,9 +31,7 @@ public class FormularioUsuarioController implements Initializable {
     private static final int LIMITE_MIN_NO_TRABAJADOR = 4;
     private static final int LIMITE_CAMPO_NO_TRABAJADOR = 6;
     private static final int LIMITE_CAMPO_CORREO = 100;
-    private static final int LIMITE_CAMPO_NOMBRE = 255;
-    private static final int LIMITE_CAMPO_AP_PATERNO = 255;
-    private static final int LIMITE_CAMPO_AP_MATERNO = 255;
+    private static final int LIMITE_CAMPO_NOMBRES = 255;
     private static final String CAMPO_OBLIGATORIO = "Campo obligatorio";
             
     @FXML
@@ -107,15 +105,22 @@ public class FormularioUsuarioController implements Initializable {
         this.usuarioEdicion = usuario;
         chkCoordinador.setDisable(true);
         cmbProgramaEducativo.setDisable(true);
+
         if(usuario != null){
             txtNoTrabajador.setText(usuario.getNoTrabajador());
-            txtNoTrabajador.setEditable(false);
+            txtNoTrabajador.setEditable(false); 
             txtNombre.setText(usuario.getNombre());
             txtApPaterno.setText(usuario.getApellidoPaterno());
             txtApMaterno.setText(usuario.getApellidoMaterno());
             txtCorreo.setText(usuario.getCorreo());
             chkAdmnistrador.setSelected(usuario.isEsAdministrador());
             chkTutor.setSelected(usuario.isEsTutor());
+
+            if(usuario.isEsTutor()){
+                chkCoordinador.setDisable(false);
+            }
+
+            cargarRolProgramaEducativo(usuario.getIdUsuario());
         }
     }
     
@@ -131,34 +136,45 @@ public class FormularioUsuarioController implements Initializable {
         }
     }
     
-    private void registrarUsuario(){
+    private void registrarUsuario() {
         limpiarMensajesError();
         Usuario usuarioNuevo = obtenerUsuario();
-        
-        if(!validarResponsabilidad()){
+
+        if (!validarResponsabilidad())
             return;
-        }
-        if(!validarCorreo(usuarioNuevo.getCorreo())){
-             return;
-        }
-        if (!validarNumeroTrabajador(usuarioNuevo.getNoTrabajador())){
+        if (!validarCorreo(usuarioNuevo.getCorreo()))
             return;
-        }
+        if (!validarNumeroTrabajador(usuarioNuevo.getNoTrabajador()))
+            return;
+        if (chkJefeCarrera.isSelected() && !esPosibleSustituirJefe(cmbProgramaEducativo.getValue())) 
+            return;
+        if (chkCoordinador.isSelected() && !esPosibleSustituirCoordinador(cmbProgramaEducativo.getValue())) 
+            return;
+
         HashMap<String, Object> respuesta = UsuarioImpl.registrarUsuario(usuarioNuevo);
-        if(!(boolean)respuesta.get("error")){
-            procesarAutoridad((int)respuesta.get("idUsuario"));
-            Utilidades.mostrarAlerta("Registro exitoso", (String)respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
+        if (!(boolean) respuesta.get("error")) {
+            procesarAutoridad((int) respuesta.get("idUsuario"));
+            Utilidades.mostrarAlerta("Registro exitoso", (String) respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
             observador.notificarOperacionExitosa("Registro", usuarioNuevo.getNombre());
             cerrarVentana();
-        }else{
-            Utilidades.mostrarAlerta("Error", (String)respuesta.get("mensaje"), Alert.AlertType.ERROR);
+        } else {
+            Utilidades.mostrarAlerta("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
     }
     
     private void editarUsuario(){
+        limpiarMensajesError();
+        
         Usuario usuarioEditado = obtenerUsuario();
         usuarioEditado.setIdUsuario(usuarioEdicion.getIdUsuario());
-        
+        if (!validarResponsabilidad())
+            return;
+        if (chkJefeCarrera.isSelected() && !esPosibleSustituirJefe(cmbProgramaEducativo.getValue())) {
+            return;
+        }
+        if (chkCoordinador.isSelected() && !esPosibleSustituirCoordinador(cmbProgramaEducativo.getValue())) {
+            return;
+        }
         HashMap<String, Object> respuesta = UsuarioImpl.editarUsuario(usuarioEditado);
         if(!(boolean)respuesta.get("error")){
             procesarAutoridad(usuarioEdicion.getIdUsuario());
@@ -170,12 +186,12 @@ public class FormularioUsuarioController implements Initializable {
         }
     }
     
-    private void procesarAutoridad(int idUsuario){
-        if(cmbProgramaEducativo.getSelectionModel().getSelectedItem() != null){
+    private void procesarAutoridad(int idUsuario) {
+        if (cmbProgramaEducativo.getSelectionModel().getSelectedItem() != null) {
             ProgramaEducativo programa = cmbProgramaEducativo.getSelectionModel().getSelectedItem();
-            if(chkJefeCarrera.isSelected()){
-                ProgramaEducativoImpl.asignarJefeCarrera(programa.getIdProgramaEducativo(), idUsuario);
-            }else if(chkCoordinador.isSelected()){
+            if (chkJefeCarrera.isSelected()) {
+                ProgramaEducativoImpl.sustituirJefeCarrera(programa.getIdProgramaEducativo(), idUsuario);
+            } else if (chkCoordinador.isSelected()) {
                 ProgramaEducativoImpl.asignarCoordinador(programa.getIdProgramaEducativo(), idUsuario);
             }
         }
@@ -184,11 +200,18 @@ public class FormularioUsuarioController implements Initializable {
     private Usuario obtenerUsuario(){
         Usuario usuario = new Usuario();
         usuario.setNoTrabajador(txtNoTrabajador.getText());
-        usuario.setNombre(txtNombre.getText());
-        usuario.setApellidoPaterno(txtApPaterno.getText());
-        usuario.setApellidoMaterno(txtApMaterno.getText());
+        usuario.setNombre(txtNombre.getText().trim());
+        usuario.setApellidoPaterno(txtApPaterno.getText().trim());
+        usuario.setApellidoMaterno(txtApMaterno.getText().trim());
         usuario.setCorreo(txtCorreo.getText());
-        usuario.setContrasenia(txtContrasenia.getText()); 
+        
+        if (usuarioEdicion != null && txtContrasenia.getText().isEmpty()) {
+            usuario.setContrasenia(usuarioEdicion.getContrasenia());
+        } else {
+            String passEncriptada = Encriptacion.hashPassword(txtContrasenia.getText());
+            usuario.setContrasenia(passEncriptada);
+        }
+        
         usuario.setEsAdministrador(chkAdmnistrador.isSelected());
         usuario.setEsTutor(chkTutor.isSelected());
         return usuario;
@@ -208,19 +231,15 @@ public class FormularioUsuarioController implements Initializable {
             lblErrorApPaterno.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if(txtApMaterno.getText().isEmpty()){
-            lblErrorApMaterno.setText(CAMPO_OBLIGATORIO);
-            valido = false;
-        }
         if(txtCorreo.getText().isEmpty()){
             lblErrorCorreo.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if(txtContrasenia.getText().isEmpty()){
+        if (usuarioEdicion == null && txtContrasenia.getText().isEmpty()) {
             lblErrorContrasena.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if(txtConfirmaContrasenia.getText().isEmpty()){
+        if (!txtContrasenia.getText().isEmpty() && txtConfirmaContrasenia.getText().isEmpty()) {
             lblErrorConfirmarContrasena.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
@@ -229,7 +248,7 @@ public class FormularioUsuarioController implements Initializable {
             valido = false;
         }
         
-        if(!formatoValido()){
+        if(!esFormatoValido()){
             valido = false;
         }
         return valido;
@@ -276,12 +295,11 @@ public class FormularioUsuarioController implements Initializable {
     }
     
     private boolean validarNumeroTrabajador(String noTrabajador){
-        boolean valido = false;
+        boolean valido = true;
         HashMap<String, Object> respuesta = UsuarioImpl.verificarNumeroTrabajador(noTrabajador);
         
-        if(!(boolean)respuesta.get("error") && !(boolean)respuesta.get("existe")){
-                valido = true;
-        }else{
+        if(!(boolean)respuesta.get("error") && (boolean)respuesta.get("existe")){
+            valido = false;
             lblErrorNumTrabajador.setText(respuesta.get("etiqueta").toString());
         }
         return valido;
@@ -325,12 +343,13 @@ public class FormularioUsuarioController implements Initializable {
         }
     }
     
-    private boolean formatoValido(){
+    private boolean esFormatoValido(){
         boolean valido = true;
         String noTrabajador = txtNoTrabajador.getText();
         String correo = txtCorreo.getText();
         String contrasenia = txtContrasenia.getText();
         String contrasenaconfirmacion = txtConfirmaContrasenia.getText();
+        
         if(noTrabajador.length() <= LIMITE_MIN_NO_TRABAJADOR && !noTrabajador.isEmpty()){
             valido = false;
             lblErrorNumTrabajador.setText("Formato de No. de trabajador no valido");
@@ -339,11 +358,11 @@ public class FormularioUsuarioController implements Initializable {
             valido=false;
             lblErrorCorreo.setText("Formato de correo no valido");
         }
-        if(contrasenia.length() < LIMITE_MIN_CONTRASENIA && !contrasenia.isEmpty()){
+        if (!contrasenia.isEmpty() && contrasenia.length() < LIMITE_MIN_CONTRASENIA) {
             lblErrorContrasena.setText("Debe tener al menos 6 caracteres");
-            valido=false;
-        } 
-        if (!contrasenia.matches(contrasenaconfirmacion) && !contrasenia.isEmpty()){
+            valido = false;
+        }
+        if (!contrasenia.isEmpty() && !contrasenia.equals(contrasenaconfirmacion)) {
             valido = false;
             lblErrorContrasena.setText("Las contraseñas no coinciden");
         }
@@ -360,15 +379,79 @@ public class FormularioUsuarioController implements Initializable {
         return valido;
     }
     
+    private boolean esPosibleSustituirJefe(ProgramaEducativo programa) {
+        HashMap<String, Object> resp = ProgramaEducativoImpl.obtenerJefeCarrera(programa.getIdProgramaEducativo());
+        if ((boolean) resp.get("error")) return false;
+
+        Usuario actual = (Usuario) resp.get("jefeCarrera");
+
+        if (actual != null && usuarioEdicion != null && actual.getNoTrabajador().equals(usuarioEdicion.getNoTrabajador())) {
+            return true; 
+        }
+        if (actual != null) {
+            String mensaje = "El programa ya cuenta con el Jefe de Carrera:\n" + actual.getNombre() + " " + actual.getApellidoPaterno() +
+                         "\n Número de trabajador: "+ actual.getNoTrabajador()+
+                         "\n¿Desea sustituirlo?";
+            return Utilidades.mostrarAlertaConfirmacion("Conflicto de Asignación", "Jefe existente", mensaje);
+        }
+        return true;
+    }
+    
+    private boolean esPosibleSustituirCoordinador(ProgramaEducativo programa) {
+        HashMap<String, Object> resp = ProgramaEducativoImpl.obtenerCoordinador(programa.getIdProgramaEducativo());
+        if ((boolean) resp.get("error")) return false;
+
+        Usuario actual = (Usuario) resp.get("coordinador");
+
+        if (actual != null && usuarioEdicion != null && actual.getNoTrabajador().equals(usuarioEdicion.getNoTrabajador())) {
+            return true;
+        }
+
+        if (actual != null) {
+            String mensaje = "El programa ya cuenta con el Coordinador:\n" + actual.getNombre() + " " + actual.getApellidoPaterno() +
+                    "\n Número de trabajador: " + actual.getNoTrabajador()+
+                         "\n¿Desea sustituirlo?";
+            return Utilidades.mostrarAlertaConfirmacion("Conflicto de Asignación", "Coordinador existente", mensaje);
+        }
+        return true;
+    }
+    
+    private void cargarRolProgramaEducativo(int idUsuario) {
+        HashMap<String, Object> respuesta = ProgramaEducativoImpl.obtenerProgramaPorUsuario(idUsuario);
+        if ((boolean) respuesta.get("error")) {
+            return;
+        }
+        ProgramaEducativo programa = (ProgramaEducativo) respuesta.get("programa");
+
+        if (programa == null) {
+            return;
+        }
+        seleccionarProgramaEnCombo(programa);
+        cmbProgramaEducativo.setDisable(false);
+        chkJefeCarrera.setSelected(programa.getIdJefeCarrera() == idUsuario);
+        chkCoordinador.setSelected(programa.getIdCoordinador() == idUsuario);
+    }
+    
+    private void seleccionarProgramaEnCombo(ProgramaEducativo programaObjetivo) {
+    
+    for (ProgramaEducativo programaEducativo : cmbProgramaEducativo.getItems()) {
+        if (programaEducativo.getIdProgramaEducativo() == programaObjetivo.getIdProgramaEducativo()) {
+            cmbProgramaEducativo.setValue(programaEducativo);
+            return; 
+        }
+    }
+}
+    
     private void aplicarRestricciones(){
         RestriccionCampos.limitarCantidadNumeros(txtNoTrabajador, LIMITE_CAMPO_NO_TRABAJADOR);
-        RestriccionCampos.limitarLongitud(txtNombre, LIMITE_CAMPO_NOMBRE);
+        RestriccionCampos.limitarLongitud(txtNombre, LIMITE_CAMPO_NOMBRES);
         RestriccionCampos.limitarLongitud(txtCorreo, LIMITE_CAMPO_CORREO);
-        RestriccionCampos.limitarLongitud(txtApPaterno, LIMITE_CAMPO_AP_PATERNO);
-        RestriccionCampos.limitarLongitud(txtApMaterno, LIMITE_CAMPO_AP_MATERNO);
+        RestriccionCampos.limitarLongitud(txtApPaterno, LIMITE_CAMPO_NOMBRES);
+        RestriccionCampos.limitarLongitud(txtApMaterno, LIMITE_CAMPO_NOMBRES);
         RestriccionCampos.soloLetras(txtNombre);
         RestriccionCampos.soloLetras(txtApMaterno);
         RestriccionCampos.soloLetras(txtApPaterno);
+        RestriccionCampos.soloCaracteresValidosCorreo(txtCorreo);
     }
     
 }

@@ -56,6 +56,13 @@ public class GestionUsuarioController implements Initializable, IObservador {
     }    
     
     private void configurarTabla(){
+        Utilidades.alinearIzquierda(
+            colNoTrabajador, 
+            colApPaterno, 
+            colApMaterno, 
+            colNombre, 
+            colCorreo
+        );
         colNoTrabajador.setCellValueFactory(new PropertyValueFactory("noTrabajador"));
         colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         colApPaterno.setCellValueFactory(new PropertyValueFactory("apellidoPaterno"));

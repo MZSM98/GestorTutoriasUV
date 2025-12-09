@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.FechasTutorController">
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="800.0" style="-fx-background-color: white;" stylesheets="@../recurso/estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gtuv.controlador.RegistroHorarioTutorController">
    <children>
       <Pane prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #18529D;">
          <children>
@@ -79,6 +79,7 @@
                   <Font name="Segoe UI Bold" size="14.0" />
                </font>
             </Button>
+            <Button fx:id="btnActualizar" layoutX="387.0" layoutY="78.0" minHeight="35.0" minWidth="150.0" mnemonicParsing="false" onAction="#clicActualizar" styleClass="boton-azul" text="Actualizar" />
          </children>
       </Pane>
 

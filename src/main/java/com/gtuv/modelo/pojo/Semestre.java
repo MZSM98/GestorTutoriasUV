@@ -8,6 +8,12 @@ public class Semestre {
     public Semestre() {
     }
 
+    public Semestre(int idSemestre, String nombreSemestre) {
+        this.idSemestre = idSemestre;
+        this.nombreSemestre = nombreSemestre;
+    }
+    
+
     public int getIdSemestre() {
         return idSemestre;
     }
@@ -22,5 +28,10 @@ public class Semestre {
 
     public void setNombreSemestre(String nombreSemestre) {
         this.nombreSemestre = nombreSemestre;
+    }
+    
+    @Override
+    public String toString(){
+        return nombreSemestre;
     }
 }

@@ -96,7 +96,7 @@
 
                         <Button fx:id="btnNuevaProblematica" layoutX="9.0" layoutY="335.0" mnemonicParsing="false" onAction="#clicNuevaProblematica" prefHeight="26.0" prefWidth="188.0" styleClass="boton-verde" text="+ Agregar Problemática" />
                         <Button fx:id="btnEditarProblematica" layoutX="213.0" layoutY="335.0" mnemonicParsing="false" onAction="#clicEditarProblematica" styleClass="boton-azul" text="Editar" />
-                        <Button fx:id="btnEliminarProblematica" layoutX="279.0" layoutY="335.0" mnemonicParsing="false" onAction="#clicEliminarProblematica" styleClass="boton-rojo" text="Eliminar" />
+                        <Button fx:id="btnEliminarProblematica" layoutX="279.0" layoutY="335.0" mnemonicParsing="false" onAction="#clicEliminarProblematica" styleClass="boton-azul" text="Eliminar" />
                      </children>
                   </AnchorPane>
             </content>
