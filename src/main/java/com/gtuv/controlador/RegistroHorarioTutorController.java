@@ -5,19 +5,19 @@
 package com.gtuv.controlador;
 
 import com.gtuv.dominio.ProgramaEducativoImpl;
-import com.gtuv.dominio.HorarioImpl;
+import com.gtuv.dominio.HorarioTutoriaImpl;
 import com.gtuv.dominio.SesionTutoriaImpl;
-import com.gtuv.modelo.dao.HorarioDAO;
+import com.gtuv.modelo.dao.HorarioTutoriasDAO;
 import com.gtuv.modelo.dao.SesionTutoriaDAO;
 import com.gtuv.modelo.pojo.HorarioTutor;
 import com.gtuv.modelo.pojo.ProgramaEducativo;
 import com.gtuv.modelo.pojo.SesionTutoria;
-import com.gtuv.modelo.pojo.Usuario; // Asumo que existe para obtener el ID del tutor
+import com.gtuv.modelo.pojo.Usuario; 
 import com.gtuv.utlidad.Sesion;
 import com.gtuv.utlidad.Utilidades;
 import java.net.URL;
 import java.sql.Connection;
-import com.gtuv.modelo.ConexionBD; // Asegúrate de importar tu clase de conexión
+import com.gtuv.modelo.ConexionBD; 
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
@@ -233,7 +233,7 @@ public class RegistroHorarioTutorController implements Initializable {
         nuevoHorario.setIdTutor(Sesion.getUsuario().getIdUsuario()); 
         nuevoHorario.setHoraInicio(horaSeleccionada);
 
-        HashMap<String, Object> respuesta = HorarioImpl.registrarHorario(nuevoHorario);
+        HashMap<String, Object> respuesta = HorarioTutoriaImpl.registrarHorario(nuevoHorario);
 
         procesarRespuesta(respuesta); 
     }
@@ -253,7 +253,7 @@ public class RegistroHorarioTutorController implements Initializable {
             return;
         }
 
-        // 2. Obtener hora y validar regla de negocio (Max 21:00)
+       
         Time horaSeleccionada = obtenerHoraSeleccionada();
 
         if (!esHorarioValido(horaSeleccionada)) {
@@ -265,7 +265,7 @@ public class RegistroHorarioTutorController implements Initializable {
         HorarioTutor horarioEdicion = sesionSeleccionada.getHorario();
         horarioEdicion.setHoraInicio(horaSeleccionada);
 
-        HashMap<String, Object> respuesta = HorarioImpl.actualizarHorario(horarioEdicion);
+        HashMap<String, Object> respuesta = HorarioTutoriaImpl.actualizarHorario(horarioEdicion);
 
         procesarRespuesta(respuesta);
     }

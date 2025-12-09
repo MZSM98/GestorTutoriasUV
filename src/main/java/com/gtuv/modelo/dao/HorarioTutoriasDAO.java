@@ -14,9 +14,9 @@ import java.sql.SQLException;
  *
  * @author gurov
  */
-public class HorarioDAO {
+public class HorarioTutoriasDAO {
     
-    public static boolean registrarHorario(Connection conexionBD, HorarioTutor horario) throws SQLException {
+    public static int registrarHorario(Connection conexionBD, HorarioTutor horario) throws SQLException {
         if (conexionBD != null) {
             String insercion = "INSERT INTO horario_tutor (idTutor, idSesion, horaInicio) VALUES (?, ?, ?)";
             PreparedStatement sentencia = conexionBD.prepareStatement(insercion);
@@ -25,13 +25,12 @@ public class HorarioDAO {
             sentencia.setInt(2, horario.getIdSesion());
             sentencia.setTime(3, horario.getHoraInicio());
             
-            int filasAfectadas = sentencia.executeUpdate();
-            return filasAfectadas > 0;
+           
+            return sentencia.executeUpdate(); 
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }
-
-    public static boolean actualizarHorario(Connection conexionBD, HorarioTutor horario) throws SQLException {
+    public static int actualizarHorario(Connection conexionBD, HorarioTutor horario) throws SQLException {
         if (conexionBD != null) {
             String actualizacion = "UPDATE horario_tutor SET horaInicio = ? WHERE idHorario = ?";
             PreparedStatement sentencia = conexionBD.prepareStatement(actualizacion);
@@ -39,8 +38,8 @@ public class HorarioDAO {
             sentencia.setTime(1, horario.getHoraInicio());
             sentencia.setInt(2, horario.getIdHorario());
             
-            int filasAfectadas = sentencia.executeUpdate();
-            return filasAfectadas > 0;
+           
+            return sentencia.executeUpdate();
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }

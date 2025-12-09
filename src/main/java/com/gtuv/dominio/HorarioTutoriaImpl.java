@@ -5,8 +5,9 @@
 package com.gtuv.dominio;
 
 import com.gtuv.modelo.ConexionBD;
-import com.gtuv.modelo.dao.HorarioDAO;
+import com.gtuv.modelo.dao.HorarioTutoriasDAO;
 import com.gtuv.modelo.pojo.HorarioTutor;
+import com.gtuv.utlidad.Utilidades;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -16,19 +17,21 @@ import java.util.HashMap;
  * @author gurov
  */
 
-public class HorarioImpl {
+public class HorarioTutoriaImpl {
     
     public static HashMap<String, Object> registrarHorario(HorarioTutor horario) {
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
 
         Connection conexionBD = ConexionBD.abrirConexion();
+        
         if (conexionBD != null) {
             try {
-                // Llamamos al DAO para insertar
-                boolean exito = HorarioDAO.registrarHorario(conexionBD, horario);
+             
+                int filasAfectadas = HorarioTutoriasDAO.registrarHorario(conexionBD, horario);
                 
-                if (exito) {
+              
+                if (filasAfectadas > 0) {
                     respuesta.put("error", false);
                     respuesta.put("mensaje", "Horario registrado correctamente.");
                 } else {
@@ -37,40 +40,42 @@ public class HorarioImpl {
             } catch (SQLException e) {
                 respuesta.put("mensaje", "Error en la base de datos: " + e.getMessage());
             } finally {
+                
                 ConexionBD.cerrarConexionBD();
             }
         } else {
-            respuesta.put("mensaje", "No hay conexión con la base de datos.");
+            
+            respuesta.put("mensaje", Utilidades.ERROR_BD);
         }
         return respuesta;
     }
 
-    public static HashMap<String, Object> actualizarHorario(HorarioTutor horario)  {
-        
+    public static HashMap<String, Object> actualizarHorario(HorarioTutor horario) {
         HashMap<String, Object> respuesta = new HashMap<>();
         respuesta.put("error", true);
 
         Connection conexionBD = ConexionBD.abrirConexion();
-   if (conexionBD != null) {
+        
+        if (conexionBD != null) {
             try {
-               
-                boolean exito = HorarioDAO.actualizarHorario(conexionBD, horario);
                 
-                if (exito) {
+                int filasAfectadas = HorarioTutoriasDAO.actualizarHorario(conexionBD, horario);
+                
+               
+                if (filasAfectadas > 0) {
                     respuesta.put("error", false);
                     respuesta.put("mensaje", "Horario actualizado correctamente.");
                 } else {
                     respuesta.put("mensaje", "No se pudo actualizar el horario.");
                 }
             } catch (SQLException e) {
-                
                 respuesta.put("mensaje", "Error al actualizar: " + e.getMessage());
             } finally {
-                
+             
                 ConexionBD.cerrarConexionBD();
             }
         } else {
-            respuesta.put("mensaje", "No hay conexión con la base de datos.");
+            respuesta.put("mensaje", Utilidades.ERROR_BD);
         }
         return respuesta;
     }
