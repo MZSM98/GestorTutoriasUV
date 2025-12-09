@@ -75,12 +75,7 @@ public class RegistroHorarioTutorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        if (Sesion.getUsuario() == null) {
-            Usuario usuarioPrueba = new Usuario();
-            usuarioPrueba.setIdUsuario(1); // El ID que pusimos en el script SQL
-            usuarioPrueba.setNombre("Juan Pérez");
-            Sesion.setUsuario(usuarioPrueba);
-        }
+       
         configurarTabla(); 
         configurarListeners(); 
         cargarCombos(); 

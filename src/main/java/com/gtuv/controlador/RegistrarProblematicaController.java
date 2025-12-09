@@ -19,23 +19,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
- *
- * @author gurov
+ 
+ * * @author gurov
  */
-public class GestionReporteController implements Initializable {
+public class RegistrarProblematicaController implements Initializable {
 
     @FXML private ComboBox<Tutorado> cmbAlumno;
     @FXML private ComboBox<String> cmbTipoProblematica;
@@ -55,10 +48,8 @@ public class GestionReporteController implements Initializable {
         cargarAlumnos(); 
     }
     
-   
+ 
     public void inicializarValores(int idReporte, ProblematicaAcademica problematica) {
-        
-        
         this.idReporteTutoria = idReporte;
         this.problematicaEdicion = problematica;
         
@@ -70,19 +61,22 @@ public class GestionReporteController implements Initializable {
 
     private void cargarTiposProblematica() {
         listaTipos = FXCollections.observableArrayList();
-       
+     
         listaTipos.addAll("ACADEMICA", "PERSONAL"); 
         cmbTipoProblematica.setItems(listaTipos);
     }
     
     private void cargarAlumnos() {
         listaTutorados = FXCollections.observableArrayList();
+      
         HashMap<String, Object> respuesta = TutoradoImpl.obtenerTutorados(); 
         
         if (!(boolean) respuesta.get("error")) {
             ArrayList<Tutorado> lista = (ArrayList<Tutorado>) respuesta.get("tutorados");
             listaTutorados.addAll(lista);
             cmbAlumno.setItems(listaTutorados);
+        } else {
+            Utilidades.mostrarAlerta("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
     }
 
@@ -90,11 +84,13 @@ public class GestionReporteController implements Initializable {
         txaDescripcion.setText(problematicaEdicion.getDescripcion());
         cmbTipoProblematica.setValue(problematicaEdicion.getTipo());
         
-      
+        
         for (Tutorado t : cmbAlumno.getItems()) {
             if (t.getIdTutorado() == problematicaEdicion.getIdTutorado()) {
                 cmbAlumno.setValue(t);
-                cmbAlumno.setDisable(true); // Generalmente no se cambia el alumno al editar
+                cmbAlumno.setDisable(true); 
+                
+                
                 break;
             }
         }
@@ -105,23 +101,26 @@ public class GestionReporteController implements Initializable {
         if (validarCampos()) {
             ProblematicaAcademica problematica = new ProblematicaAcademica();
             
-           
+          
             problematica.setIdReporteTutoria(this.idReporteTutoria);
             problematica.setTipo(cmbTipoProblematica.getValue());
             problematica.setDescripcion(txaDescripcion.getText());
           
+            
             problematica.setExperienciaEducativa("N/A"); 
             problematica.setNombreProfesor("N/A"); 
 
             if (esEdicion) {
                 problematica.setIdProblematica(problematicaEdicion.getIdProblematica());
-                
+              
                 problematica.setIdTutorado(problematicaEdicion.getIdTutorado());
                 
                 HashMap<String, Object> resp = ProblematicaAcademicaImpl.editarProblematica(problematica);
                 procesarRespuesta(resp);
             } else {
+                // En registro nuevo tomamos el ID del combo
                 problematica.setIdTutorado(cmbAlumno.getValue().getIdTutorado());
+                
                 HashMap<String, Object> resp = ProblematicaAcademicaImpl.registrarProblematica(problematica);
                 procesarRespuesta(resp);
             }
@@ -159,5 +158,4 @@ public class GestionReporteController implements Initializable {
         Stage stage = (Stage) txaDescripcion.getScene().getWindow();
         stage.close();
     }
-    
 }
