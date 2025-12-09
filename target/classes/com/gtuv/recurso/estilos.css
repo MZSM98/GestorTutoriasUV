@@ -498,3 +498,60 @@
     -fx-background-color: #092C4C !important;
     -fx-text-fill: white !important;
 }
+/* ================================================= */
+/* === TABPANE (PESTAÑAS) ESTILO VERDE === */
+/* ================================================= */
+
+/* 1. EL FONDO DE LA CABECERA (La tira detrás de las pestañas) */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent; /* Transparente para que se vea limpio */
+    /* Opcional: Una línea verde fina abajo para unir todo */
+    -fx-border-color: #28AD56; 
+    -fx-border-width: 0 0 2px 0; 
+}
+
+/* 2. PESTAÑA INACTIVA (ESTADO NORMAL) */
+.tab {
+    -fx-background-color: #f4f4f4; /* Gris muy suave para que parezca "atrás" */
+    -fx-background-radius: 4px 4px 0 0; /* Redondeado solo arriba */
+    -fx-background-insets: 0;
+    -fx-border-color: #d1d1d1; /* Borde sutil */
+    -fx-border-width: 1px 1px 0 1px; /* Sin borde abajo */
+    -fx-padding: 8 20 8 20; /* Espacio cómodo */
+}
+
+/* Texto de la pestaña inactiva */
+.tab .tab-label {
+    -fx-text-fill: #757575; /* Gris oscuro (discreto) */
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* 3. EFECTO HOVER (AL PASAR EL MOUSE) */
+.tab:hover {
+    -fx-background-color: #e8f5e9; /* Un verde casi blanco, muy sutil */
+    -fx-cursor: hand;
+}
+
+/* 4. PESTAÑA SELECCIONADA (LA VERDE) */
+.tab:selected {
+    -fx-background-color: #28AD56; /* TU VERDE DE BOTONES */
+    -fx-border-color: #28AD56;     /* El borde también se vuelve verde */
+    
+    /* Pequeño truco: La pestaña crece 2px para tapar la línea de abajo */
+    -fx-background-insets: -2 0 0 0; 
+}
+
+/* Texto de la pestaña seleccionada */
+.tab:selected .tab-label {
+    -fx-text-fill: white; /* Blanco para máximo contraste */
+}
+
+/* 5. EL CONTENIDO DEL TAB (El panel blanco de abajo) */
+.tab-pane .tab-content-area {
+    -fx-background-color: white;
+    -fx-border-color: #28AD56; /* Borde verde rodeando el contenido */
+    -fx-border-width: 0 1px 1px 1px; /* Izquierda, Abajo, Derecha */
+    -fx-padding: 20px;
+}

@@ -59,4 +59,18 @@ public class TutorDAO {
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }
+
+    public static ResultSet obtenerTutoresPorProgramaEducativo(Connection conexionBD, int idProgramaEducativo) throws SQLException {
+        if (conexionBD != null) {
+            String consulta = "SELECT DISTINCT u.idUsuario, u.noTrabajador, u.nombre, u.apellidoPaterno, u.apellidoMaterno, u.correo " +
+                              "FROM usuario u " +
+                              "INNER JOIN reporte_tutoria rt ON u.idUsuario = rt.idTutor " +
+                              "WHERE rt.idProgramaEducativo = ? AND u.activo = 1";
+            
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idProgramaEducativo);
+            return sentencia.executeQuery();
+        }
+        throw new SQLException(Utilidades.ERROR_BD);
+    }
 }

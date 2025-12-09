@@ -82,7 +82,7 @@
                               <Font name="Segoe UI Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tblTutoradosEnRiesgo" layoutY="50.0" prefHeight="310.0" prefWidth="931.0" stylesheets="@../recurso/estilos.css">
+                        <TableView fx:id="tblTutoradosEnRiesgo" layoutY="50.0" prefHeight="283.0" prefWidth="931.0" stylesheets="@../recurso/estilos.css">
                            <columns>
                               <TableColumn fx:id="colMatricula" prefWidth="163.99999618530273" text="Matrícula" />
                               <TableColumn fx:id="colApPaterno" prefWidth="180.8000030517578" text="Apellido paterno" />
@@ -104,14 +104,14 @@
                               <Font name="Segoe UI Bold" size="20.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="tblProblematicasReportadas" layoutY="50.0" prefHeight="286.0" prefWidth="940.0" stylesheets="@../recurso/estilos.css">
+                        <TableView fx:id="tblProblematicasReportadas" layoutY="50.0" prefHeight="282.0" prefWidth="940.0" stylesheets="@../recurso/estilos.css">
                            <columns>
                               <TableColumn fx:id="colNoProblematicasReporatdas" prefWidth="199.2000014781952" text="Tipo De Problemática" />
                               <TableColumn fx:id="colDocenteInvolucrado" prefWidth="212.80003356933594" text="Docente involucrado" />
-                              <TableColumn prefWidth="510.39996337890625" text="Descripción" />
+                              <TableColumn fx:id="colDescripcion" prefWidth="510.39996337890625" text="Descripción" />
                            </columns>
                         </TableView>
-                        <Button layoutX="823.0" layoutY="12.0" mnemonicParsing="false" onAction="#clicDeshacer" prefHeight="29.0" prefWidth="114.0" styleClass="boton-gris" text="Deshacer" />
+                        <Button fx:id="btnDeshacer" layoutX="823.0" layoutY="12.0" mnemonicParsing="false" onAction="#clicDeshacer" prefHeight="29.0" prefWidth="114.0" styleClass="boton-gris" text="Deshacer" />
                         <Button layoutX="674.0" layoutY="12.0" mnemonicParsing="false" onAction="#clicQuitar" prefHeight="29.0" prefWidth="114.0" styleClass="boton-gris" text="Quitar" />
                      </children>
                   </AnchorPane>
@@ -127,12 +127,12 @@
                            </font>
                         </Label>
                         <TextArea fx:id="txaObservaciones" layoutX="10.0" layoutY="38.0" prefHeight="272.0" prefWidth="914.0" promptText="Escriba aquí observaciones generales de la sesión..." style="-fx-border-color: #cccccc;" wrapText="true" />
-                        <Label layoutX="154.0" layoutY="7.0" text="Label" textFill="#092c4c">
+                        <Label fx:id="lblCaracteresMaximos" layoutX="154.0" layoutY="7.0" text="0/300" textFill="#092c4c">
                            <font>
                               <Font name="Segoe UI Bold" size="17.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblObservaciones" layoutX="10.0" layoutY="314.0" textFill="#df0808" />
+                        <Label fx:id="lblErrorObservaciones" layoutX="10.0" layoutY="314.0" textFill="#df0808" />
                      </children>
                   </AnchorPane>
                </content>
@@ -140,7 +140,7 @@
         </tabs>
       </TabPane>
       
-      <Button alignment="CENTER" layoutX="48.0" layoutY="740.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
+      <Button alignment="CENTER" layoutX="48.0" layoutY="740.0" mnemonicParsing="false" onAction="#clicRegresar" prefHeight="40.0" prefWidth="180.0" styleClass="boton-gris" text="Regresar">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -152,7 +152,7 @@
             <Insets />
          </opaqueInsets>
       </Button>
-      <Button alignment="CENTER" layoutX="849.0" layoutY="740.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Guardar">
+      <Button alignment="CENTER" layoutX="849.0" layoutY="740.0" mnemonicParsing="false" onAction="#clicGuardar" prefHeight="40.0" prefWidth="180.0" styleClass="boton-verde" text="Guardar">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                <image>

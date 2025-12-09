@@ -87,4 +87,33 @@ public class TutorImpl {
         }
         return respuesta;
     }
+    
+    public static HashMap<String, Object> obtenerTutoresPorProgramaEducativo(int idProgramaEducativo) {
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        
+        try {
+            ResultSet resultado = TutorDAO.obtenerTutoresPorProgramaEducativo(ConexionBD.abrirConexion(), idProgramaEducativo);
+            ArrayList<Tutor> tutores = new ArrayList<>();
+            
+            while (resultado.next()) {
+                Tutor tutor = new Tutor();
+                tutor.setIdUsuario(resultado.getInt("idUsuario"));
+                tutor.setNoTrabajador(resultado.getString("noTrabajador"));
+                tutor.setNombre(resultado.getString("nombre"));
+                tutor.setApellidoPaterno(resultado.getString("apellidoPaterno"));
+                tutor.setApellidoMaterno(resultado.getString("apellidoMaterno"));
+                tutor.setCorreo(resultado.getString("correo"));
+                
+                tutores.add(tutor);
+            }
+            respuesta.put("error", false);
+            respuesta.put("tutores", tutores);
+        } catch (SQLException sqle) {
+            respuesta.put("error", true);
+            respuesta.put("mensaje", sqle.getMessage());
+        } finally {
+            ConexionBD.cerrarConexionBD();
+        }
+        return respuesta;
+    }
 }

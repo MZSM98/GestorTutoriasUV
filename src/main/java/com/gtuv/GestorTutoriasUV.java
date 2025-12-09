@@ -17,22 +17,18 @@ public class GestorTutoriasUV extends Application {
     public void start(Stage primaryStage) {
         
         try {
-            // --- SIMULACIÓN DE SESIÓN (SOLO PARA PRUEBAS) ---
             Usuario usuarioSimulado = new Usuario();
-            usuarioSimulado.setIdUsuario(7); 
+            usuarioSimulado.setIdUsuario(9); 
             usuarioSimulado.setNombre("El Pepe");
             usuarioSimulado.setApellidoPaterno("Prueba");
             usuarioSimulado.setNoTrabajador("12345");
             usuarioSimulado.setEsCoordinador(true);
-            
-            // Guardamos el usuario en la sesión global para que los controladores lo detecten
             Sesion.setUsuario(usuarioSimulado);
-         
-
-            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLGestionReporteTutoria.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLGestionReporteGeneral.fxml"));
             Scene scene = new Scene(parent);
             primaryStage.setScene(scene);
             primaryStage.show();
+            
         } catch(IOException e) {
             Utilidades.mostrarAlerta("Error", Utilidades.ERROR_ABRIR_VENTANA, Alert.AlertType.ERROR);
         }

@@ -15,4 +15,9 @@ public class Tutor extends Usuario {
     public void setNoTutorados(int noTutorados) {
         this.noTutorados = noTutorados;
     }
+    
+    @Override
+    public String toString(){
+        return this.getNombreCompleto();
+    }
 }

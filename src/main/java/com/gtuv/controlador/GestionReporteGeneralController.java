@@ -1,8 +1,14 @@
 package com.gtuv.controlador;
 
+import com.gtuv.dominio.CatalogoImpl;
+import com.gtuv.dominio.ProgramaEducativoImpl;
 import com.gtuv.dominio.ReporteGeneralImpl;
+import com.gtuv.dominio.SesionTutoriaImpl;
 import com.gtuv.interfaces.IObservador;
+import com.gtuv.modelo.pojo.PeriodoEscolar;
+import com.gtuv.modelo.pojo.ProgramaEducativo;
 import com.gtuv.modelo.pojo.ReporteGeneral;
+import com.gtuv.modelo.pojo.SesionTutoria;
 import com.gtuv.modelo.pojo.Usuario;
 import com.gtuv.utlidad.Sesion;
 import com.gtuv.utlidad.Utilidades;
@@ -42,6 +48,16 @@ public class GestionReporteGeneralController implements Initializable, IObservad
     @FXML
     private TableColumn<ReporteGeneral, Integer> colTotalEnRiesgo;
 
+    @FXML
+    private Button btnRegresar;
+    @FXML
+    private Button btnGenerar;
+    @FXML
+    private Button btnExportar;
+    @FXML
+    private Button btnEditar;
+    @FXML
+    private Button btnConsultar; 
     
     private ObservableList<ReporteGeneral> listaReportes;
 
@@ -52,14 +68,12 @@ public class GestionReporteGeneralController implements Initializable, IObservad
     }    
     
     private void configurarTabla(){
-        // Mapeo con los atributos del POJO ReporteGeneral
         colNoSesion.setCellValueFactory(new PropertyValueFactory<>("numeroSesion"));
         colFechaElaboracion.setCellValueFactory(new PropertyValueFactory<>("fechaElaboracion"));
         colTotalAsistencia.setCellValueFactory(new PropertyValueFactory<>("totalAsistentes"));
         colTotalEnRiesgo.setCellValueFactory(new PropertyValueFactory<>("totalEnRiesgo"));
         colEstado.setCellValueFactory(new PropertyValueFactory<>("estatus"));
         
-        // Alineación visual (opcional)
         Utilidades.alinearCentro(colNoSesion, colTotalAsistencia, colTotalEnRiesgo, colEstado);
     }
     
@@ -86,7 +100,29 @@ public class GestionReporteGeneralController implements Initializable, IObservad
 
     @FXML
     private void clicGenerar(ActionEvent event) {
-        irFormulario(null);
+        if (hayBorradorPendiente()) {
+            return;
+        }
+
+        ProgramaEducativo programa = obtenerProgramaDelCoordinador();
+        SesionTutoria sesionActualSistema = null;
+        
+        if (programa != null) {
+            sesionActualSistema = obtenerSesionActiva(programa.getIdProgramaEducativo());
+        }
+
+        if (sesionActualSistema == null || programa == null) {
+            Utilidades.mostrarAlerta("Datos insuficientes", 
+                    "No se pudo identificar una sesión activa o programa educativo para generar el reporte.", 
+                    Alert.AlertType.WARNING);
+            return;
+        }
+
+        if (esSesionYaReportada(sesionActualSistema)) {
+            return;
+        }
+
+        irFormulario(null, sesionActualSistema, programa);
     }
 
     @FXML
@@ -99,14 +135,22 @@ public class GestionReporteGeneralController implements Initializable, IObservad
         ReporteGeneral reporteSeleccionado = tblReportesGenerales.getSelectionModel().getSelectedItem();
         
         if(reporteSeleccionado != null){
-            // Validar que no esté enviado para permitir edición
             if("ENVIADO".equals(reporteSeleccionado.getEstatus())){
                 Utilidades.mostrarAlerta("Edición no permitida", 
                         "El reporte seleccionado ya ha sido ENVIADO y no puede ser modificado.", 
                         Alert.AlertType.WARNING);
                 return;
             }
-            irFormulario(reporteSeleccionado);
+
+            SesionTutoria sesion = new SesionTutoria();
+            sesion.setIdSesion(reporteSeleccionado.getIdSesion());
+            sesion.setNumeroSesion(reporteSeleccionado.getNumeroSesion());
+            ProgramaEducativo programa = new ProgramaEducativo();
+            programa.setIdProgramaEducativo(reporteSeleccionado.getIdProgramaEducativo());
+            programa.setNombre(reporteSeleccionado.getNombreProgramaEducativo());
+
+            irFormulario(reporteSeleccionado, sesion, programa);
+            
         }else{
             Utilidades.mostrarAlerta("Selección requerida", "Debe seleccionar un reporte para editarlo.", Alert.AlertType.WARNING);
         }
@@ -114,12 +158,11 @@ public class GestionReporteGeneralController implements Initializable, IObservad
 
     @FXML
     private void clicEnviar(ActionEvent event) {
-        // Asumiendo que el botón btnConsultar en el FXML es para "Enviar"
         ReporteGeneral reporteSeleccionado = tblReportesGenerales.getSelectionModel().getSelectedItem();
         
         if(reporteSeleccionado != null){
             if("ENVIADO".equals(reporteSeleccionado.getEstatus())){
-                 Utilidades.mostrarAlerta("Aviso", "El reporte ya se encuentra en estado ENVIADO.", Alert.AlertType.INFORMATION);
+                 Utilidades.mostrarAlerta("Aviso", "El reporte ya se ha enviado previamente.", Alert.AlertType.INFORMATION);
                  return;
             }
             
@@ -136,8 +179,7 @@ public class GestionReporteGeneralController implements Initializable, IObservad
     }
     
     private void cambiarEstatusReporte(ReporteGeneral reporte, String nuevoEstatus){
-        reporte.setEstatus(nuevoEstatus);
-        HashMap<String, Object> respuesta = ReporteGeneralImpl.editarReporte(reporte);
+        HashMap<String, Object> respuesta = ReporteGeneralImpl.actualizarEstatus(reporte.getIdReporteGeneral(), nuevoEstatus);
         
         if(!(boolean)respuesta.get("error")){
             Utilidades.mostrarAlerta("Éxito", "El reporte ha sido enviado correctamente.", Alert.AlertType.INFORMATION);
@@ -147,13 +189,14 @@ public class GestionReporteGeneralController implements Initializable, IObservad
         }
     }
     
-    private void irFormulario(ReporteGeneral reporte){
+    private void irFormulario(ReporteGeneral reporte, SesionTutoria sesion, ProgramaEducativo programa){
         try{
             FXMLLoader loader = Utilidades.obtenerVistaMemoria("/com/gtuv/vista/FXMLFormularioReporteGeneral.fxml");
             Parent root = loader.load();
             
             FormularioReporteGeneralController controlador = loader.getController();
-            controlador.inicializarDatos(this, reporte); 
+            
+            controlador.inicializarDatos(this, reporte, sesion, programa); 
             
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -163,12 +206,77 @@ public class GestionReporteGeneralController implements Initializable, IObservad
             
         }catch(IOException e){
             e.printStackTrace();
-            Utilidades.mostrarAlerta("Error", "No se pudo cargar el formulario.", Alert.AlertType.ERROR);
+            Utilidades.mostrarAlerta("Error", "No se pudo cargar la ventana del formulario.", Alert.AlertType.ERROR);
         }
+    }
+    
+    private ProgramaEducativo obtenerProgramaDelCoordinador() {
+        Usuario coordinador = Sesion.getUsuario();
+        if(coordinador != null){
+            HashMap<String, Object> respuesta = ProgramaEducativoImpl.obtenerProgramaPorUsuario(coordinador.getIdUsuario());
+            if(!(boolean)respuesta.get("error")){
+                return (ProgramaEducativo) respuesta.get("programa");
+            }
+        }
+        return null;
+    }
+
+    private SesionTutoria obtenerSesionActiva(int idPrograma) {
+        HashMap<String, Object> respPeriodo = CatalogoImpl.obtenerPeriodoActual();
+        PeriodoEscolar periodo = (PeriodoEscolar) respPeriodo.get("periodo");
+        
+        if(periodo != null){
+            HashMap<String, Object> respSesiones = SesionTutoriaImpl.obtenerSesionesPorPeriodo(periodo.getIdPeriodo(), idPrograma);
+            if(!(boolean)respSesiones.get("error")){
+                ArrayList<SesionTutoria> sesiones = (ArrayList<SesionTutoria>) respSesiones.get("sesiones");
+                if(!sesiones.isEmpty()){
+                    return sesiones.get(sesiones.size() - 1); 
+                }
+            }
+        }
+        return null;
     }
 
     @Override
     public void notificarOperacionExitosa(String tipoOperacion, String nombre) {
         cargarReportes();
     }
-}   
+    
+    private boolean hayBorradorPendiente() {
+        if (listaReportes != null) {
+            for (ReporteGeneral reporte : listaReportes) {
+                if ("BORRADOR".equals(reporte.getEstatus())) {
+                    Utilidades.mostrarAlerta("Acción bloqueada", 
+                            "Tiene un reporte pendiente en estado BORRADOR (Sesión " + reporte.getNumeroSesion() + ").\n\n" +
+                            "Debe completar y enviar ese reporte antes de poder generar uno nuevo.", 
+                            Alert.AlertType.WARNING);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean esSesionYaReportada(SesionTutoria sesionActualSistema) {
+        if (listaReportes == null || listaReportes.isEmpty()) {
+            return false; 
+        }
+
+        int maxSesionReportada = 0;
+        for (ReporteGeneral reporte : listaReportes) {
+            if (reporte.getNumeroSesion() > maxSesionReportada) {
+                maxSesionReportada = reporte.getNumeroSesion();
+            }
+        }
+
+        if (sesionActualSistema.getNumeroSesion() <= maxSesionReportada) {
+            Utilidades.mostrarAlerta("Reporte al día", 
+                    "Ya ha generado el reporte para la Sesión " + maxSesionReportada + ".\n\n" +
+                    "No se puede generar un nuevo reporte hasta que una nueva sesión de tutorías comience ",
+                    Alert.AlertType.INFORMATION);
+            return true; 
+        }
+        
+        return false;
+    }
+}

@@ -105,7 +105,12 @@ public class FormularioFechaTutoriaController implements Initializable {
 
     @FXML
     private void clicCancelar(ActionEvent event) {
-        cerrarVentana();
+        boolean confirmacion = Utilidades.mostrarAlertaConfirmacion("Confirmar cancelación de agenda",
+                "¿Está seguro de cancelar el registro?", "La fecha no se guardará");
+        
+        if (confirmacion){
+            cerrarVentana();
+        }
     }
 
     @FXML

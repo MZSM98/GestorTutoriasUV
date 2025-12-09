@@ -113,4 +113,17 @@ public class TutoradoDAO {
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }
+    
+    public static ResultSet obtenerTutoradosEnRiesgoPorPrograma(Connection conexionBD, int idProgramaEducativo) throws SQLException {
+        if (conexionBD != null) {
+            String consulta = "SELECT t.*, s.nombre AS nombreSemestre " +
+                              "FROM tutorado t " +
+                              "INNER JOIN semestre s ON t.idSemestre = s.idSemestre " +
+                              "WHERE t.idProgramaEducativo = ? AND t.enRiesgo = 1 AND t.activo = 1";
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idProgramaEducativo);
+            return sentencia.executeQuery();
+        }
+        throw new SQLException(Utilidades.ERROR_BD);
+    }
 }

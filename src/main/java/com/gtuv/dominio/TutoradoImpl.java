@@ -216,4 +216,32 @@ public class TutoradoImpl {
         }
         return respuesta;
     }
+    
+    public static HashMap<String, Object> obtenerTutoradosEnRiesgo(int idProgramaEducativo) {
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        try {
+            ResultSet resultado = TutoradoDAO.obtenerTutoradosEnRiesgoPorPrograma(ConexionBD.abrirConexion(), idProgramaEducativo);
+            ArrayList<Tutorado> tutorados = new ArrayList<>();
+            
+            while (resultado.next()) {
+                Tutorado tutorado = new Tutorado();
+                tutorado.setIdTutorado(resultado.getInt("idTutorado"));
+                tutorado.setMatricula(resultado.getString("matricula"));
+                tutorado.setNombre(resultado.getString("nombre"));
+                tutorado.setApellidoPaterno(resultado.getString("apellidoPaterno"));
+                tutorado.setApellidoMaterno(resultado.getString("apellidoMaterno"));
+                tutorado.setNombreSemestre(resultado.getString("nombreSemestre")); // Importante para la tabla
+                tutorados.add(tutorado);
+            }
+            
+            respuesta.put("error", false);
+            respuesta.put("tutorados", tutorados);
+        } catch (SQLException sqle) {
+            respuesta.put("error", true);
+            respuesta.put("mensaje", sqle.getMessage());
+        } finally {
+            ConexionBD.cerrarConexionBD();
+        }
+        return respuesta;
+    }
 }
