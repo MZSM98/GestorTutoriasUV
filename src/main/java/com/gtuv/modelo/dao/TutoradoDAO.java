@@ -21,7 +21,7 @@ public class TutoradoDAO {
             sentencia.setString(3, tutorado.getApellidoPaterno());
             sentencia.setString(4, tutorado.getApellidoMaterno());
             sentencia.setString(5, tutorado.getCorreo());
-            sentencia.setInt(7, tutorado.getIdProgramaEducativo());
+            sentencia.setInt(6, tutorado.getIdProgramaEducativo());
             
             return sentencia.executeUpdate();
         }
@@ -37,8 +37,8 @@ public class TutoradoDAO {
             sentencia.setString(3, tutorado.getApellidoPaterno());
             sentencia.setString(4, tutorado.getApellidoMaterno());
             sentencia.setString(5, tutorado.getCorreo());
-            sentencia.setInt(7, tutorado.getIdProgramaEducativo());
-            sentencia.setInt(8, tutorado.getIdTutorado());
+            sentencia.setInt(6, tutorado.getIdProgramaEducativo());
+            sentencia.setInt(7, tutorado.getIdTutorado());
             
             return sentencia.executeUpdate();
         }

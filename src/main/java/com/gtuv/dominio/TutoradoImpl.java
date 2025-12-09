@@ -82,9 +82,8 @@ public class TutoradoImpl {
 
     public static HashMap<String, Object> obtenerTutorados() {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
-        Connection conexion = ConexionBD.abrirConexion();
         try {
-            ResultSet rs = TutoradoDAO.obtenerTutorados(conexion);
+            ResultSet rs = TutoradoDAO.obtenerTutorados(ConexionBD.abrirConexion());
             ArrayList<Tutorado> listaTutorados = new ArrayList<>();
             while (rs.next()) {
                 Tutorado tutorado = new Tutorado();
@@ -96,8 +95,7 @@ public class TutoradoImpl {
                 tutorado.setCorreo(rs.getString("correo"));
                 tutorado.setIdProgramaEducativo(rs.getInt("idProgramaEducativo"));
                 tutorado.setNombreProgramaEducativo(rs.getString("nombreProgramaEducativo"));
-                // Asegúrate de que tu consulta SQL traiga estos campos si los necesitas mostrar
-                // tutorado.setIdSemestre(rs.getInt("idSemestre")); 
+                tutorado.setIdSemestre(rs.getInt("idSemestre")); 
                 tutorado.setActivo(rs.getBoolean("activo"));
                 
                 listaTutorados.add(tutorado);
@@ -115,9 +113,8 @@ public class TutoradoImpl {
     
     public static HashMap<String, Object> obtenerTutoradosPorProgramaEducativo(int idProgramaEducativo) {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
-        Connection conexion = ConexionBD.abrirConexion();
         try {
-            ResultSet rs = TutoradoDAO.obtenerTutoradosPorProgramaEducativo(conexion, idProgramaEducativo);
+            ResultSet rs = TutoradoDAO.obtenerTutoradosPorProgramaEducativo(ConexionBD.abrirConexion(), idProgramaEducativo);
             ArrayList<Tutorado> listaTutorados = new ArrayList<>();
             while (rs.next()) {
                 Tutorado tutorado = new Tutorado();
@@ -145,13 +142,12 @@ public class TutoradoImpl {
 
     public static HashMap<String, Object> verificarMatricula(String matricula) {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
-        Connection conexion = ConexionBD.abrirConexion();
         try {
-            boolean existe = TutoradoDAO.verificarMatricula(conexion, matricula);
+            boolean existe = TutoradoDAO.verificarMatricula(ConexionBD.abrirConexion(), matricula);
             respuesta.put("error", false);
             respuesta.put("existe", existe);
             if (existe) {
-                respuesta.put("mensaje", "La matrícula ya se encuentra registrada.");
+                respuesta.put("etiqueta", "La matrícula ya está en uso.");
             }
         } catch (SQLException ex) {
             respuesta.put("error", true);
@@ -164,13 +160,12 @@ public class TutoradoImpl {
 
     public static HashMap<String, Object> verificarCorreo(String correo) {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
-        Connection conexion = ConexionBD.abrirConexion();
         try {
-            boolean existe = TutoradoDAO.verificarCorreo(conexion, correo);
+            boolean existe = TutoradoDAO.verificarCorreo(ConexionBD.abrirConexion(), correo);
             respuesta.put("error", false);
             respuesta.put("existe", existe);
             if (existe) {
-                respuesta.put("mensaje", "El correo ya se encuentra registrado.");
+                respuesta.put("mensaje", "El correo ya está en uso.");
             }
         } catch (SQLException ex) {
             respuesta.put("error", true);

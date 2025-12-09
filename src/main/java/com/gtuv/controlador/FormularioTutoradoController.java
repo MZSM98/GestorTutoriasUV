@@ -7,6 +7,7 @@ import com.gtuv.interfaces.IObservador;
 import com.gtuv.modelo.pojo.ProgramaEducativo;
 import com.gtuv.modelo.pojo.Semestre;
 import com.gtuv.modelo.pojo.Tutorado;
+import com.gtuv.utlidad.RestriccionCampos;
 import com.gtuv.utlidad.Utilidades;
 import java.net.URL;
 import java.util.HashMap;
@@ -26,22 +27,30 @@ import javafx.stage.Stage;
 
 public class FormularioTutoradoController implements Initializable {
 
-    @FXML
-    private Button btnRegresar;
+    private static final int LIMITE_MATRICULA = 9; 
+    private static final int LIMITE_CAMPO_NOMBRES = 255;
+    private static final String CAMPO_OBLIGATORIO = "Campo obligatorio";
+    private static final int LIMITE_CAMPO_CORREO = 100;
+
     @FXML
     private Button btnRegistrar;
     @FXML
     private Label lblErrorMatricula;
     @FXML
-    private TextField txtNombre;
+    private TextField txtMatricula; 
     @FXML
     private ComboBox<ProgramaEducativo> cmbProgramaEducativo;
+    @FXML
+    private TextField txtNombre;
     @FXML
     private TextField txtApPaterno;
     @FXML
     private TextField txtApMaterno;
     @FXML
     private TextField txtCorreo;
+    @FXML
+    private ComboBox<Semestre> cmbSemestre;
+    
     @FXML
     private Label lblErrorNombre;
     @FXML
@@ -53,130 +62,203 @@ public class FormularioTutoradoController implements Initializable {
     @FXML
     private Label lblErrorProgramaEducativo;
     @FXML
-    private ComboBox<Semestre> cmbSemestre;
-    @FXML
     private Label lblErrorSemestre;
-    @FXML
-    private TextField txtMatricula;
     
     private IObservador observador;
     private Tutorado tutoradoEdicion;
-    private ObservableList<ProgramaEducativo> programas;
-    private ObservableList<Semestre> semestres;
-   
+    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cargarCatalogos();
-        ocultarMensajesError();
+        cargarCombos();
+        aplicarRestricciones();
     }    
     
-    public void inicializarDatos(IObservador observador, Tutorado tutorado) {
+    public void inicializarDatos(IObservador observador, Tutorado tutorado){
         this.observador = observador;
         this.tutoradoEdicion = tutorado;
-        if (tutorado != null) {
-            txtMatricula.setText(tutorado.getMatricula());
-            txtMatricula.setEditable(false);
-            txtNombre.setText(tutorado.getNombre());
-            txtApPaterno.setText(tutorado.getApellidoPaterno());
-            txtApMaterno.setText(tutorado.getApellidoMaterno());
-            txtCorreo.setText(tutorado.getCorreo());
-            seleccionarPrograma(tutorado.getIdProgramaEducativo());
-            seleccionarSemestre(tutorado.getIdSemestre());
+        
+        if(tutorado != null){
+            btnRegistrar.setText("Actualizar");
+            cargarDatosEdicion();
         }
     }
     
+    private void cargarDatosEdicion(){
+        txtMatricula.setText(tutoradoEdicion.getMatricula());
+        txtMatricula.setEditable(false); 
+        txtNombre.setText(tutoradoEdicion.getNombre());
+        txtApPaterno.setText(tutoradoEdicion.getApellidoPaterno());
+        txtApMaterno.setText(tutoradoEdicion.getApellidoMaterno());
+        txtCorreo.setText(tutoradoEdicion.getCorreo());
+        
+        for(ProgramaEducativo pe : cmbProgramaEducativo.getItems()){
+            if(pe.getIdProgramaEducativo() == tutoradoEdicion.getIdProgramaEducativo()){
+                cmbProgramaEducativo.setValue(pe);
+                break;
+            }
+        }
+        
+        for(Semestre sem : cmbSemestre.getItems()){
+            if(sem.getIdSemestre() == tutoradoEdicion.getIdSemestre()){
+                cmbSemestre.setValue(sem);
+                break;
+            }
+        }
+    }
+
+    @FXML
+    private void clicRegresar(ActionEvent event) {
+        boolean confirmacion = Utilidades.mostrarAlertaConfirmacion("Confirmar cancelación", 
+                "¿Está seguro de cancelar el registro?", 
+                "Los cambios no se guardarán");
+        if(confirmacion){
+            cerrarVentana();
+        }
+    }
+
     @FXML
     private void clicRegistrar(ActionEvent event) {
-        ocultarMensajesError();
-        if (sonCamposValidos()) {
-            if (tutoradoEdicion == null) {
+        limpiarMensajesError();
+        if(sonCamposValidos()){
+            if(tutoradoEdicion == null){
                 registrarTutorado();
-            } else {
+            }else{
                 editarTutorado();
             }
         }
     }
     
-    @FXML
-    private void clicRegresar(ActionEvent event) {
-        cerrarVentana();
-    }
-    
-    private void registrarTutorado() {
-        Tutorado nuevo = obtenerTutoradoModelo();
-        if (TutoradoImpl.verificarMatricula(nuevo.getMatricula()) || TutoradoImpl.verificarCorreo(nuevo.getCorreo())) {
-            Utilidades.mostrarAlerta("Duplicidad", "La matrícula o correo ya están registrados", Alert.AlertType.WARNING);
+    private void registrarTutorado(){
+        Tutorado nuevoTutorado = obtenerTutoradoVista();
+        
+        if(!validarMatricula(nuevoTutorado.getMatricula()))
             return;
-        }
-        HashMap<String, Object> respuesta = TutoradoImpl.registrarTutorado(nuevo);
-        if (!(boolean) respuesta.get("error")) {
-            Utilidades.mostrarAlerta("Registro exitoso", (String) respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
-            observador.notificarOperacionExitosa("Registro", nuevo.getNombre());
+        if(!validarCorreo(nuevoTutorado.getCorreo()))
+            return;
+        
+        HashMap<String, Object> respuesta = TutoradoImpl.registrarTutorado(nuevoTutorado);
+        if(!(boolean)respuesta.get("error")){
+            Utilidades.mostrarAlerta("Registro exitoso", (String)respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
+            observador.notificarOperacionExitosa("Registro", nuevoTutorado.getNombre());
             cerrarVentana();
-        } else {
-            Utilidades.mostrarAlerta("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
+        }else{
+            Utilidades.mostrarAlerta("Error", (String)respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
     }
     
-    private void editarTutorado() {
-        Tutorado editado = obtenerTutoradoModelo();
-        editado.setIdTutorado(tutoradoEdicion.getIdTutorado());
-        HashMap<String, Object> respuesta = TutoradoImpl.editarTutorado(editado);
-        if (!(boolean) respuesta.get("error")) {
-            Utilidades.mostrarAlerta("Edición exitosa", (String) respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
-            observador.notificarOperacionExitosa("Edicion", editado.getNombre());
+    private void editarTutorado(){
+        Tutorado tutoradoEditado = obtenerTutoradoVista();
+        tutoradoEditado.setIdTutorado(tutoradoEdicion.getIdTutorado());
+        
+        if(!tutoradoEditado.getCorreo().equals(tutoradoEdicion.getCorreo())){
+            if(!validarCorreo(tutoradoEditado.getCorreo())) return;
+        }
+        
+        HashMap<String, Object> respuesta = TutoradoImpl.editarTutorado(tutoradoEditado);
+        if(!(boolean)respuesta.get("error")){
+            Utilidades.mostrarAlerta("Edición exitosa", (String)respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
+            observador.notificarOperacionExitosa("Edicion", tutoradoEditado.getNombre());
             cerrarVentana();
-        } else {
-            Utilidades.mostrarAlerta("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
+        }else{
+            Utilidades.mostrarAlerta("Error", (String)respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
     }
     
-    private Tutorado obtenerTutoradoModelo() {
-        Tutorado t = new Tutorado();
-        t.setMatricula(txtMatricula.getText());
-        t.setNombre(txtNombre.getText());
-        t.setApellidoPaterno(txtApPaterno.getText());
-        t.setApellidoMaterno(txtApMaterno.getText());
-        t.setCorreo(txtCorreo.getText());
-        t.setIdProgramaEducativo(cmbProgramaEducativo.getValue().getIdProgramaEducativo());
-        t.setIdSemestre(cmbSemestre.getValue().getIdSemestre());
-        return t;
+    private Tutorado obtenerTutoradoVista(){
+        Tutorado tutorado = new Tutorado();
+        tutorado.setMatricula(txtMatricula.getText());
+        tutorado.setNombre(txtNombre.getText());
+        tutorado.setApellidoPaterno(txtApPaterno.getText());
+        tutorado.setApellidoMaterno(txtApMaterno.getText());
+        tutorado.setCorreo(txtCorreo.getText());
+        
+        if(cmbProgramaEducativo.getValue() != null){
+            tutorado.setIdProgramaEducativo(cmbProgramaEducativo.getValue().getIdProgramaEducativo());
+        }
+        
+        if(cmbSemestre.getValue() != null){
+            tutorado.setIdSemestre(cmbSemestre.getValue().getIdSemestre());
+        }
+        
+        return tutorado;
     }
     
-    private boolean sonCamposValidos() {
+    private boolean sonCamposValidos(){
         boolean valido = true;
-        if (txtMatricula.getText().isEmpty()) {
-            lblErrorMatricula.setVisible(true);
+        
+        if(txtMatricula.getText().isEmpty()){
+            lblErrorMatricula.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if (txtNombre.getText().isEmpty()) {
-            lblErrorNombre.setVisible(true);
+        if(txtNombre.getText().isEmpty()){
+            lblErrorNombre.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if (txtApPaterno.getText().isEmpty()) {
-            lblErrorApPaterno.setVisible(true);
+        if(txtApPaterno.getText().isEmpty()){
+            lblErrorApPaterno.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if (txtApMaterno.getText().isEmpty()) {
-            lblErrorApMaterno.setVisible(true);
+        if(txtCorreo.getText().isEmpty()){
+            lblErrorCorreo.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if (txtCorreo.getText().isEmpty()) {
-            lblErrorCorreo.setVisible(true);
+        if(cmbProgramaEducativo.getSelectionModel().isEmpty()){
+            lblErrorProgramaEducativo.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if (cmbProgramaEducativo.getSelectionModel().isEmpty()) {
-            lblErrorProgramaEducativo.setVisible(true);
+        if(cmbSemestre.getSelectionModel().isEmpty()){
+            lblErrorSemestre.setText(CAMPO_OBLIGATORIO);
             valido = false;
         }
-        if (cmbSemestre.getSelectionModel().isEmpty()) {
-            lblErrorSemestre.setVisible(true);
+        
+        if(txtCorreo.getText().isEmpty()){ 
+             lblErrorCorreo.setText(CAMPO_OBLIGATORIO);
+             valido = false;
+        }
+        if(!esFormatoValido()){
             valido = false;
+        }
+        
+        return valido;
+    }
+    
+    private boolean validarMatricula(String matricula){
+        HashMap<String, Object> respuesta = TutoradoImpl.verificarMatricula(matricula);
+        if(!(boolean)respuesta.get("error") && (boolean)respuesta.get("existe")){
+            lblErrorMatricula.setText(respuesta.get("etiqueta").toString());
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean validarCorreo(String correo){
+        HashMap<String, Object> respuesta = TutoradoImpl.verificarCorreo(correo);
+        if(!(boolean)respuesta.get("error") && (boolean)respuesta.get("existe")){
+            lblErrorCorreo.setText(respuesta.get("etiqueta").toString());
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean esFormatoValido(){
+        boolean valido = true;
+        String matricula = txtMatricula.getText();
+        String correo = txtCorreo.getText();
+        String correoValido = "z"+ matricula + "@estudiantes.uv.mx";
+        
+        if(!matricula.matches("^[sS]\\d{8}$") && !matricula.isEmpty()){
+            valido = false;
+            lblErrorMatricula.setText("Formato de Matrícula no válido");
+        }
+        if(!correo.equalsIgnoreCase(correoValido) && !correo.isEmpty()){
+            valido=false;
+            lblErrorCorreo.setText("Formato de correo no valido");
         }
         return valido;
     }
     
-    private void ocultarMensajesError() {
+    private void limpiarMensajesError(){
         lblErrorMatricula.setText("");
         lblErrorNombre.setText("");
         lblErrorApPaterno.setText("");
@@ -186,39 +268,36 @@ public class FormularioTutoradoController implements Initializable {
         lblErrorSemestre.setText("");
     }
     
-    private void cargarCatalogos() {
-        HashMap<String, Object> respPE = ProgramaEducativoImpl.obtenerProgramasEducativos();
-        if (!(boolean) respPE.get("error")) {
-            programas = FXCollections.observableArrayList((List<ProgramaEducativo>) respPE.get("programas"));
-            cmbProgramaEducativo.setItems(programas);
+    private void cargarCombos(){
+        ObservableList<ProgramaEducativo> listaProgramas;
+        ObservableList<Semestre> listaSemestres;
+        HashMap<String, Object> respuestaProgramaEducativo = ProgramaEducativoImpl.obtenerProgramasEducativos();
+        if(!(boolean)respuestaProgramaEducativo.get("error")){
+            listaProgramas = FXCollections.observableArrayList((List<ProgramaEducativo>) respuestaProgramaEducativo.get("programas"));
+            cmbProgramaEducativo.setItems(listaProgramas);
         }
         
-        HashMap<String, Object> respSem = CatalogoImpl.obtenerSemestres();
-        if (!(boolean) respSem.get("error")) {
-            semestres = FXCollections.observableArrayList((List<Semestre>) respSem.get("semestres"));
-            cmbSemestre.setItems(semestres);
+        HashMap<String, Object> respuestaSemestre = CatalogoImpl.obtenerSemestres();
+        if(!(boolean)respuestaSemestre.get("error")){
+            listaSemestres = FXCollections.observableArrayList((List<Semestre>) respuestaSemestre.get("semestres"));
+            cmbSemestre.setItems(listaSemestres);
         }
     }
     
-    private void seleccionarPrograma(int id) {
-        for (ProgramaEducativo pe : cmbProgramaEducativo.getItems()) {
-            if (pe.getIdProgramaEducativo() == id) {
-                cmbProgramaEducativo.getSelectionModel().select(pe);
-                break;
-            }
-        }
+    private void aplicarRestricciones(){
+        RestriccionCampos.limitarLongitud(txtMatricula, LIMITE_MATRICULA);
+        RestriccionCampos.limitarLongitud(txtNombre, LIMITE_CAMPO_NOMBRES);
+        RestriccionCampos.limitarLongitud(txtApPaterno, LIMITE_CAMPO_NOMBRES);
+        RestriccionCampos.limitarLongitud(txtApMaterno, LIMITE_CAMPO_NOMBRES);
+        RestriccionCampos.limitarLongitud(txtCorreo, LIMITE_CAMPO_CORREO);
+        RestriccionCampos.soloLetras(txtNombre);
+        RestriccionCampos.soloLetras(txtApPaterno);
+        RestriccionCampos.soloLetras(txtApMaterno);
+        RestriccionCampos.soloCaracteresValidosCorreo(txtCorreo);
+        
     }
     
-    private void seleccionarSemestre(int id) {
-        for (Semestre s : cmbSemestre.getItems()) {
-            if (s.getIdSemestre() == id) {
-                cmbSemestre.getSelectionModel().select(s);
-                break;
-            }
-        }
-    }
-    
-    private void cerrarVentana() {
+    private void cerrarVentana(){
         ((Stage) txtMatricula.getScene().getWindow()).close();
     }
 }

@@ -35,8 +35,6 @@ public class GestionTutoradoController implements Initializable, IObservador {
     @FXML
     private Button btnRegresar;
     @FXML
-    private Button btnRegistrar;
-    @FXML
     private TableView<Tutorado> tblTutorados;
     @FXML
     private TableColumn colMatricula;
@@ -49,10 +47,10 @@ public class GestionTutoradoController implements Initializable, IObservador {
     @FXML
     private TableColumn colProgramaEducativo;
     @FXML
-    private TextField textBuscar;
-    
-    private ObservableList<Tutorado> tutorados;
-   
+    private TextField txtBuscar; 
+
+    private ObservableList<Tutorado> listaTutorados;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarTabla();
@@ -60,7 +58,15 @@ public class GestionTutoradoController implements Initializable, IObservador {
         configurarBusqueda();
     }    
     
-    private void configurarTabla() {
+    private void configurarTabla(){
+        Utilidades.alinearIzquierda(
+            colMatricula, 
+            colApPaterno, 
+            colApMaterno, 
+            colNombre, 
+            colProgramaEducativo
+        );
+        
         colMatricula.setCellValueFactory(new PropertyValueFactory("matricula"));
         colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         colApPaterno.setCellValueFactory(new PropertyValueFactory("apellidoPaterno"));
@@ -68,40 +74,19 @@ public class GestionTutoradoController implements Initializable, IObservador {
         colProgramaEducativo.setCellValueFactory(new PropertyValueFactory("nombreProgramaEducativo"));
     }
     
-    private void llenarTabla() {
+    private void llenarTabla(){
         HashMap<String, Object> respuesta = TutoradoImpl.obtenerTutorados();
-        if (!(boolean) respuesta.get("error")) {
-            ArrayList<Tutorado> lista = (ArrayList<Tutorado>) respuesta.get("tutorados");
-            tutorados = FXCollections.observableArrayList();
-            tutorados.addAll(lista);
-            tblTutorados.setItems(tutorados);
-        } else {
-            Utilidades.mostrarAlerta("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
-        }
-    }
-    
-    private void configurarBusqueda() {
-        if (tutorados != null && tutorados.size() > 0) {
-            FilteredList<Tutorado> filtrado = new FilteredList<>(tutorados, p -> true);
-            textBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
-                filtrado.setPredicate(tutorado -> {
-                    if (newValue == null || newValue.isEmpty()) {
-                        return true;
-                    }
-                    String lower = newValue.toLowerCase();
-                    if (tutorado.getNombre().toLowerCase().contains(lower)) return true;
-                    if (tutorado.getApellidoPaterno().toLowerCase().contains(lower)) return true;
-                    if (tutorado.getMatricula().toLowerCase().contains(lower)) return true;
-                    return false;
-                });
-            });
-            SortedList<Tutorado> ordenados = new SortedList<>(filtrado);
-            ordenados.comparatorProperty().bind(tblTutorados.comparatorProperty());
-            tblTutorados.setItems(ordenados);
+        
+        if(!(boolean)respuesta.get("error")){
+            ArrayList<Tutorado> tutoradosBD = (ArrayList<Tutorado>) respuesta.get("tutorados");
+            listaTutorados = FXCollections.observableArrayList();
+            listaTutorados.addAll(tutoradosBD);
+            tblTutorados.setItems(listaTutorados);
+        }else{
+            Utilidades.mostrarAlerta("Error de conexión", (String)respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
     }
 
-    @FXML
     private void clicRegresar(ActionEvent event) {
         ((Stage) tblTutorados.getScene().getWindow()).close();
     }
@@ -113,59 +98,98 @@ public class GestionTutoradoController implements Initializable, IObservador {
     
     @FXML
     private void clicEditar(ActionEvent event) {
-        Tutorado seleccionado = tblTutorados.getSelectionModel().getSelectedItem();
-        if (seleccionado != null) {
-            irFormulario(seleccionado);
-        } else {
-            Utilidades.mostrarAlerta("Selección requerida", "Seleccione un tutorado para editar", Alert.AlertType.WARNING);
+        Tutorado tutoradoSeleccionado = tblTutorados.getSelectionModel().getSelectedItem();
+        if(tutoradoSeleccionado != null){
+            irFormulario(tutoradoSeleccionado);
+        }else{
+            Utilidades.mostrarAlerta("Selección requerida", "Debe seleccionar un tutorado para editarlo", Alert.AlertType.WARNING);
         }
     }
-    
+
     @FXML
     private void clicDarDeBaja(ActionEvent event) {
-        Tutorado seleccionado = tblTutorados.getSelectionModel().getSelectedItem();
-        if (seleccionado != null) {
-            boolean confirmar = Utilidades.mostrarAlertaConfirmacion("Confirmar baja", "¿Está seguro de eliminar a " + seleccionado.getNombre() + "?");
-            if (confirmar) {
-                darDeBajaTutorado(seleccionado.getIdTutorado());
+        Tutorado tutoradoSeleccionado = tblTutorados.getSelectionModel().getSelectedItem();
+        
+        if(tutoradoSeleccionado != null){
+            boolean confirmacion = Utilidades.mostrarAlertaConfirmacion("Confirmar baja", 
+                    "¿Está seguro de continuar?", 
+                    "Está a punto de dar de baja al tutorado " + tutoradoSeleccionado.getNombreCompleto() +
+                    "\nCon matrícula: " + tutoradoSeleccionado.getMatricula() + "\nEsta acción no se puede revertir.");
+            
+            if(confirmacion){
+                darDeBajaTutorado(tutoradoSeleccionado.getIdTutorado());
             }
-        } else {
-            Utilidades.mostrarAlerta("Selección requerida", "Seleccione un tutorado para dar de baja", Alert.AlertType.WARNING);
+        }else{
+            Utilidades.mostrarAlerta("Selección requerida", "Debe seleccionar un tutorado para darlo de baja", Alert.AlertType.WARNING);
         }
     }
     
-    private void darDeBajaTutorado(int idTutorado) {
+    private void darDeBajaTutorado(int idTutorado){
         HashMap<String, Object> respuesta = TutoradoImpl.darBajaTutorado(idTutorado);
-        if (!(boolean) respuesta.get("error")) {
-            Utilidades.mostrarAlerta("Éxito", (String) respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
+        if(!(boolean)respuesta.get("error")){
+            Utilidades.mostrarAlerta("Éxito", (String)respuesta.get("mensaje"), Alert.AlertType.INFORMATION);
             llenarTabla();
             configurarBusqueda();
-        } else {
-            Utilidades.mostrarAlerta("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
+        }else{
+            Utilidades.mostrarAlerta("Error", (String)respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
     }
     
-    private void irFormulario(Tutorado tutorado) {
-        try {
-            FXMLLoader loader = Utilidades.obtenerVistaMemoria("vista/FXMLFormularioTutorado.fxml");
+    private void irFormulario(Tutorado tutorado){
+        try{
+            FXMLLoader loader = Utilidades.obtenerVistaMemoria("/com/gtuv/vista/FXMLFormularioTutorado.fxml");
             Parent root = loader.load();
             FormularioTutoradoController controlador = loader.getController();
             controlador.inicializarDatos(this, tutorado);
             
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setTitle(tutorado == null ? "Registrar Tutorado" : "Editar Tutorado");
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Formulario Tutorado");
             stage.showAndWait();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        }catch(IOException e){
+            e.printStackTrace();
+            Utilidades.mostrarAlerta("Error", "No se pudo cargar el formulario de tutorado.", Alert.AlertType.ERROR);
+        }
+    }
+    
+    private void configurarBusqueda(){
+        if(listaTutorados != null && listaTutorados.size() > 0 && txtBuscar != null){
+            FilteredList<Tutorado> filtrado = new FilteredList<>(listaTutorados, p -> true);
+            
+            txtBuscar.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    filtrado.setPredicate(tutorado -> {
+                        if(newValue == null || newValue.isEmpty()){
+                            return true;
+                        }
+                        String lower = newValue.toLowerCase();
+                        
+                        if(tutorado.getNombre().toLowerCase().contains(lower)){
+                            return true;
+                        }
+                        if(tutorado.getApellidoPaterno().toLowerCase().contains(lower)){
+                            return true;
+                        }
+                        if(tutorado.getMatricula().toLowerCase().contains(lower)){
+                            return true;
+                        }
+                        return false;
+                    });
+                }
+            });
+            
+            SortedList<Tutorado> ordenados = new SortedList<>(filtrado);
+            ordenados.comparatorProperty().bind(tblTutorados.comparatorProperty());
+            tblTutorados.setItems(ordenados);
         }
     }
 
     @Override
     public void notificarOperacionExitosa(String tipoOperacion, String nombre) {
         llenarTabla();
-        textBuscar.setText("");
+        if(txtBuscar != null) txtBuscar.setText("");
         configurarBusqueda();
     }
 }

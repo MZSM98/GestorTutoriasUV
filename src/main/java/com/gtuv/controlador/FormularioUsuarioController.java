@@ -31,9 +31,7 @@ public class FormularioUsuarioController implements Initializable {
     private static final int LIMITE_MIN_NO_TRABAJADOR = 4;
     private static final int LIMITE_CAMPO_NO_TRABAJADOR = 6;
     private static final int LIMITE_CAMPO_CORREO = 100;
-    private static final int LIMITE_CAMPO_NOMBRE = 255;
-    private static final int LIMITE_CAMPO_AP_PATERNO = 255;
-    private static final int LIMITE_CAMPO_AP_MATERNO = 255;
+    private static final int LIMITE_CAMPO_NOMBRES = 255;
     private static final String CAMPO_OBLIGATORIO = "Campo obligatorio";
             
     @FXML
@@ -202,9 +200,9 @@ public class FormularioUsuarioController implements Initializable {
     private Usuario obtenerUsuario(){
         Usuario usuario = new Usuario();
         usuario.setNoTrabajador(txtNoTrabajador.getText());
-        usuario.setNombre(txtNombre.getText());
-        usuario.setApellidoPaterno(txtApPaterno.getText());
-        usuario.setApellidoMaterno(txtApMaterno.getText());
+        usuario.setNombre(txtNombre.getText().trim());
+        usuario.setApellidoPaterno(txtApPaterno.getText().trim());
+        usuario.setApellidoMaterno(txtApMaterno.getText().trim());
         usuario.setCorreo(txtCorreo.getText());
         
         if (usuarioEdicion != null && txtContrasenia.getText().isEmpty()) {
@@ -250,7 +248,7 @@ public class FormularioUsuarioController implements Initializable {
             valido = false;
         }
         
-        if(!formatoValido()){
+        if(!esFormatoValido()){
             valido = false;
         }
         return valido;
@@ -297,12 +295,11 @@ public class FormularioUsuarioController implements Initializable {
     }
     
     private boolean validarNumeroTrabajador(String noTrabajador){
-        boolean valido = false;
+        boolean valido = true;
         HashMap<String, Object> respuesta = UsuarioImpl.verificarNumeroTrabajador(noTrabajador);
         
-        if(!(boolean)respuesta.get("error") && !(boolean)respuesta.get("existe")){
-                valido = true;
-        }else{
+        if(!(boolean)respuesta.get("error") && (boolean)respuesta.get("existe")){
+            valido = false;
             lblErrorNumTrabajador.setText(respuesta.get("etiqueta").toString());
         }
         return valido;
@@ -346,7 +343,7 @@ public class FormularioUsuarioController implements Initializable {
         }
     }
     
-    private boolean formatoValido(){
+    private boolean esFormatoValido(){
         boolean valido = true;
         String noTrabajador = txtNoTrabajador.getText();
         String correo = txtCorreo.getText();
@@ -444,10 +441,10 @@ public class FormularioUsuarioController implements Initializable {
     
     private void aplicarRestricciones(){
         RestriccionCampos.limitarCantidadNumeros(txtNoTrabajador, LIMITE_CAMPO_NO_TRABAJADOR);
-        RestriccionCampos.limitarLongitud(txtNombre, LIMITE_CAMPO_NOMBRE);
+        RestriccionCampos.limitarLongitud(txtNombre, LIMITE_CAMPO_NOMBRES);
         RestriccionCampos.limitarLongitud(txtCorreo, LIMITE_CAMPO_CORREO);
-        RestriccionCampos.limitarLongitud(txtApPaterno, LIMITE_CAMPO_AP_PATERNO);
-        RestriccionCampos.limitarLongitud(txtApMaterno, LIMITE_CAMPO_AP_MATERNO);
+        RestriccionCampos.limitarLongitud(txtApPaterno, LIMITE_CAMPO_NOMBRES);
+        RestriccionCampos.limitarLongitud(txtApMaterno, LIMITE_CAMPO_NOMBRES);
         RestriccionCampos.soloLetras(txtNombre);
         RestriccionCampos.soloLetras(txtApMaterno);
         RestriccionCampos.soloLetras(txtApPaterno);

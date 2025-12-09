@@ -2,7 +2,7 @@ package com.gtuv.dominio;
 
 import com.gtuv.modelo.ConexionBD;
 import com.gtuv.modelo.dao.CatalogoDAO;
-import com.gtuv.modelo.pojo.ExperienciaEducativo;
+import com.gtuv.modelo.pojo.ExperienciaEducativa;
 import com.gtuv.modelo.pojo.PeriodoEscolar;
 import com.gtuv.modelo.pojo.Profesor;
 import com.gtuv.modelo.pojo.Semestre;
@@ -65,9 +65,9 @@ public class CatalogoImpl {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         try{
             ResultSet resultado = CatalogoDAO.obtenerExperienciasEducativas(ConexionBD.abrirConexion());
-            ArrayList<ExperienciaEducativo> lista = new ArrayList<>();
+            ArrayList<ExperienciaEducativa> lista = new ArrayList<>();
             while(resultado.next()){
-                ExperienciaEducativo ee = new ExperienciaEducativo();
+                ExperienciaEducativa ee = new ExperienciaEducativa();
                 // OJO: En base de datos es idCatalogoEE, en el POJO suele ser idExperienciaEducativa
                 ee.setIdExperienciaEducativa(resultado.getInt("idCatalogoEE")); 
                 ee.setNombre(resultado.getString("nombre"));

@@ -27,4 +27,9 @@ public class Profesor {
     public void setNombreCompleto(String nombreCompleto) { 
         this.nombreCompleto = nombreCompleto; 
     }
+    
+    @Override
+    public String toString(){
+        return nombreCompleto;
+    }
 }
