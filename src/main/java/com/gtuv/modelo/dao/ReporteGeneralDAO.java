@@ -173,4 +173,38 @@ public class ReporteGeneralDAO {
         }
         throw new SQLException(Utilidades.ERROR_BD);
     }
+    
+    public static ResultSet obtenerProblematicasPorReporte(Connection conexionBD, int idReporteGeneral) throws SQLException {
+        if(conexionBD != null){
+            String consulta = "SELECT pa.idProblematica, pa.tipo, pa.descripcion, pa.profesor AS nombreProfesor " +
+                              "FROM problematica_seleccionada ps " +
+                              "INNER JOIN problematica_academica pa ON ps.idProblematica = pa.idProblematica " +
+                              "WHERE ps.idReporteGeneral = ?";
+                              
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idReporteGeneral);
+            return sentencia.executeQuery();
+        }
+        throw new SQLException(Utilidades.ERROR_BD);
+    }
+    
+    public static int obtenerTotalAsistencias(Connection conexionBD, int idSesion, int idProgramaEducativo) throws SQLException {
+        int total = 0;
+        if (conexionBD != null) {
+            String consulta = "SELECT COUNT(*) AS total " +
+                              "FROM asistencia a " +
+                              "INNER JOIN reporte_tutoria rt ON a.idReporteTutoria = rt.idReporteTutoria " +
+                              "WHERE rt.idSesion = ? AND rt.idProgramaEducativo = ? AND a.asistio = 1";
+            
+            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
+            sentencia.setInt(1, idSesion);
+            sentencia.setInt(2, idProgramaEducativo);
+            
+            ResultSet resultado = sentencia.executeQuery();
+            if (resultado.next()) {
+                total = resultado.getInt("total");
+            }
+        }
+        return total;
+    }
 }

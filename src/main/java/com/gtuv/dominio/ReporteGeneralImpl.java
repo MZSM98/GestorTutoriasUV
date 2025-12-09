@@ -200,5 +200,44 @@ public class ReporteGeneralImpl {
         }
         return respuesta;
     }
+    
+    public static HashMap<String, Object> obtenerProblematicasPorReporte(int idReporteGeneral) {
+        HashMap<String, Object> respuesta = new LinkedHashMap<>();
+        try {
+            ResultSet resultado = ReporteGeneralDAO.obtenerProblematicasPorReporte(ConexionBD.abrirConexion(), idReporteGeneral);
+            ArrayList<ProblematicaAcademica> problematicas = new ArrayList<>();
+            
+            while (resultado.next()) {
+                ProblematicaAcademica problematica = new ProblematicaAcademica();
+                problematica.setIdProblematica(resultado.getInt("idProblematica"));
+                problematica.setTipo(resultado.getString("tipo"));
+                problematica.setDescripcion(resultado.getString("descripcion"));
+                problematica.setNombreProfesor(resultado.getString("nombreProfesor"));
+                
+                problematicas.add(problematica);
+            }
+            
+            respuesta.put("error", false);
+            respuesta.put("problematicas", problematicas);
+        } catch (SQLException sqle) {
+            respuesta.put("error", true);
+            respuesta.put("mensaje", sqle.getMessage());
+        } finally {
+            ConexionBD.cerrarConexionBD();
+        }
+        return respuesta;
+    }
+    
+    public static int obtenerTotalAsistencias(int idSesion, int idProgramaEducativo) {
+        int total = 0;
+        try {
+            total = ReporteGeneralDAO.obtenerTotalAsistencias(ConexionBD.abrirConexion(), idSesion, idProgramaEducativo);
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        } finally {
+            ConexionBD.cerrarConexionBD();
+        }
+        return total;
+    }
 
 }

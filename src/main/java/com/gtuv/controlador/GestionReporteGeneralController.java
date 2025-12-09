@@ -6,16 +6,24 @@ import com.gtuv.dominio.ReporteGeneralImpl;
 import com.gtuv.dominio.SesionTutoriaImpl;
 import com.gtuv.interfaces.IObservador;
 import com.gtuv.modelo.pojo.PeriodoEscolar;
+import com.gtuv.modelo.pojo.ProblematicaAcademica;
 import com.gtuv.modelo.pojo.ProgramaEducativo;
 import com.gtuv.modelo.pojo.ReporteGeneral;
 import com.gtuv.modelo.pojo.SesionTutoria;
+import com.gtuv.modelo.pojo.Tutorado;
 import com.gtuv.modelo.pojo.Usuario;
+import com.gtuv.utlidad.GeneracionPDF;
 import com.gtuv.utlidad.Sesion;
 import com.gtuv.utlidad.Utilidades;
+import com.itextpdf.text.DocumentException;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +38,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -125,10 +134,27 @@ public class GestionReporteGeneralController implements Initializable, IObservad
         irFormulario(null, sesionActualSistema, programa);
     }
 
+    
     @FXML
     private void clicExportar(ActionEvent event) {
-        Utilidades.mostrarAlerta("Información", "La funcionalidad de exportar a PDF está en desarrollo.", Alert.AlertType.INFORMATION);
+        ReporteGeneral reporte = tblReportesGenerales.getSelectionModel().getSelectedItem();
+
+        if (reporte == null) {
+            Utilidades.mostrarAlerta("Selección requerida", "Seleccione el reporte que desea exportar a PDF.", Alert.AlertType.WARNING);
+            return;
+        }
+        if(reporte.getEstatus().equalsIgnoreCase("BORRADOR")){
+            Utilidades.mostrarAlerta("No se puede exportar", "Debe enviar primero el reporte antes de poderlo exportar", Alert.AlertType.WARNING);
+            return;
+        }
+
+        File archivo = seleccionarArchivoDestino(reporte);
+
+        if (archivo != null) {
+            exportarReporteAPdf(reporte, archivo);
+        }
     }
+    
 
     @FXML
     private void clicEditar(ActionEvent event) {
@@ -278,5 +304,83 @@ public class GestionReporteGeneralController implements Initializable, IObservad
         }
         
         return false;
+    }
+    
+    private File seleccionarArchivoDestino(ReporteGeneral reporte) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Guardar Reporte General");
+        fileChooser.setInitialFileName("Reporte_Sesion" + reporte.getNumeroSesion() + ".pdf");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivos PDF", "*.pdf"));
+        
+        return fileChooser.showSaveDialog(tblReportesGenerales.getScene().getWindow());
+    }
+    
+    private void exportarReporteAPdf(ReporteGeneral reporte, File archivo) {
+        try {
+            Map<String, String> encabezado = prepararEncabezado(reporte);
+            List<List<String>> datosRiesgo = obtenerDatosRiesgo(reporte);
+            List<List<String>> datosProblematicas = obtenerDatosProblematicas(reporte);
+
+            GeneracionPDF.generarReporteGeneral(
+                    archivo,
+                    "Reporte General de Tutoría Académica",
+                    encabezado,
+                    Arrays.asList("Matrícula", "Nombre", "Semestre"), datosRiesgo,
+                    Arrays.asList("Tipo", "Docente", "Descripción"), datosProblematicas,
+                    reporte.getComentariosGenerales()
+            );
+
+            Utilidades.mostrarAlerta("Exportación exitosa", "El reporte se ha guardado correctamente.", Alert.AlertType.INFORMATION);
+
+        } catch (DocumentException e) {
+            Utilidades.mostrarAlerta("Error", "No se pudo generar el archivo PDF:" , Alert.AlertType.ERROR);
+        } catch (IOException ioe){
+            Utilidades.mostrarAlerta("Error", "No se pudo generar el archivo PDF", Alert.AlertType.ERROR);
+        }
+    }
+    
+    private Map<String, String> prepararEncabezado(ReporteGeneral reporte) {
+        Map<String, String> encabezado = new HashMap<>();
+        encabezado.put("Programa Educativo", reporte.getNombreProgramaEducativo());
+        encabezado.put("Número de Sesión", String.valueOf(reporte.getNumeroSesion()));
+        encabezado.put("Fecha de Elaboración", reporte.getFechaElaboracion());
+        encabezado.put("Total Asistentes", String.valueOf(reporte.getTotalAsistentes()));
+        encabezado.put("Total en Riesgo", String.valueOf(reporte.getTotalEnRiesgo()));
+        return encabezado;
+    }
+
+    private List<List<String>> obtenerDatosRiesgo(ReporteGeneral reporte) {
+        HashMap<String, Object> respRiesgo = ReporteGeneralImpl.obtenerTutoradosEnRiesgoPorSesion(
+                reporte.getIdSesion(), reporte.getIdProgramaEducativo());
+        
+        List<List<String>> datosRiesgo = new ArrayList<>();
+        if (!(boolean) respRiesgo.get("error")) {
+            ArrayList<Tutorado> tutorados = (ArrayList<Tutorado>) respRiesgo.get("tutorados");
+            for (Tutorado t : tutorados) {
+                datosRiesgo.add(Arrays.asList(
+                    t.getMatricula(), 
+                    t.getNombreCompleto(), 
+                    t.getNombreSemestre()
+                ));
+            }
+        }
+        return datosRiesgo;
+    }
+
+    private List<List<String>> obtenerDatosProblematicas(ReporteGeneral reporte) {
+        HashMap<String, Object> respProb = ReporteGeneralImpl.obtenerProblematicasPorReporte(reporte.getIdReporteGeneral());
+        
+        List<List<String>> datosProblemas = new ArrayList<>();
+        if (!(boolean) respProb.get("error")) {
+            ArrayList<ProblematicaAcademica> problemas = (ArrayList<ProblematicaAcademica>) respProb.get("problematicas");
+            for (ProblematicaAcademica p : problemas) {
+                datosProblemas.add(Arrays.asList(
+                    p.getTipo(), 
+                    p.getNombreProfesor() != null ? p.getNombreProfesor() : "N/A", 
+                    p.getDescripcion()
+                ));
+            }
+        }
+        return datosProblemas;
     }
 }

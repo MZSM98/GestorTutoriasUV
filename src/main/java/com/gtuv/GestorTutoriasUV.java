@@ -17,6 +17,7 @@ public class GestorTutoriasUV extends Application {
     public void start(Stage primaryStage) {
         
         try {
+            
             Usuario usuarioSimulado = new Usuario();
             usuarioSimulado.setIdUsuario(9); 
             usuarioSimulado.setNombre("El Pepe");
