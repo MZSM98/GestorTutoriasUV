@@ -23,12 +23,12 @@ public class MenuJefeDeCarreraController implements Initializable {
     private Label lblRol;
     @FXML
     private Label lblUsuario;
-   
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarUsuario();
     }    
-    
+
     private void configurarUsuario() {
         Usuario usuario = Sesion.getUsuario();
         if (usuario != null) {
@@ -42,19 +42,15 @@ public class MenuJefeDeCarreraController implements Initializable {
         try {
             FXMLLoader loader = Utilidades.obtenerVistaMemoria("/com/gtuv/vista/FXMLGestionReporteGeneral.fxml");
             Parent root = loader.load();
-            
-            // Obtenemos el controlador y configuramos el modo Jefe de Carrera
             GestionReporteGeneralController controller = loader.getController();
             controller.configurarVistaJefeCarrera();
-            
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Gestión de Reporte General");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Utilidades.mostrarAlerta("No podemos navegar", Utilidades.ERROR_ABRIR_VENTANA , Alert.AlertType.ERROR);
+        } catch (IOException ioe) {
+            Utilidades.mostrarAlerta("Error", Utilidades.ERROR_ABRIR_VENTANA , Alert.AlertType.ERROR);
         }
     }
 
@@ -81,7 +77,7 @@ public class MenuJefeDeCarreraController implements Initializable {
             }
         }
     }
-    
+
     private int contarRoles(Usuario usuario) {
         int cantidad = 0;
         if (usuario.isEsAdministrador()) cantidad++;
@@ -100,8 +96,7 @@ public class MenuJefeDeCarreraController implements Initializable {
             stage.setTitle(titulo);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ioe) {
             Utilidades.mostrarAlerta("No podemos navegar", Utilidades.ERROR_ABRIR_VENTANA , Alert.AlertType.ERROR);
         }
     }
@@ -112,14 +107,13 @@ public class MenuJefeDeCarreraController implements Initializable {
             FXMLLoader loader = Utilidades.obtenerVistaMemoria(ruta);
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            
             stageActual.setScene(scene);
             stageActual.setTitle(titulo);
             stageActual.centerOnScreen();
             stageActual.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ioe) {
             Utilidades.mostrarAlerta("No podemos navegar", Utilidades.ERROR_ABRIR_VENTANA , Alert.AlertType.ERROR);
         }
     }
+
 }

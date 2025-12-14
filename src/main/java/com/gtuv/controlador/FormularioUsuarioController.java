@@ -434,13 +434,13 @@ public class FormularioUsuarioController implements Initializable {
     
     private void seleccionarProgramaEnCombo(ProgramaEducativo programaObjetivo) {
     
-    for (ProgramaEducativo programaEducativo : cmbProgramaEducativo.getItems()) {
-        if (programaEducativo.getIdProgramaEducativo() == programaObjetivo.getIdProgramaEducativo()) {
-            cmbProgramaEducativo.setValue(programaEducativo);
-            return; 
+        for (ProgramaEducativo programaEducativo : cmbProgramaEducativo.getItems()) {
+            if (programaEducativo.getIdProgramaEducativo() == programaObjetivo.getIdProgramaEducativo()) {
+                cmbProgramaEducativo.setValue(programaEducativo);
+                return; 
+            }
         }
     }
-}
     
     private void aplicarRestricciones(){
         RestriccionCampos.limitarCantidadNumeros(txtNoTrabajador, LIMITE_CAMPO_NO_TRABAJADOR);

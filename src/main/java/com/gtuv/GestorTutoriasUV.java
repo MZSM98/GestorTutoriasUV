@@ -1,7 +1,5 @@
 package com.gtuv;
 
-import com.gtuv.modelo.pojo.Usuario;
-import com.gtuv.utlidad.Sesion;
 import com.gtuv.utlidad.Utilidades;
 import java.io.IOException;
 import javafx.application.Application;
@@ -18,7 +16,7 @@ public class GestorTutoriasUV extends Application {
         
         try {
             
-            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLInicioSesion.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLGestionTutorado.fxml"));
             Scene scene = new Scene(parent);
             primaryStage.setScene(scene);
             primaryStage.show();

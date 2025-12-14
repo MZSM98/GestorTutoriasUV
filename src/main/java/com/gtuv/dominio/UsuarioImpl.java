@@ -165,35 +165,4 @@ public class UsuarioImpl {
         }
         return respuesta;  
     }
-    
-    public static HashMap<String, Object> obtenerTutores() {
-        HashMap<String, Object> respuesta = new LinkedHashMap<>();
-        
-        try {
-            ResultSet resultado = UsuarioDAO.obtenerTutores(ConexionBD.abrirConexion());
-            ArrayList<Usuario> tutores = new ArrayList<>();
-            
-            while (resultado.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setIdUsuario(resultado.getInt("idUsuario"));
-                usuario.setNoTrabajador(resultado.getString("noTrabajador"));
-                usuario.setNombre(resultado.getString("nombre"));
-                usuario.setApellidoPaterno(resultado.getString("apellidoPaterno"));
-                usuario.setApellidoMaterno(resultado.getString("apellidoMaterno"));
-                usuario.setCorreo(resultado.getString("correo"));
-                usuario.setEsTutor(resultado.getBoolean("esTutor"));
-                tutores.add(usuario);
-            }
-            respuesta.put("error", false);
-            respuesta.put("tutores", tutores);
-        } catch (SQLException sqle) {
-            respuesta.put("error", true);
-            respuesta.put("mensaje", sqle.getMessage());
-        } finally {
-            ConexionBD.cerrarConexionBD();
-        }
-        return respuesta;
-    }
-    
-    
 }

@@ -84,7 +84,9 @@ public class InicioSesionController implements Initializable {
             if (cantidadRoles == 0) {
                 Sesion.cerrarSesion();
                 Utilidades.mostrarAlerta("Sin permisos", 
-                    "Usted no tiene asignada ninguna responsabilidad en el Sistema de Gestión de Tutorías por el momento, contacte con el Director para la asignación de responsabilidades", 
+                    "Usted no tiene asignada ninguna responsabilidad en el Sistema de Gestión de"
+                            + " Tutorías por el momento, contacte con el Director para la asignación"
+                            + " de responsabilidades", 
                     Alert.AlertType.WARNING);
             } else if (cantidadRoles == 1) {
                 irMenuDirecto(rolUnico);
@@ -122,8 +124,7 @@ public class InicioSesionController implements Initializable {
             escenarioPrincipal.centerOnScreen();
             escenarioPrincipal.show();
         } catch (IOException ex) {
-            ex.printStackTrace();
-            Utilidades.mostrarAlerta("Error", "No se pudo cargar la ventana: " + fxml, Alert.AlertType.ERROR);
+            Utilidades.mostrarAlerta("Error", Utilidades.ERROR_ABRIR_VENTANA + fxml, Alert.AlertType.ERROR);
         }
     }
     

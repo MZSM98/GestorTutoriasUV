@@ -33,6 +33,7 @@ public class TutoradoImpl {
         } catch (SQLException ex) {
             respuesta.put("error", true);
             respuesta.put("mensaje", ex.getMessage());
+            ex.printStackTrace();
         } finally {
             ConexionBD.cerrarConexionBD();
         }

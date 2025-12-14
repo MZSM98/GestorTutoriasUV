@@ -129,16 +129,4 @@ public class UsuarioDAO {
         }
         return usuario;
     }
-    
-    public static ResultSet obtenerTutores(Connection conexionBD) throws SQLException {
-        if (conexionBD != null) {
-            String consulta = "SELECT u.*, " +
-                              "(SELECT COUNT(*) FROM asignacion_tutor a WHERE a.idTutor = u.idUsuario) AS totalTutorados " +
-                              "FROM usuario u " +
-                              "WHERE u.activo = 1 AND u.esTutor = 1";
-            PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
-            return sentencia.executeQuery();
-        }
-        throw new SQLException(Utilidades.ERROR_BD);
-    }
 }

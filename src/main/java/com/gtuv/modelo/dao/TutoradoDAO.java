@@ -12,7 +12,7 @@ public class TutoradoDAO {
     private TutoradoDAO() {
     }
 
-    public static int registrar(Connection conexionBD, Tutorado tutorado) throws SQLException {
+    public static int registrar(Connection conexionBD, Tutorado tutorado) throws SQLException{
         if (conexionBD != null) {
             String insercion = "INSERT INTO tutorado (matricula, nombre, apellidoPaterno, apellidoMaterno, correo, idSemestre, idProgramaEducativo) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement sentencia = conexionBD.prepareStatement(insercion);
@@ -26,7 +26,7 @@ public class TutoradoDAO {
             
             return sentencia.executeUpdate();
         }
-        throw new SQLException(Utilidades.ERROR_BD);
+        throw new SQLException();
     }
 
     public static int editar(Connection conexionBD, Tutorado tutorado) throws SQLException {
