@@ -16,7 +16,7 @@ public class GestorTutoriasUV extends Application {
         
         try {
             
-            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLGestionTutorado.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/com/gtuv/vista/FXMLInicioSesion.fxml"));
             Scene scene = new Scene(parent);
             primaryStage.setScene(scene);
             primaryStage.show();

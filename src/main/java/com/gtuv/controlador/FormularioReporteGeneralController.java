@@ -81,6 +81,11 @@ public class FormularioReporteGeneralController implements Initializable {
     private Stack<ProblematicaAcademica> pilaEliminados = new Stack<>();
     @FXML
     private Button btnDeshacer;
+    @FXML
+    private Button btnQuitar;
+    @FXML
+    private Button btnGuardar;
+    private boolean esConsulta = false;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -272,12 +277,16 @@ public class FormularioReporteGeneralController implements Initializable {
 
     @FXML
     private void clicRegresar(ActionEvent event) {
-        boolean confirmacion = Utilidades.mostrarAlertaConfirmacion("Confirmar cancelación de registro",
-                "¿Está seguro de cancelar el registro del reporte general?",
-                "Ninguno de los cambios realizados se guardarán");
-        
-        if (confirmacion){
+        if (esConsulta) {
             cerrarVentana();
+        } else {
+            boolean confirmacion = Utilidades.mostrarAlertaConfirmacion("Confirmar cancelación",
+                    "¿Está seguro de cancelar?",
+                    "Ninguno de los cambios realizados se guardarán");
+            
+            if (confirmacion){
+                cerrarVentana();
+            }
         }
     }
     
@@ -300,4 +309,13 @@ public class FormularioReporteGeneralController implements Initializable {
         });
     }
     
+    public void configurarModoConsulta() {
+        this.esConsulta = true;
+
+        if (btnGuardar != null) btnGuardar.setVisible(false);
+        if (btnQuitar != null) btnQuitar.setVisible(false);
+        if (btnDeshacer != null) btnDeshacer.setVisible(false);
+
+        txaObservaciones.setEditable(false);
+    }
 }

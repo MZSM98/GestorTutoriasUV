@@ -101,8 +101,7 @@ public class ReporteGeneralDAO {
         throw new SQLException(Utilidades.ERROR_BD);
     }
     
-    public static ReporteGeneral obtenerReportePorId(Connection conexionBD, int idReporte) throws SQLException {
-        ReporteGeneral reporte = null;
+    public static ResultSet obtenerReportePorId(Connection conexionBD, int idReporte) throws SQLException {
         if(conexionBD != null){
             String consulta = "SELECT rg.*, st.numeroSesion, pe.nombre AS nombrePrograma " +
                               "FROM reporte_general rg " +
@@ -111,24 +110,9 @@ public class ReporteGeneralDAO {
                               "WHERE rg.idReporteGeneral = ?";
             PreparedStatement sentencia = conexionBD.prepareStatement(consulta);
             sentencia.setInt(1, idReporte);
-            ResultSet rs = sentencia.executeQuery();
-            
-            if(rs.next()){
-                reporte = new ReporteGeneral();
-                reporte.setIdReporteGeneral(rs.getInt("idReporteGeneral"));
-                reporte.setIdCoordinador(rs.getInt("idCoordinador"));
-                reporte.setIdSesion(rs.getInt("idSesion"));
-                reporte.setNumeroSesion(rs.getInt("numeroSesion")); 
-                reporte.setIdProgramaEducativo(rs.getInt("idProgramaEducativo"));
-                reporte.setNombreProgramaEducativo(rs.getString("nombrePrograma"));
-                reporte.setFechaElaboracion(rs.getString("fechaElaboracion"));
-                reporte.setComentariosGenerales(rs.getString("comentariosGenerales"));
-                reporte.setTotalAsistentes(rs.getInt("totalAsistentes"));
-                reporte.setTotalEnRiesgo(rs.getInt("totalEnRiesgo"));
-                reporte.setEstatus(rs.getString("estatus"));
-            }
+            return sentencia.executeQuery();
         }
-        return reporte;
+        throw new SQLException(Utilidades.ERROR_BD);
     }
     
     public static ResultSet obtenerTutoradosEnRiesgoPorSesion(Connection conexionBD, int idSesion, int idProgramaEducativo) throws SQLException {

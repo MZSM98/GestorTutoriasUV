@@ -68,11 +68,14 @@ public class GestionReporteGeneralController implements Initializable, IObservad
     
     private ObservableList<ReporteGeneral> listaReportes;
     private boolean esJefeCarreraView = false;
+    @FXML
+    private Button btnConsultar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarTabla();
         cargarReportes();
+        btnConsultar.setVisible(false);
     }    
     
     public void configurarVistaJefeCarrera() {
@@ -81,6 +84,7 @@ public class GestionReporteGeneralController implements Initializable, IObservad
         btnEnviar.setVisible(false);
         btnEditar.setVisible(false);
         btnExportar.setVisible(false);
+        btnConsultar.setVisible(true);
         
         btnGenerar.setText("Responder");
         btnGenerar.setOnAction(this::clicResponderReporte);
@@ -105,7 +109,6 @@ public class GestionReporteGeneralController implements Initializable, IObservad
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
             } catch (IOException e) {
-                e.printStackTrace();
                 Utilidades.mostrarAlerta("No podemos navegar", Utilidades.ERROR_ABRIR_VENTANA, Alert.AlertType.ERROR);
             }
         } else {
@@ -218,13 +221,13 @@ public class GestionReporteGeneralController implements Initializable, IObservad
         ReporteGeneral reporteSeleccionado = tblReportesGenerales.getSelectionModel().getSelectedItem();
         
         if(reporteSeleccionado != null){
-            if("ENVIADO".equals(reporteSeleccionado.getEstatus())){
+            if(reporteSeleccionado.getEstatus().equalsIgnoreCase("ENVIADO")){
                 Utilidades.mostrarAlerta("Edición no permitida", 
                         "El reporte seleccionado ya ha sido ENVIADO y no puede ser modificado.", 
                         Alert.AlertType.WARNING);
                 return;
             }
-            if("REVISADO".equals(reporteSeleccionado.getEstatus())){
+            if(reporteSeleccionado.getEstatus().equalsIgnoreCase("REVISADO")){
                 Utilidades.mostrarAlerta("Edición no permitida", 
                         "El reporte seleccionado ya ha sido REVISADO y no puede ser modificado.", 
                         Alert.AlertType.WARNING);
@@ -294,8 +297,7 @@ public class GestionReporteGeneralController implements Initializable, IObservad
             stage.showAndWait();
             
         }catch(IOException e){
-            e.printStackTrace();
-            Utilidades.mostrarAlerta("Error", "No se pudo cargar la ventana del formulario.", Alert.AlertType.ERROR);
+            Utilidades.mostrarAlerta("Error", Utilidades.ERROR_ABRIR_VENTANA, Alert.AlertType.ERROR);
         }
     }
     
@@ -445,5 +447,41 @@ public class GestionReporteGeneralController implements Initializable, IObservad
             }
         }
         return datosProblemas;
+    }
+
+    @FXML
+    private void clicConsultar(ActionEvent event) {
+        ReporteGeneral reporteSeleccionado = tblReportesGenerales.getSelectionModel().getSelectedItem();
+        
+        if (reporteSeleccionado != null) {
+            try {
+                FXMLLoader loader = Utilidades.obtenerVistaMemoria("/com/gtuv/vista/FXMLFormularioReporteGeneral.fxml");
+                Parent root = loader.load();
+                
+                FormularioReporteGeneralController controlador = loader.getController();
+                
+                SesionTutoria sesion = new SesionTutoria();
+                sesion.setIdSesion(reporteSeleccionado.getIdSesion());
+                sesion.setNumeroSesion(reporteSeleccionado.getNumeroSesion());
+                
+                ProgramaEducativo programa = new ProgramaEducativo();
+                programa.setIdProgramaEducativo(reporteSeleccionado.getIdProgramaEducativo());
+                programa.setNombre(reporteSeleccionado.getNombreProgramaEducativo());
+                
+                controlador.inicializarDatos(this, reporteSeleccionado, sesion, programa);
+                controlador.configurarModoConsulta(); // <--- Aquí activamos el modo lectura
+                
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Consultar Reporte General");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                
+            } catch (IOException e) {
+                Utilidades.mostrarAlerta("Error", Utilidades.ERROR_ABRIR_VENTANA, Alert.AlertType.ERROR);
+            }
+        } else {
+            Utilidades.mostrarAlerta("Selección requerida", "Debe seleccionar un reporte de la lista para consultarlo.", Alert.AlertType.WARNING);
+        }
     }
 }

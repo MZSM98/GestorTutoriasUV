@@ -66,7 +66,7 @@ public class MenuResponsabilidadController implements Initializable {
             roles.add(new OpcionRol("Administrador", "/com/gtuv/vista/FXMLMenuAdministrador.fxml"));
         }
         if (usuario.isEsJefeCarrera()) {
-            roles.add(new OpcionRol("Jefe de Carrera", "/com/gtuv/vista/FXMLMenuJefeCarrera.fxml"));
+            roles.add(new OpcionRol("Jefe de Carrera", "/com/gtuv/vista/FXMLMenuJefeDeCarrera.fxml"));
         }
         if (usuario.isEsCoordinador()) {
             roles.add(new OpcionRol("Coordinador", "/com/gtuv/vista/FXMLMenuCoordinador.fxml"));

@@ -110,9 +110,22 @@ public class ReporteGeneralImpl {
     public static HashMap<String, Object> obtenerReportePorId(int idReporte) {
         HashMap<String, Object> respuesta = new LinkedHashMap<>();
         try {
-            ReporteGeneral reporte = ReporteGeneralDAO.obtenerReportePorId(ConexionBD.abrirConexion(), idReporte);
-            
-            if (reporte != null) {
+            ResultSet resultado = ReporteGeneralDAO.obtenerReportePorId(ConexionBD.abrirConexion(), idReporte);
+
+            if (resultado.next()) {
+                ReporteGeneral reporte = new ReporteGeneral();
+                reporte.setIdReporteGeneral(resultado.getInt("idReporteGeneral"));
+                reporte.setIdCoordinador(resultado.getInt("idCoordinador"));
+                reporte.setIdSesion(resultado.getInt("idSesion"));
+                reporte.setNumeroSesion(resultado.getInt("numeroSesion"));
+                reporte.setIdProgramaEducativo(resultado.getInt("idProgramaEducativo"));
+                reporte.setNombreProgramaEducativo(resultado.getString("nombrePrograma"));
+                reporte.setFechaElaboracion(resultado.getString("fechaElaboracion"));
+                reporte.setComentariosGenerales(resultado.getString("comentariosGenerales"));
+                reporte.setTotalAsistentes(resultado.getInt("totalAsistentes"));
+                reporte.setTotalEnRiesgo(resultado.getInt("totalEnRiesgo"));
+                reporte.setEstatus(resultado.getString("estatus"));
+
                 respuesta.put("error", false);
                 respuesta.put("reporte", reporte);
             } else {
