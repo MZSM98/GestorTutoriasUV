@@ -33,7 +33,7 @@ public class FormularioUsuarioController implements Initializable {
     private static final int LIMITE_CAMPO_CORREO = 100;
     private static final int LIMITE_CAMPO_NOMBRES = 255;
     private static final String CAMPO_OBLIGATORIO = "Campo obligatorio";
-            
+
     @FXML
     private Label lblErrorNumTrabajador;
     @FXML
@@ -68,6 +68,7 @@ public class FormularioUsuarioController implements Initializable {
     private IObservador observador;
     private Usuario usuarioEdicion;
     private ObservableList<ProgramaEducativo> programasEducativos;
+    
     @FXML
     private CheckBox chkJefeCarrera;
     @FXML
@@ -453,5 +454,5 @@ public class FormularioUsuarioController implements Initializable {
         RestriccionCampos.soloLetras(txtApPaterno);
         RestriccionCampos.soloCaracteresValidosCorreo(txtCorreo);
     }
-    
+       
 }
